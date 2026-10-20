@@ -1,6 +1,6 @@
-# md
+# schoolchan
 
-Workspace for **SchoolChan**, an anonymous, account-free discussion board built as a local-first capstone project.
+Workspace for **schoolchan**, an anonymous, account-free discussion board built as a local-first capstone project.
 
 | Path | What it is |
 | --- | --- |
