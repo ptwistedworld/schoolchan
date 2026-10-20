@@ -4,7 +4,7 @@ Workspace for **SchoolChan**, an anonymous, account-free discussion board built 
 
 | Path | What it is |
 | --- | --- |
-| `md` | The multi-part coding-agent build prompt used to create SchoolChan |
+| `build` | The multi-part coding-agent build prompt used to create SchoolChan |
 | `schoolchan/` | The application: Spring Boot backend, FastAPI moderation sidecar, docs, and scripts. Start with [schoolchan/README.md](schoolchan/README.md) |
 | `tools/generate_schoolchan.py` | Script that generates the SchoolChan source tree |
 | `tools/jdk-21/`, `tools/gradle-8.10.2/` | **Not in this repo.** Local toolchains you need to download (see below) |
