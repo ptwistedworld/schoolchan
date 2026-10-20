@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${pageTitle}">Board</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body th:attr="data-board=${board.slug}">
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<main>
+    <p class="notice" th:if="${notice}" th:text="${notice}"></p>
+    <p class="banner" th:if="${!writesAllowed}">Posting is paused. You can still read.</p>
+    <p class="hint"><a th:href="@{/}">All boards</a></p>
+    <h1 th:text="${board.name}">Board</h1>
+    <p th:text="${board.description}"></p>
+    <p>
+        <a th:href="@{/boards/{slug}/catalog(slug=${board.slug})}">Catalog</a>
+        · <a th:href="@{/boards/{slug}/archive(slug=${board.slug})}">Archive</a>
+    </p>
+    <form th:if="${writesAllowed}" class="composer" th:action="@{/boards/{slug}/threads(slug=${board.slug})}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label>Subject <input name="subject" type="text" maxlength="200" placeholder="Optional"/></label>
+        <label>Post <textarea name="text" required rows="5" maxlength="8000" placeholder="Say something. Use > for greentext and >>123 to quote."></textarea></label>
+        <label>Image or video <input type="file" name="file" accept="image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm"/></label>
+        <label class="check"><input type="checkbox" name="sage" value="true"/> Sage (do not bump)</label>
+        <label class="check"><input type="checkbox" name="spoiler" value="true"/> Spoiler</label>
+        <button type="submit">New thread</button>
+    </form>
+    <table class="thread-table">
+        <thead><tr><th>Replies</th><th>Subject</th><th class="hide-sm">Bumped</th></tr></thead>
+        <tbody>
+        <tr th:each="t : ${threads}">
+            <td th:text="${t.replyCount}">0</td>
+            <td>
+                <a th:href="@{/boards/{slug}/threads/{id}(slug=${board.slug}, id=${t.id})}" th:text="${t.subject} ?: '(no subject)'">Thread</a>
+                <span class="hint" th:if="${t.status.name() == 'SINKING'}"> · sinking</span>
+            </td>
+            <td class="hide-sm" th:text="${#temporals.format(t.bumpedAt, 'MMM d, HH:mm')}">time</td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${#lists.isEmpty(threads)}" class="hint">No active threads yet.</p>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

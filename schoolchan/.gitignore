@@ -1,0 +1,37 @@
+# Build
+backend/build/
+backend/.gradle/
+**/bin/
+**/out/
+*.class
+*.jar
+!backend/gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# Env / secrets
+.env
+*.pem
+*.key
+
+# Media & local data
+backend/data/
+**/data/media/
+eval/results/
+
+# Python
+ml-service/.venv/
+ml-service/**/__pycache__/
+ml-service/.pytest_cache/
+*.pyc
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Local toolchains (portable JDK/Gradle live at repo sibling tools/)
+../tools/

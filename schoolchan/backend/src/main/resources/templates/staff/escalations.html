@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Escalations</title>    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Escalations</h1>
+    <p><a th:href="@{/staff/dashboard}">Back</a></p>
+    <ul>
+        <li th:each="e : ${escalations}">
+            <a th:href="@{/staff/escalations/{id}(id=${e.id})}"
+               th:text="${e.category} + ' — ' + ${e.status}">item</a>
+        </li>
+    </ul>
+    <p th:if="${#lists.isEmpty(escalations)}">No escalations.</p>
+</main>
+</body>
+</html>

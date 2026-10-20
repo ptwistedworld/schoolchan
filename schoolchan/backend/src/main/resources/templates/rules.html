@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Rules — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<main>
+    <h1>Rules and conditions</h1>
+    <article class="post" th:if="${rules}"><pre th:text="${rules.body}">Rules</pre></article>
+    <article class="post" th:unless="${rules}">
+        <p>Be respectful. Do not post personal information. Automated checks plus human review decide what stays up.</p>
+        <p>Credible threats or messages about self-harm are held for staff. A staff member may forward the post and its IP to school administration or the guidance office. The system does not contact anyone by itself.</p>
+    </article>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

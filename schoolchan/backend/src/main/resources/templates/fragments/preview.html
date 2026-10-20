@@ -1,0 +1,5 @@
+<div xmlns:th="http://www.thymeleaf.org" class="preview">
+    <strong th:text="'>>' + ${number}">&gt;&gt;1</strong>
+    <div th:if="${html}" th:utext="${html}">preview</div>
+    <p th:unless="${html}">Post not found.</p>
+</div>

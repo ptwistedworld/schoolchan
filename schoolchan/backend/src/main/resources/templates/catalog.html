@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${pageTitle}">Catalog</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<main>
+    <p class="hint"><a th:href="@{/boards/{slug}(slug=${board.slug})}">Back to list</a></p>
+    <h1 th:text="${board.name} + ' catalog'">Catalog</h1>
+    <div class="catalog">
+        <a class="card" th:each="t : ${threads}" th:href="@{/boards/{slug}/threads/{id}(slug=${board.slug}, id=${t.id})}">
+            <h2 th:text="${t.subject} ?: '(no subject)'">Subject</h2>
+            <p th:text="${t.replyCount} + ' replies'">0 replies</p>
+        </a>
+    </div>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

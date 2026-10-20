@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Dashboard — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Staff dashboard</h1>
+    <div class="board-grid">
+        <a class="card" th:href="@{/staff/review}"><h2>Review</h2><p th:text="${heldCount} + ' held posts'">0</p></a>
+        <a class="card" th:href="@{/staff/escalations}"><h2>Escalations</h2><p th:text="${escalationCount} + ' new'">0</p></a>
+        <a class="card" th:href="@{/staff/settings}"><h2>Settings</h2><p>Hours, limits, rules</p></a>
+    </div>
+</main>
+</body>
+</html>

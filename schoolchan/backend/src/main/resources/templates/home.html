@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<main>
+    <p class="banner" th:if="${accessState.name() != 'OPEN'}">
+        The board is <span th:text="${accessState.name() == 'READ_ONLY'} ? 'read-only' : 'closed'">closed</span>
+        outside campus hours. <a th:href="@{/closed}">What this means</a>
+    </p>
+    <h1>Boards</h1>
+    <p class="hint">Anonymous posts for St. Joseph's Academy of Las Piñas, Senior High School. No accounts.</p>
+    <div class="board-grid">
+        <a class="card" th:each="b : ${boards}" th:href="@{/boards/{slug}(slug=${b.slug})}">
+            <h2 th:text="${b.name}">General</h2>
+            <p th:text="${b.description}">description</p>
+        </a>
+    </div>
+    <blockquote class="quote-banner" th:if="${quote}">
+        <p th:text="${quote.body}">Quote</p>
+        <cite th:if="${quote.attribution}" th:text="${quote.attribution}"></cite>
+    </blockquote>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

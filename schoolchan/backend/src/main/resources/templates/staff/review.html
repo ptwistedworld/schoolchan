@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Review — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Review queue</h1>
+    <p class="hint" th:if="${#lists.isEmpty(posts)}">Nothing is waiting.</p>
+    <article th:each="p : ${posts}" class="post">
+        <header><span th:text="'No.' + ${p.boardPostNumber}">No.</span></header>
+        <pre th:text="${p.originalText}"></pre>
+        <p class="hint" th:if="${results.get(p.id) != null}"
+           th:text="${results.get(p.id).decision} + ' · ' + ${results.get(p.id).reasons}">decision</p>
+        <div class="actions">
+            <form th:action="@{/staff/posts/{id}/publish(id=${p.id})}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit">Publish</button>
+            </form>
+            <form th:action="@{/staff/posts/{id}/block(id=${p.id})}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit">Block and confirm</button>
+            </form>
+        </div>
+    </article>
+</main>
+</body>
+</html>

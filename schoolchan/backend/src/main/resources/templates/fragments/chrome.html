@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<header th:fragment="bar" class="site-header">
+    <a th:href="@{/}" class="logo">SchoolChan</a>
+    <nav>
+        <a th:href="@{/}">Boards</a>
+        <a th:href="@{/rules}">Rules</a>
+        <a th:href="@{/staff/dashboard}">Staff</a>
+    </nav>
+</header>
+<header th:fragment="staffbar" class="site-header staff-header">
+    <a th:href="@{/staff/dashboard}" class="logo">SchoolChan staff</a>
+    <nav>
+        <a th:href="@{/}">Board</a>
+        <a th:href="@{/staff/review}">Review</a>
+        <a th:href="@{/staff/escalations}">Escalations</a>
+        <a th:href="@{/staff/settings}">Settings</a>
+        <form th:action="@{/staff/logout}" method="post" class="inline">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit" class="linkish">Log out</button>
+        </form>
+    </nav>
+</header>
+<footer th:fragment="foot" class="site-footer">
+    <small>Anonymous campus board. Posts are screened. Staff never appear by name.</small>
+</footer>
+</body>
+</html>

@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: schoolchan-db
+    environment:
+      POSTGRES_DB: schoolchan
+      POSTGRES_USER: schoolchan
+      POSTGRES_PASSWORD: schoolchan
+    ports:
+      - "5432:5432"
+    volumes:
+      - schoolchan_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U schoolchan -d schoolchan"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ml-service:
+    build: ./ml-service
+    container_name: schoolchan-ml
+    environment:
+      MOCK_MODE: "true"
+      PORT: "8090"
+    ports:
+      - "8090:8090"
+    profiles:
+      - ml
+
+volumes:
+  schoolchan_pg:

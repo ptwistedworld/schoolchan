@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Escalation</title>    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <style>@media print { .site-header, form, .site-footer, .no-print { display: none; } }</style>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main class="escalation-package">
+    <h1>Escalation package</h1>
+    <p class="no-print"><a th:href="@{/staff/escalations}">Back</a>
+        <button type="button" onclick="window.print()">Print / save as PDF</button>
+        <a th:href="@{/staff/escalations/{id}/package.txt(id=${escalation.id})}">Download text package</a>
+    </p>
+    <p th:text="'Status: ' + ${escalation.status}">status</p>
+    <p th:text="'Category: ' + ${escalation.category}">category</p>
+    <p th:text="'Opened: ' + ${escalation.createdAt}">opened</p>
+    <p th:if="${post != null}" th:text="'Posted: ' + ${post.createdAt}">posted</p>
+    <h2>Original</h2>
+    <pre th:if="${post != null}" th:text="${post.originalText}">post</pre>
+    <h2 th:if="${post != null and post.translatedText != null}">English</h2>
+    <pre th:if="${post != null and post.translatedText != null}" th:text="${post.translatedText}">english</pre>
+    <p th:if="${escalation.notes}" th:text="${escalation.notes}">notes</p>
+
+    <form th:action="@{/staff/escalations/{id}/status(id=${escalation.id})}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <select name="status">
+            <option>NEW</option>
+            <option>UNDER_REVIEW</option>
+            <option>FORWARDED</option>
+            <option>CLOSED_FALSE_POSITIVE</option>
+            <option>CLOSED_ACTIONED</option>
+        </select>
+        <textarea name="notes" rows="3" placeholder="Notes for the school record"></textarea>
+        <button type="submit">Update status</button>
+    </form>
+
+    <h2>Poster metadata</h2>
+    <p>Decrypt only when you need it for a genuine safety escalation. Every reveal is written to the audit log.</p>
+    <p th:if="${error}" th:text="${error}"></p>
+    <form th:action="@{/staff/escalations/{id}/reveal(id=${escalation.id})}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input name="reason" required placeholder="Reason for access"/>
+        <button type="submit">Reveal IP and session</button>
+    </form>
+    <div th:if="${revealedIp}" class="post">
+        <p>IP: <span th:text="${revealedIp}">ip</span></p>
+        <p>Session hash: <span th:text="${revealedSession}">hash</span></p>
+    </div>
+</main>
+</body>
+</html>

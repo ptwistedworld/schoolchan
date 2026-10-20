@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${title} ?: 'SchoolChan'">SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</head>
+<body>
+<header class="site-header">
+    <a th:href="@{/}" class="logo">SchoolChan</a>
+    <nav>
+        <a th:href="@{/rules}">Rules</a>
+        <a th:href="@{/staff/login}">Staff</a>
+    </nav>
+</header>
+<main th:fragment="content">
+    <p>Override content</p>
+</main>
+<footer class="site-footer">
+    <small>Campus imageboard — be kind, stay on-topic.</small>
+</footer>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"/><title>Settings</title>    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Staff settings</h1>
+    <p><a th:href="@{/staff/dashboard}">Back</a></p>
+
+    <h2>Closed hours</h2>
+    <form th:action="@{/staff/settings/closed-mode}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label>Mode
+            <select name="mode">
+                <option value="READ_ONLY" th:selected="${closedMode == 'READ_ONLY'}">Read only</option>
+                <option value="UNAVAILABLE" th:selected="${closedMode == 'UNAVAILABLE'}">Unavailable</option>
+            </select>
+        </label>
+        <button type="submit">Save mode</button>
+    </form>
+
+    <h2>Board limits</h2>
+    <form th:each="b : ${boards}" th:action="@{/staff/settings/board}" method="post" class="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input type="hidden" name="boardId" th:value="${b.id}"/>
+        <strong th:text="${b.name}">Board</strong>
+        <label>Active cap <input type="number" name="activeThreadCap" min="1" th:value="${b.activeThreadCap}"/></label>
+        <label>Bump limit (300–500) <input type="number" name="bumpLimit" min="300" max="500" th:value="${b.bumpLimit}"/></label>
+        <label>Image limit <input type="number" name="imageLimit" min="0" th:value="${b.imageLimit}"/></label>
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Access windows</h2>
+    <form th:each="w : ${windows}" th:action="@{/staff/settings/window}" method="post" class="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input type="hidden" name="id" th:value="${w.id}"/>
+        <label>Label <input name="label" th:value="${w.label}" required/></label>
+        <label>Days <input name="daysOfWeek" th:value="${w.daysOfWeek}" required/></label>
+        <label>Start <input name="startTime" type="time" th:value="${w.startTime}" required/></label>
+        <label>End <input name="endTime" type="time" th:value="${w.endTime}" required/></label>
+        <label><input type="checkbox" name="enabled" value="true" th:checked="${w.enabled}"/> enabled</label>
+        <button type="submit">Save window</button>
+    </form>
+    <form th:action="@{/staff/settings/window}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input name="label" placeholder="Recess" required/>
+        <input name="daysOfWeek" placeholder="MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY" required/>
+        <input name="startTime" type="time" required/>
+        <input name="endTime" type="time" required/>
+        <label><input type="checkbox" name="enabled" value="true" checked/> enabled</label>
+        <button type="submit">Add window</button>
+    </form>
+
+    <h2>Learned blacklist candidates</h2>
+    <p>These come from posts staff confirmed as violations. Approving one adds it to the live keyword list.</p>
+    <p th:if="${#lists.isEmpty(candidates)}">None waiting.</p>
+    <form th:each="c : ${candidates}" th:action="@{/staff/settings/candidates/{id}/approve(id=${c.id})}" method="post" class="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <span th:text="${c.pattern}">pattern</span>
+        <button type="submit">Approve</button>
+    </form>
+
+    <h2>Rules</h2>
+    <form th:action="@{/staff/settings/rules}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <textarea name="body" rows="12" th:text="${rules != null ? rules.body : ''}"></textarea>
+        <button type="submit">Save new version</button>
+    </form>
+</main>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${pageTitle}">Archive</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<main>
+    <p class="hint"><a th:href="@{/boards/{slug}(slug=${board.slug})}">Back to board</a></p>
+    <h1 th:text="'Archive — ' + ${board.name}">Archive</h1>
+    <p class="hint">Archived threads stay here. They are not deleted.</p>
+    <table class="thread-table">
+        <tr th:each="t : ${threads}">
+            <td th:text="${t.replyCount}">0</td>
+            <td><a th:href="@{/boards/{slug}/threads/{id}(slug=${board.slug}, id=${t.id})}" th:text="${t.subject} ?: '(no subject)'">Thread</a></td>
+        </tr>
+    </table>
+    <p th:if="${#lists.isEmpty(threads)}" class="hint">Nothing archived yet.</p>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Closed — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<main class="closed-page">
+    <h1>Outside campus hours</h1>
+    <p th:if="${accessState.name() == 'READ_ONLY'}">You can read threads. New posts, votes, and reports wait until the next access window.</p>
+    <p th:if="${accessState.name() == 'UNAVAILABLE'}">The board is closed right now.</p>
+    <p><a th:href="@{/}">Back to boards</a></p>
+</main>
+</body>
+</html>

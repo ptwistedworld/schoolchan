@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: schoolchan
+  thymeleaf:
+    cache: false
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 25MB
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+schoolchan:
+  timezone: Asia/Manila
+  closed-mode: READ_ONLY
+  metadata-key: ${SCHOOLCHAN_METADATA_KEY:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=}
+  metadata-retention-days: 90
+  admin-username: ${SCHOOLCHAN_ADMIN_USERNAME:admin}
+  admin-password: ${SCHOOLCHAN_ADMIN_PASSWORD:change-me-now}
+  ml:
+    base-url: ${SCHOOLCHAN_ML_BASE_URL:http://localhost:8090}
+    enabled: ${SCHOOLCHAN_ML_ENABLED:true}
+    timeout-ms: 3000
+  moderation:
+    baseline-only: false
+    block-threshold: 0.90
+    queue-threshold: 0.55
+    escalation-threshold: 0.85
+    reputation-boost-cap: 0.15
+    fail-on-ml-unavailable: QUEUE
+  board-defaults:
+    active-thread-cap: 50
+    bump-limit: 300
+    image-limit: 150
+  media:
+    root: ./data/media
+    max-image-bytes: 5242880
+    max-video-bytes: 20971520
+  rate-limit:
+    posts-per-minute: 10

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Staff — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<main>
+    <h1>Staff login</h1>
+    <p class="hint">Moderators are the only accounts. Students stay anonymous.</p>
+    <form class="composer" th:action="@{/staff/login}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label>Username <input name="username" autocomplete="username"/></label>
+        <label>Password <input name="password" type="password" autocomplete="current-password"/></label>
+        <button type="submit">Sign in</button>
+    </form>
+</main>
+</body>
+</html>

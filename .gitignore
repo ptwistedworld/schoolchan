@@ -1,0 +1,8 @@
+# Local toolchains: download these yourself (see README.md)
+tools/jdk-21/
+tools/gradle-*/
+tools/gradle-*.zip
+
+# OS
+Thumbs.db
+.DS_Store

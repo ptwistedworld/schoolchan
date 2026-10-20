@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${pageTitle}">Thread</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body th:attr="data-board=${board.slug}">
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<main>
+    <p class="notice" th:if="${notice}" th:text="${notice}"></p>
+    <p class="hint"><a th:href="@{/boards/{slug}(slug=${board.slug})}" th:text="${board.name}">Board</a></p>
+    <article th:each="p : ${posts}" th:id="'p' + ${p.boardPostNumber}" class="post">
+        <header>
+            <span>Anonymous</span>
+            <a th:href="'#p' + ${p.boardPostNumber}" th:text="'No.' + ${p.boardPostNumber}">No.1</a>
+            <span th:text="${#temporals.format(p.createdAt, 'MMM d, HH:mm')}">time</span>
+        </header>
+        <details th:if="${p.spoiler}" class="spoiler-box">
+            <summary th:text="${p.spoilerLabel} ?: 'Spoiler — click to reveal'">Spoiler</summary>
+            <div th:utext="${formatter.format(p)}">body</div>
+        </details>
+        <div th:unless="${p.spoiler}" th:utext="${formatter.format(p)}">body</div>
+        <div th:each="m : ${mediaByPost.get(p.id)}">
+            <p th:if="${m.quarantineStatus != 'RELEASED'}" class="media-pending">Media pending review</p>
+            <img th:if="${m.quarantineStatus == 'RELEASED' and m.contentType.startsWith('image/')}"
+                 th:src="@{/media/{name}(name=${m.storedName})}" alt="attachment"/>
+            <video th:if="${m.quarantineStatus == 'RELEASED' and m.contentType.startsWith('video/')}"
+                   th:src="@{/media/{name}(name=${m.storedName})}" controls></video>
+        </div>
+        <div class="actions">
+            <form th:if="${writesAllowed}" th:action="@{/posts/{id}/vote(id=${p.id})}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="redirect" th:value="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId})}"/>
+                <button name="value" value="1" type="submit">Up</button>
+                <span th:text="${p.score}">0</span>
+                <button name="value" value="-1" type="submit">Down</button>
+            </form>
+            <form th:if="${writesAllowed}" th:action="@{/posts/{id}/report(id=${p.id})}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="redirect" th:value="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId})}"/>
+                <select name="reason">
+                    <option value="HARASSMENT">Harassment</option>
+                    <option value="SPAM">Spam</option>
+                    <option value="EXPLICIT">Explicit</option>
+                    <option value="OTHER">Other</option>
+                </select>
+                <button type="submit">Report</button>
+            </form>
+            <button type="button" th:if="${p.translatedText != null}" th:attr="data-translate=${p.id}">Show English</button>
+        </div>
+        <div th:id="'tr-' + ${p.id}" hidden></div>
+    </article>
+    <form th:if="${writesAllowed}" class="composer" th:action="@{/boards/{slug}/threads/{tid}/reply(slug=${board.slug}, tid=${threadId})}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label>Reply <textarea name="text" required rows="4"></textarea></label>
+        <label>Image or video <input type="file" name="file" accept="image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm"/></label>
+        <label class="check"><input type="checkbox" name="sage" value="true"/> Sage</label>
+        <label class="check"><input type="checkbox" name="spoiler" value="true"/> Spoiler</label>
+        <button type="submit">Reply</button>
+    </form>
+    <p th:unless="${writesAllowed}" class="hint">Replies are closed while the board is read-only or this thread is archived.</p>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>
