@@ -21,7 +21,7 @@ java -version
 If that fails, point at the portable JDK (adjust the path if your folder layout differs):
 
 ```powershell
-$env:JAVA_HOME = "C:\Users\Mikelle.Bandin\OneDrive - BOFI Federal Bank\Desktop\AI Agents\md\tools\jdk-21"
+$env:JAVA_HOME = "\Desktop\AI Agents\md\tools\jdk-21"
 $env:PATH = "$env:JAVA_HOME\bin;$env:PATH"
 java -version
 ```
@@ -31,7 +31,7 @@ java -version
 Open a terminal in the `schoolchan` folder:
 
 ```powershell
-cd "C:\Users\Mikelle.Bandin\OneDrive - BOFI Federal Bank\Desktop\AI Agents\md\schoolchan"
+cd "\Desktop\AI Agents\md\schoolchan"
 pip install -r ml-service\requirements.txt
 .\scripts\run-ml.ps1
 ```
@@ -47,7 +47,7 @@ Real text and translation weights are a separate start script. See [Optional: re
 Open a second terminal:
 
 ```powershell
-cd "C:\Users\Mikelle.Bandin\OneDrive - BOFI Federal Bank\Desktop\AI Agents\md\schoolchan"
+cd "\Desktop\AI Agents\md\schoolchan"
 .\scripts\run-backend.ps1
 ```
 
