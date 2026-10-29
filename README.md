@@ -1,4 +1,4 @@
-# md
+# schoolchan
 
 Workspace for **SchoolChan**, an anonymous, account-free discussion board built as a local-first capstone project.
 
