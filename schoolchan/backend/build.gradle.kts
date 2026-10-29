@@ -30,6 +30,8 @@ dependencies {
     implementation("io.github.resilience4j:resilience4j-circuitbreaker:2.2.0")
     implementation("io.github.resilience4j:resilience4j-timelimiter:2.2.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    // Required by Spring's servlet multipart support (PublisherInputStream).
+    implementation("org.reactivestreams:reactive-streams:1.0.4")
 
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("com.h2database:h2")
