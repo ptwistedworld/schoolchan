@@ -1,6 +1,6 @@
-# schoolchan
+# md
 
-Workspace for **schoolchan**, an anonymous, account-free discussion board built as a local-first capstone project.
+Workspace for **SchoolChan**, an anonymous, account-free discussion board built as a local-first capstone project.
 
 | Path | What it is |
 | --- | --- |
@@ -63,3 +63,37 @@ See [schoolchan/docs/LOCAL.md](schoolchan/docs/LOCAL.md). In short, from the `sc
 ```
 
 Then open http://localhost:8080.
+
+## GitHub upload checklist
+
+Upload the source and docs. Do **not** upload generated or machine-specific files; the `.gitignore` files already exclude them.
+
+### Upload these
+- `schoolchan/` application source, templates, static assets, docs, scripts, and tests
+- `schoolchan/backend/gradle/wrapper/gradle-wrapper.jar` and `gradlew` / `gradlew.bat`
+- `schoolchan/.env.example`
+- `schoolchan/docker-compose.yml`, `Makefile`, `AGENTS.md`
+- `schoolchan/.github/` if present
+- `tools/generate_schoolchan.py` (optional helper)
+- `README.md`, `.gitignore`, `.github/`
+
+### Skip these (already generated or downloaded locally)
+- `tools/jdk-21/` — download Eclipse Temurin JDK 21 and extract to `tools/jdk-21/`
+- `tools/gradle-8.10.2/` — optional; the Gradle wrapper downloads Gradle automatically
+- `schoolchan/backend/build/` and `schoolchan/backend/.gradle/`
+- `schoolchan/backend/data/` — H2 database and media; the app seeds sample content on first run
+- `schoolchan/ml-service/.venv/`, `ml-service/.venv-real/`, `__pycache__/`
+- `schoolchan/eval/results/`
+- `.env`, `*.pem`, `*.key`, IDE files, OS junk, cookies, and build artifacts
+
+### Required folder names after clone
+| Dependency | Folder | Name inside it |
+| --- | --- | --- |
+| Java 21 | `tools/jdk-21/` | `bin/java.exe` (or `bin/java`) |
+| Gradle 8.10.2 (optional) | `tools/gradle-8.10.2/` | `bin/gradle` |
+| Python environment | created by setup script | `schoolchan/ml-service/.venv/` or `.venv-real/` |
+| Database | created on first run | `schoolchan/backend/data/schoolchan.mv.db` |
+| Media uploads | created on first run | `schoolchan/backend/data/media/` |
+| Environment file | copy from example | `schoolchan/.env` |
+
+If Java 21 is already installed and on `PATH`, the `tools/jdk-21` folder is not needed.
