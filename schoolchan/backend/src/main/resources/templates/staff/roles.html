@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Roles — SchoolChan staff</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Roles &amp; access matrix</h1>
+    <p class="hint">Who can do what on this platform. Students never appear on the
+        public board by name, and moderators are anonymous to students too.</p>
+
+    <table class="thread-table">
+        <thead><tr><th>Capability</th><th>Student</th><th>Moderator</th><th>Admin</th></tr></thead>
+        <tbody>
+        <tr><td>Read boards, threads, archive</td><td>yes</td><td>yes</td><td>yes</td></tr>
+        <tr><td>Post and reply (anonymous)</td><td>yes</td><td>yes</td><td>yes</td></tr>
+        <tr><td>Vote, report, bookmark</td><td>yes</td><td>yes</td><td>yes</td></tr>
+        <tr><td>See the review queue</td><td>no</td><td>yes</td><td>yes</td></tr>
+        <tr><td>Publish / remove a flagged post</td><td>no</td><td>yes</td><td>yes</td></tr>
+        <tr><td>Flag a post for review</td><td>no</td><td>yes</td><td>yes</td></tr>
+        <tr><td>Change the moderation policy</td><td>no</td><td>no</td><td>yes</td></tr>
+        <tr><td>Confirm a violation (learning loop)</td><td>no</td><td>yes</td><td>yes</td></tr>
+        <tr><td>View the escalation queue</td><td>no</td><td>yes</td><td>yes</td></tr>
+        <tr><td>Reveal poster IP / session</td><td>no</td><td>yes (reason required, audited)</td><td>yes (reason required, audited)</td></tr>
+        <tr><td>Manage the blacklist</td><td>no</td><td>yes</td><td>yes</td></tr>
+        <tr><td>Approve learned keywords</td><td>no</td><td>yes</td><td>yes</td></tr>
+        <tr><td>Edit board limits and access hours</td><td>no</td><td>no</td><td>yes</td></tr>
+        <tr><td>Provision student accounts</td><td>no</td><td>no</td><td>yes</td></tr>
+        <tr><td>Manage staff accounts and roles</td><td>no</td><td>no</td><td>yes</td></tr>
+        <tr><td>Read the audit log</td><td>no</td><td>no</td><td>yes</td></tr>
+        <tr><td>Escalation rehearsal (dry run)</td><td>no</td><td>no</td><td>yes</td></tr>
+        </tbody>
+    </table>
+
+    <h2>On this deployment</h2>
+    <ul>
+        <li>Student sign-in required: <strong th:text="${studentLoginRequired} ? 'yes' : 'no'">no</strong></li>
+        <li>Provisioned student accounts: <strong th:text="${studentCount}">0</strong></li>
+        <li>Pending enrollment requests: <strong th:text="${pendingCount}">0</strong></li>
+    </ul>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

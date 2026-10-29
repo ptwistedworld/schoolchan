@@ -16,3 +16,13 @@ schoolchan:
   ml:
     enabled: false
   metadata-key: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+<<<<<<< HEAD
+=======
+  media:
+    # Tests must never write into the real ./data/media folder; a unit test that
+    # uploads a picture once left hundreds of unused files behind.
+    root: ./build/test-media
+  access:
+    # Tests must not depend on the time of day.
+    always-open: true
+>>>>>>> d5851d3 (Initial commit)

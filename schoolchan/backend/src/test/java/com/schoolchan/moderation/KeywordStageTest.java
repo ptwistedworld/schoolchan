@@ -20,11 +20,24 @@ class KeywordStageTest {
     @Mock
     private BlacklistEntryRepository repository;
 
+<<<<<<< HEAD
+=======
+    @Mock
+    private com.schoolchan.board.BoardRuleRepository boardRules;
+
+>>>>>>> d5851d3 (Initial commit)
     private KeywordStage stage;
 
     @BeforeEach
     void setUp() {
+<<<<<<< HEAD
         stage = new KeywordStage(repository);
+=======
+        org.mockito.Mockito.lenient()
+                .when(boardRules.findByBoardIdAndEnabledTrue(org.mockito.ArgumentMatchers.any()))
+                .thenReturn(List.of());
+        stage = new KeywordStage(repository, boardRules);
+>>>>>>> d5851d3 (Initial commit)
     }
 
     @Test

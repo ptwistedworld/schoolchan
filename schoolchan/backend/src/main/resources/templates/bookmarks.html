@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title th:text="${pageTitle}">Bookmarks</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<div th:replace="~{fragments/chrome :: staffribbon}"></div>
+<div th:replace="~{fragments/chrome :: studentribbon}"></div>
+<main>
+    <h1>Bookmarks</h1>
+    <p class="hint">Saved for your browser session. Click ☆ Bookmark on any thread to add it.</p>
+
+    <div th:if="${#lists.isEmpty(bookmarks)}" class="empty-state">
+        <h2>No bookmarks yet</h2>
+        <p>Open a thread and press <strong>☆ Bookmark</strong> to save it here.</p>
+    </div>
+
+    <div th:unless="${#lists.isEmpty(bookmarks)}">
+        <table class="thread-table">
+            <thead><tr><th>Board</th><th>Subject</th><th>Replies</th><th>Bumped</th></tr></thead>
+            <tbody>
+            <tr th:each="b : ${bookmarks}">
+                <td th:text="${b.boardName}">board</td>
+                <td>
+                    <a th:href="@{/boards/{slug}/threads/{id}(slug=${b.boardSlug}, id=${b.id})}" th:text="${b.subject}">Thread</a>
+                </td>
+                <td th:text="${b.replies}">0</td>
+                <td><span class="time" th:attr="data-time=${b.bumpedAt.toEpochMilli()}" th:text="${#temporals.format(b.bumpedAt, 'MMM d, HH:mm')}" th:title="${#temporals.format(b.bumpedAt, 'MMM d, yyyy HH:mm')}">time</span></td>
+            </tr>
+            </tbody>
+        </table>
+        <form th:action="@{/bookmarks/clear}" method="post" class="actions">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <button type="submit" class="linkish">Clear all bookmarks</button>
+        </form>
+    </div>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

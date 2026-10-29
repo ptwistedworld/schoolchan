@@ -9,4 +9,13 @@ public interface ReportRepository extends JpaRepository<Report, UUID> {
     Optional<Report> findByPostIdAndSessionHash(UUID postId, String sessionHash);
 
     List<Report> findByPostId(UUID postId);
+<<<<<<< HEAD
+=======
+
+    long countByReason(String reason);
+
+    List<Report> findByStatusOrderByCreatedAtDesc(String status);
+
+    List<Report> findByStatus(String status);
+>>>>>>> d5851d3 (Initial commit)
 }

@@ -71,7 +71,13 @@ def test_translate_tagalog_stub():
     assert response.status_code == 200
     data = response.json()
     assert data["detected_language"] == "tl"
+<<<<<<< HEAD
     assert "stub English translation" in data["translated_text"]
+=======
+    # Mock mode returns an English gloss that differs from the Tagalog original.
+    assert data["translated_text"] != "Kumusta po, maganda nga ang araw."
+    assert "How are you" in data["translated_text"]
+>>>>>>> d5851d3 (Initial commit)
 
 
 def _tiny_png_bytes() -> bytes:

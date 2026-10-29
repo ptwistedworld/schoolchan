@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<<<<<<< HEAD
     <title>Rules — SchoolChan</title>
     <link rel="stylesheet" th:href="@{/css/board.css}"/>
 </head>
@@ -15,6 +16,79 @@
         <p>Be respectful. Do not post personal information. Automated checks plus human review decide what stays up.</p>
         <p>Credible threats or messages about self-harm are held for staff. A staff member may forward the post and its IP to school administration or the guidance office. The system does not contact anyone by itself.</p>
     </article>
+=======
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Rules — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<div th:replace="~{fragments/chrome :: staffribbon}"></div>
+<div th:replace="~{fragments/chrome :: studentribbon}"></div>
+<main>
+    <h1>Rules and conditions</h1>
+    <p class="hint">These are the rules everyone agrees to by posting. They are short on
+        purpose. If something is unclear, ask a moderator through the board.</p>
+
+    <div class="rules-layout">
+        <article class="post rules-body" th:if="${rulesHtml}" th:utext="${rulesHtml}">Rules</article>
+        <article class="post rules-body" th:unless="${rulesHtml}">
+            <h2>Be decent to each other</h2>
+            <p>Argue with ideas, not people. No bullying, no shaming, no posting anyone's
+                real name, address, schedule, or photos without permission.</p>
+            <h2>Keep it school-appropriate</h2>
+            <p>No sexual content, no graphic violence, no drugs, no gambling, no scams or
+                phishing links. Tag spoilers as spoilers.</p>
+            <h2>How moderation works</h2>
+            <p>Every post is published straight away. Nothing is removed automatically.
+                A filter, another student, or a moderator may point a post out to the
+                staff team, and then a person reads it and decides whether it stays. If a
+                post is taken down it stays readable to its author under My posts, and the
+                author can ask a moderator to look again.</p>
+            <h2>Escalation — when a post is a safety concern</h2>
+            <p>If a post reads like a genuine safety risk to the poster or to the school,
+                it is hidden straight away and put in a restricted staff queue. A staff
+                member may then forward the post, and the poster's network address, to the
+                school administration or guidance office so a human can act. This is only
+                for genuine safety risks — never for ordinary disagreements. Nothing is
+                sent automatically; a person always decides.</p>
+            <h2>What we store, and for how long</h2>
+            <p>A random cookie identifies your browser so votes and bookmarks work; only a
+                hash of it is kept. The network address a post came from is encrypted,
+                stored separately from the post, and deleted automatically after 90 days
+                unless it is attached to an open safety case. Student sign-in is only a
+                gate: it is never linked to anything posted.</p>
+        </article>
+
+        <aside class="rules-actions card">
+            <h2>What you can do here</h2>
+            <ul>
+                <li><a th:href="@{/}">Browse the boards</a> and read a thread.</li>
+                <li th:if="${studentId == null}">
+                    <a th:href="@{/student/login}">Sign in with your student ID</a> to post,
+                    reply, vote, report, and bookmark.
+                </li>
+                <li th:if="${studentId != null}">
+                    <a th:href="@{/my-posts}">Open My posts</a> to see what you wrote,
+                    including anything a moderator removed, and to send an appeal.
+                </li>
+                <li th:if="${studentId != null}">
+                    <a th:href="@{/bookmarks}">Open Bookmarks</a> for the threads you saved.
+                </li>
+                <li>See a post that breaks a rule? Use the <strong>Report</strong> button
+                    under that post. Reports are anonymous and read by staff.</li>
+                <li>Want an account for a classmate?
+                    <a th:href="@{/student/enroll}">Ask staff to onboard a student ID</a>.</li>
+                <li>Lost your password? <a th:href="@{/student/reset}">Use a reset code</a>.</li>
+                <li>Moderator or admin? <a th:href="@{/staff/login}">Staff sign in</a>.</li>
+            </ul>
+            <p class="hint">Reports are read by people, in the order they arrive. A report
+                never identifies you to the person who wrote the post.</p>
+        </aside>
+    </div>
+>>>>>>> d5851d3 (Initial commit)
 </main>
 <footer th:replace="~{fragments/chrome :: foot}"></footer>
 </body>

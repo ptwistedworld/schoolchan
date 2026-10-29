@@ -16,7 +16,14 @@ public class RulesController {
 
     @GetMapping("/rules")
     public String rules(Model model) {
+<<<<<<< HEAD
         rulesVersionRepository.findTopByOrderByVersionDesc().ifPresent(r -> model.addAttribute("rules", r));
+=======
+        rulesVersionRepository.findTopByOrderByVersionDesc().ifPresent(r -> {
+            model.addAttribute("rules", r);
+            model.addAttribute("rulesHtml", RulesText.toHtml(r.getBody()));
+        });
+>>>>>>> d5851d3 (Initial commit)
         return "rules";
     }
 }

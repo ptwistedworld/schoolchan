@@ -22,6 +22,12 @@ public class ThreadEntity {
     @Column(length = 200)
     private String subject;
 
+<<<<<<< HEAD
+=======
+    @Column(length = 32)
+    private String tag;
+
+>>>>>>> d5851d3 (Initial commit)
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 32)
     private ThreadStatus status = ThreadStatus.ACTIVE;
@@ -50,6 +56,11 @@ public class ThreadEntity {
     public void setBoardId(UUID boardId) { this.boardId = boardId; }
     public String getSubject() { return subject; }
     public void setSubject(String subject) { this.subject = subject; }
+<<<<<<< HEAD
+=======
+    public String getTag() { return tag; }
+    public void setTag(String tag) { this.tag = tag; }
+>>>>>>> d5851d3 (Initial commit)
     public ThreadStatus getStatus() { return status; }
     public void setStatus(ThreadStatus status) { this.status = status; }
     public Instant getBumpedAt() { return bumpedAt; }

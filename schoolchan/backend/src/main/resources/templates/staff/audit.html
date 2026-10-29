@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Audit log — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Audit log</h1>
+    <p class="hint"><a th:href="@{/staff/audit.csv}">Download CSV</a> · append-only, no edit or delete.</p>
+    <p class="hint" th:if="${#lists.isEmpty(logs)}">No entries yet.</p>
+    <table class="thread-table" th:if="${!#lists.isEmpty(logs)}">
+        <thead><tr><th>When</th><th>Action</th><th>Detail</th></tr></thead>
+        <tbody>
+        <tr th:each="l : ${logs}">
+            <td th:text="${#temporals.format(l.createdAt, 'MMM d, HH:mm:ss')}">time</td>
+            <td th:text="${l.action}">action</td>
+            <td th:text="${l.detail}">detail</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

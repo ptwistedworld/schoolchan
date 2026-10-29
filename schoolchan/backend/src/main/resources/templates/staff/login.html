@@ -3,18 +3,37 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<<<<<<< HEAD
     <title>Staff — SchoolChan</title>
     <link rel="stylesheet" th:href="@{/css/board.css}"/>
+=======
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Staff — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+>>>>>>> d5851d3 (Initial commit)
 </head>
 <body>
 <header th:replace="~{fragments/chrome :: bar}"></header>
 <main>
     <h1>Staff login</h1>
     <p class="hint">Moderators are the only accounts. Students stay anonymous.</p>
+<<<<<<< HEAD
     <form class="composer" th:action="@{/staff/login}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <label>Username <input name="username" autocomplete="username"/></label>
         <label>Password <input name="password" type="password" autocomplete="current-password"/></label>
+=======
+    <p class="notice error" th:if="${param.error}" role="alert">
+        That username and password did not match. Check the spelling and try again.
+    </p>
+    <p class="notice" th:if="${param.logout}">You have been signed out.</p>
+    <form class="composer login-form" th:action="@{/staff/login}" method="post">
+        <!-- The CSRF field is added automatically for a th:action form. -->
+        <label>Username <input name="username" type="text" autocomplete="username" required/></label>
+        <label>Password <input name="password" type="password" autocomplete="current-password" required/></label>
+>>>>>>> d5851d3 (Initial commit)
         <button type="submit">Sign in</button>
     </form>
 </main>

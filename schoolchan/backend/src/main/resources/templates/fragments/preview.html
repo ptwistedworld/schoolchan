@@ -1,5 +1,22 @@
 <div xmlns:th="http://www.thymeleaf.org" class="preview">
+<<<<<<< HEAD
     <strong th:text="'>>' + ${number}">&gt;&gt;1</strong>
     <div th:if="${html}" th:utext="${html}">preview</div>
+=======
+    <strong th:if="${number != null}" th:text="'>>' + ${number}">&gt;&gt;1</strong>
+    <details th:if="${spoiler}" class="spoiler-box">
+        <summary th:text="${spoilerLabel} ?: 'Spoiler — click to reveal'">Spoiler</summary>
+        <a th:if="${previewImage}" th:href="@{/media/{name}(name=${previewImage})}" class="preview-image-link">
+            <img th:src="@{/media/{name}(name=${previewImage})}" alt="attachment in this post" class="preview-thumb"/>
+        </a>
+        <div th:if="${html}" th:utext="${html}">preview</div>
+    </details>
+    <th:block th:unless="${spoiler}">
+        <a th:if="${previewImage}" th:href="@{/media/{name}(name=${previewImage})}" class="preview-image-link">
+            <img th:src="@{/media/{name}(name=${previewImage})}" alt="attachment in this post" class="preview-thumb"/>
+        </a>
+        <div th:if="${html}" th:utext="${html}">preview</div>
+    </th:block>
+>>>>>>> d5851d3 (Initial commit)
     <p th:unless="${html}">Post not found.</p>
 </div>

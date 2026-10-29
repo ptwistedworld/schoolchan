@@ -1,4 +1,319 @@
+<<<<<<< HEAD
 {"id":"1","text":"hello classmates","label":"non-violating","subcategory":"clean","language":"en"}
 {"id":"2","text":"TOKEN_BLOCK placeholder","label":"violating","subcategory":"harassment","language":"en"}
 {"id":"3","text":"magandang umaga","label":"non-violating","subcategory":"clean","language":"tl"}
 {"id":"4","text":"TOKEN_ESCALATE_THREAT placeholder","label":"violating","subcategory":"threat","language":"en"}
+=======
+{"id": "1", "text": "TOKEN_BLOCK you are worthless and nobody wants you here.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "2", "text": "Good morning everyone, see you at the school fair later.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "3", "text": "TOKEN_ESCALATE_THREAT humani nako ka sa giate human sukad.", "label": "violating", "subcategory": "threat", "language": "ceb"}
+{"id": "4", "text": "Reminder: club signups close on Friday at noon.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "5", "text": "Salamat sa lahat sa tulong ninyo sa proyekto.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "6", "text": "TOKEN_BLOCK tumigil ka na, sayang ang oras mo.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "7", "text": "Nga abo gikan siyent ithirty ang library, early ka if quiet ka gusto.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "8", "text": "Ikaw man ang usa ka bweta, walay gustay mo diri.", "label": "violating", "subcategory": "ml-only", "language": "ceb"}
+{"id": "9", "text": "May extra ba kayong kopya ng aklat?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "10", "text": "Nag-aapply pa ba kayo sa club? Isara na sa isang araw.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "11", "text": "Anyone else bring food for the picnic?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "12", "text": "You are pathetic and everybody knows it.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "13", "text": "Maayo nga umaga sa inyong tanan! Kitang kita sa school fair.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "14", "text": "Salamat sa inyong tabang sa project.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "15", "text": "TOKEN_ESCALATE_THREAT humani nako ka sa giate human sukad.", "label": "violating", "subcategory": "threat", "language": "ceb"}
+{"id": "16", "text": "Anyone up for basketball practice this afternoon?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "17", "text": "Kumusta kayo? Ako ay maayos lang.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "18", "text": "Has anyone seen a black folder near the computer lab?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "19", "text": "Kinsa ang gusto mag-join sa picnic?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "20", "text": "Ang initaw sa kantin ngayon, masarap tlaga.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "21", "text": "TOKEN_ESCALATE_THREAT I am going to hurt you after school.", "label": "violating", "subcategory": "threat", "language": "en"}
+{"id": "22", "text": "That new coffee place near the gate is surprisingly good.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "23", "text": "TOKEN_ESCALATE_THREAT wait outside the gate tonight alone.", "label": "violating", "subcategory": "threat", "language": "en"}
+{"id": "24", "text": "Lost a set of keys near the court, blue lanyard.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "25", "text": "Good luck sa exam, kaya ninyo tanan.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "26", "text": "Kumusta kayo? Ako ay maayos lang.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "27", "text": "You are pathetic and everybody knows it.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "28", "text": "Bukas ang library at pitong, pumunta agad kung kailangan mo ng tahimik.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "29", "text": "Sayon pagkaon sa kantin karong adlawa, maayo gyud.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "30", "text": "TOKEN_ESCALATE_THREAT wait outside the gate tonight alone.", "label": "violating", "subcategory": "threat", "language": "en"}
+{"id": "31", "text": "Maayo nga umaga sa inyong tanan! Kitang kita sa school fair.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "32", "text": "Does anyone have a spare copy of the textbook?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "33", "text": "Study group for Calculus is forming, add your name on the sheet.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "34", "text": "Kinsa ang gusto mag-basketball practice karon nga hapon?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "35", "text": "Sino interested sa basketball practice mamaya?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "36", "text": "TOKEN_BLOCK imong gikan diri lamang gyud, kay ambal.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "37", "text": "Has anyone seen a black folder near the computer lab?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "38", "text": "Bring mo ang ID ug parent contact form kung going to the office.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "39", "text": "TOKEN_ESCALATE_THREAT I will find you and make you regret it.", "label": "violating", "subcategory": "threat", "language": "en"}
+{"id": "40", "text": "Sharing my notes for last week's lesson, hope they help.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "41", "text": "Nag-aapply pa ba kayo sa club? Isara na sa isang araw.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "42", "text": "TOKEN_ESCALATE_THREAT I am going to hurt you after school.", "label": "violating", "subcategory": "threat", "language": "en"}
+{"id": "43", "text": "The first batch of tickets sold out already.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "44", "text": "Ikaw man ang akong giisay, maayo kaayo ka.", "label": "violating", "subcategory": "ml-only", "language": "ceb"}
+{"id": "45", "text": "TOKEN_ESCALATE_THREAT pagkatapos ng klase, hintayin mo ako sa labas.", "label": "violating", "subcategory": "threat", "language": "tl"}
+{"id": "46", "text": "The internet was slow again during the last period.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "47", "text": "Sayon pagkaon sa kantin karong adlawa, maayo gyud.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "48", "text": "You are pathetic and everybody knows it.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "49", "text": "Kinsa ang gusto mag-basketball practice karon nga hapon?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "50", "text": "Naiakong nga akong library sa akong balay, may extra ka?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "51", "text": "The library opens at seven, so go early if you need a quiet desk.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "52", "text": "TOKEN_ESCALATE_THREAT pagkatapos ng klase, hintayin mo ako sa labas.", "label": "violating", "subcategory": "threat", "language": "tl"}
+{"id": "53", "text": "Study group for Calculus is forming, add your name on the sheet.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "54", "text": "TOKEN_BLOCK ikaw gayud nga kaayo og pila, matag na ka.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "55", "text": "TOKEN_BLOCK nobody cares about your useless opinion.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "56", "text": "Good luck sa exam, kayang kaya ninyo iyan.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "57", "text": "You are such a moron, nobody wants you here.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "58", "text": "Kinsa ang gusto mag-basketball practice karon nga hapon?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "59", "text": "TOKEN_ESCALATE_THREAT hahanapin ko ka at gagawin kong mag-regret ka.", "label": "violating", "subcategory": "threat", "language": "tl"}
+{"id": "60", "text": "Naa pa ka nga apply sa club? Naa katanan ang last day sa Friday.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "61", "text": "Our class cleaned the classroom and it looks great.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "62", "text": "What time does the canteen open on Saturdays?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "63", "text": "Good luck on the exams, you can do it.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "64", "text": "TOKEN_BLOCK you are worthless and nobody wants you here.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "65", "text": "Ikaw man ang akong giisay, maayo kaayo ka.", "label": "violating", "subcategory": "ml-only", "language": "ceb"}
+{"id": "66", "text": "Naa pa ka nga apply sa club? Naa katanan ang last day sa Friday.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "67", "text": "Congrats to the choir for the weekend performance.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "68", "text": "TOKEN_BLOCK go away you pathetic loser.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "69", "text": "Ang initaw sa kantin ngayon, masarap tlaga.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "70", "text": "Ikaw man ang akong giisay, maayo kaayo ka.", "label": "violating", "subcategory": "ml-only", "language": "ceb"}
+{"id": "71", "text": "Dalhin ninyo ang ID at parent contact form papunta sa office.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "72", "text": "TOKEN_BLOCK shut up you stupid idiot.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "73", "text": "Nasa di ka man makita nga mga key sa court?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "74", "text": "TOKEN_ESCALATE_THREAT humani nako ka sa giate human sukad.", "label": "violating", "subcategory": "threat", "language": "ceb"}
+{"id": "75", "text": "Salamat sa lahat sa tulong ninyo sa proyekto.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "76", "text": "Sino ang gusto mag-join sa picnic?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "77", "text": "Ang ganda ng performance ng choir kahapon.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "78", "text": "Ikaw man ang usa ka bweta, walay gustay mo diri.", "label": "violating", "subcategory": "ml-only", "language": "ceb"}
+{"id": "79", "text": "Sino ang gusto mag-join sa picnic?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "80", "text": "TOKEN_BLOCK you are worthless and nobody wants you here.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "81", "text": "Nga abo gikan siyent ithirty ang library, early ka if quiet ka gusto.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "82", "text": "Nakalimutan ko ang libro sa bahay, may extra ba kayo?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "83", "text": "Ikaw ay isang bakla, walang gusto sa iyo dito.", "label": "violating", "subcategory": "ml-only", "language": "tl"}
+{"id": "84", "text": "TOKEN_BLOCK tumigil ka na, sayang ang oras mo.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "85", "text": "Adto ka bay ad nga extra nga imong libro?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "86", "text": "May nahanap ba kayo na susi sa basketball court?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "87", "text": "TOKEN_ESCALATE_THREAT humani nako ka sa giate human sukad.", "label": "violating", "subcategory": "threat", "language": "ceb"}
+{"id": "88", "text": "TOKEN_BLOCK walay worth ka ug walay gustay mo diri.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "89", "text": "Ang ganda ng performance ng choir kahapon.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "90", "text": "Ang kapal ng talino mo, parang bingi.", "label": "violating", "subcategory": "ml-only", "language": "tl"}
+{"id": "91", "text": "Study group for Calculus is forming, add your name on the sheet.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "92", "text": "TOKEN_BLOCK ikaw gayud nga kaayo og pila, matag na ka.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "93", "text": "Unsay kaayo, wala ka nga utsa.", "label": "violating", "subcategory": "ml-only", "language": "ceb"}
+{"id": "94", "text": "Salamat sa lahat sa tulong ninyo sa proyekto.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "95", "text": "Sayon pagkaon sa kantin karong adlawa, maayo gyud.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "96", "text": "TOKEN_BLOCK nobody cares about your useless opinion.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "97", "text": "Ikaw man ang akong giisay, maayo kaayo ka.", "label": "violating", "subcategory": "ml-only", "language": "ceb"}
+{"id": "98", "text": "Maayo nga umaga sa inyong tanan! Kitang kita sa school fair.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "99", "text": "TOKEN_BLOCK isang kawalang-hanggang ka, walang gusto sa iyo dito.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "100", "text": "I left a blue umbrella in room 204 if someone finds it.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "101", "text": "Good luck sa exam, kaya ninyo tanan.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "102", "text": "Sharing my notes for last week's lesson, hope they help.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "103", "text": "Please bring an ID and a parent contact form to the office.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "104", "text": "Nasa di ka man makita nga mga key sa court?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "105", "text": "TOKEN_ESCALATE_THREAT wait outside the gate tonight alone.", "label": "violating", "subcategory": "threat", "language": "en"}
+{"id": "106", "text": "TOKEN_BLOCK tahimik ka na, walang ka lamang saysag.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "107", "text": "TOKEN_ESCALATE_THREAT hahanapin ko ka at gagawin kong mag-regret ka.", "label": "violating", "subcategory": "threat", "language": "tl"}
+{"id": "108", "text": "Salamat sa inyong tabang sa project.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "109", "text": "Nakalimutan ko ang libro sa bahay, may extra ba kayo?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "110", "text": "TOKEN_ESCALATE_THREAT huntok ka nako ug makapay ka nga maaga.", "label": "violating", "subcategory": "threat", "language": "ceb"}
+{"id": "111", "text": "TOKEN_BLOCK go away you pathetic loser.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "112", "text": "Naiakong nga akong library sa akong balay, may extra ka?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "113", "text": "The exam schedule changed, check the board outside the library.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "114", "text": "TOKEN_ESCALATE_THREAT I will find you and make you regret it.", "label": "violating", "subcategory": "threat", "language": "en"}
+{"id": "115", "text": "What a complete idiot, honestly.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "116", "text": "Bukas ang library at pitong, pumunta agad kung kailangan mo ng tahimik.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "117", "text": "That new coffee place near the gate is surprisingly good.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "118", "text": "TOKEN_BLOCK tahimik ka na, sayaw ra imong nawno.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "119", "text": "TOKEN_ESCALATE_THREAT huntok ka nako ug makapay ka nga maaga.", "label": "violating", "subcategory": "threat", "language": "ceb"}
+{"id": "120", "text": "The exam schedule changed, check the board outside the library.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "121", "text": "Salamat sa lahat sa tulong ninyo sa proyekto.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "122", "text": "Good luck on the exams, you can do it.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "123", "text": "TOKEN_ESCALATE_THREAT huntok ka nako ug makapay ka nga maaga.", "label": "violating", "subcategory": "threat", "language": "ceb"}
+{"id": "124", "text": "TOKEN_BLOCK ikaw ay walang kwenta at nakakahiya ka.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "125", "text": "Ikaw ay nakakahiya, walang ka magandang sinasabi.", "label": "violating", "subcategory": "ml-only", "language": "tl"}
+{"id": "126", "text": "TOKEN_BLOCK walay worth ka ug walay gustay mo diri.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "127", "text": "Sino ang gusto mag-join sa picnic?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "128", "text": "TOKEN_BLOCK stop posting this garbage everywhere.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "129", "text": "Naokay ka man gud, unsa man naimong problema?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "130", "text": "Naiakong nga akong library sa akong balay, may extra ka?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "131", "text": "The exam schedule changed, check the board outside the library.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "132", "text": "I left a blue umbrella in room 204 if someone finds it.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "133", "text": "Please bring an ID and a parent contact form to the office.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "134", "text": "Please bring an ID and a parent contact form to the office.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "135", "text": "Ikaw man ang usa ka bweta, walay gustay mo diri.", "label": "violating", "subcategory": "ml-only", "language": "ceb"}
+{"id": "136", "text": "Ikaw ay isang bakla, walang gusto sa iyo dito.", "label": "violating", "subcategory": "ml-only", "language": "tl"}
+{"id": "137", "text": "Good morning everyone, see you at the school fair later.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "138", "text": "TOKEN_BLOCK tahimik ka na, sayaw ra imong nawno.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "139", "text": "TOKEN_BLOCK tahimik ka na, walang ka lamang saysag.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "140", "text": "Sino ang gusto mag-join sa picnic?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "141", "text": "What time does the canteen open on Saturdays?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "142", "text": "Dalhin ninyo ang ID at parent contact form papunta sa office.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "143", "text": "Naokay ka man gud, unsa man naimong problema?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "144", "text": "The library opens at seven, so go early if you need a quiet desk.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "145", "text": "Naokay ka man gud, unsa man naimong problema?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "146", "text": "Ikaw ay nakakahiya, walang ka magandang sinasabi.", "label": "violating", "subcategory": "ml-only", "language": "tl"}
+{"id": "147", "text": "Unsay kaayo, wala ka nga utsa.", "label": "violating", "subcategory": "ml-only", "language": "ceb"}
+{"id": "148", "text": "May extra ba kayong kopya ng aklat?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "149", "text": "Magandang umaga sa inyong lahat! Kita-kita tayo sa paaralan.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "150", "text": "Our class cleaned the classroom and it looks great.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "151", "text": "Naokay ka man gud, unsa man naimong problema?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "152", "text": "May extra ba kayong kopya ng aklat?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "153", "text": "Dalhin ninyo ang ID at parent contact form papunta sa office.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "154", "text": "Nga abo gikan siyent ithirty ang library, early ka if quiet ka gusto.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "155", "text": "Magandang umaga sa inyong lahat! Kita-kita tayo sa paaralan.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "156", "text": "TOKEN_ESCALATE_THREAT hahanapin ko ka at gagawin kong mag-regret ka.", "label": "violating", "subcategory": "threat", "language": "tl"}
+{"id": "157", "text": "Bring mo ang ID ug parent contact form kung going to the office.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "158", "text": "Kinsa ang gusto mag-basketball practice karon nga hapon?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "159", "text": "Ang ganda ng performance ng choir kahapon.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "160", "text": "Reminder: club signups close on Friday at noon.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "161", "text": "Only an idiot would post this.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "162", "text": "Nga abo gikan siyent ithirty ang library, early ka if quiet ka gusto.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "163", "text": "Only an idiot would post this.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "164", "text": "TOKEN_ESCALATE_THREAT pagkatapos ng klase, hintayin mo ako sa labas.", "label": "violating", "subcategory": "threat", "language": "tl"}
+{"id": "165", "text": "TOKEN_ESCALATE_THREAT I will find you and make you regret it.", "label": "violating", "subcategory": "threat", "language": "en"}
+{"id": "166", "text": "TOKEN_BLOCK tumigil ka na, sayang ang oras mo.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "167", "text": "What a complete idiot, honestly.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "168", "text": "Ikaw ay nakakahiya, walang ka magandang sinasabi.", "label": "violating", "subcategory": "ml-only", "language": "tl"}
+{"id": "169", "text": "TOKEN_BLOCK tahimik ka na, walang ka lamang saysag.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "170", "text": "Nindot man performance sa choir kagahapon.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "171", "text": "TOKEN_ESCALATE_THREAT huntok ka nako ug makapay ka nga maaga.", "label": "violating", "subcategory": "threat", "language": "ceb"}
+{"id": "172", "text": "Nindot man performance sa choir kagahapon.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "173", "text": "TOKEN_ESCALATE_THREAT wait outside the gate tonight alone.", "label": "violating", "subcategory": "threat", "language": "en"}
+{"id": "174", "text": "TOKEN_BLOCK isang kawalang-hanggang ka, walang gusto sa iyo dito.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "175", "text": "TOKEN_BLOCK ikaw ay walang kwenta at nakakahiya ka.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "176", "text": "TOKEN_BLOCK walay worth ka ug walay gustay mo diri.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "177", "text": "Naa pa ka nga apply sa club? Naa katanan ang last day sa Friday.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "178", "text": "TOKEN_BLOCK tahimik ka na, walang ka lamang saysag.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "179", "text": "Sino interested sa basketball practice mamaya?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "180", "text": "You are such a moron, nobody wants you here.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "181", "text": "Anyone up for basketball practice this afternoon?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "182", "text": "TOKEN_BLOCK ikaw gayud nga kaayo og pila, matag na ka.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "183", "text": "TOKEN_BLOCK shut up you stupid idiot.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "184", "text": "TOKEN_BLOCK imong gikan diri lamang gyud, kay ambal.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "185", "text": "TOKEN_BLOCK walay worth ka ug walay gustay mo diri.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "186", "text": "Naa pa ka nga apply sa club? Naa katanan ang last day sa Friday.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "187", "text": "Kumusta kayo? Ako ay maayos lang.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "188", "text": "The first batch of tickets sold out already.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "189", "text": "That new coffee place near the gate is surprisingly good.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "190", "text": "Ikaw man ang usa ka bweta, walay gustay mo diri.", "label": "violating", "subcategory": "ml-only", "language": "ceb"}
+{"id": "191", "text": "Nindot man performance sa choir kagahapon.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "192", "text": "May nahanap ba kayo na susi sa basketball court?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "193", "text": "Sino interested sa basketball practice mamaya?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "194", "text": "TOKEN_BLOCK go away you pathetic loser.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "195", "text": "Has anyone seen a black folder near the computer lab?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "196", "text": "The first batch of tickets sold out already.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "197", "text": "Anyone else bring food for the picnic?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "198", "text": "Dalhin ninyo ang ID at parent contact form papunta sa office.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "199", "text": "Congrats to the choir for the weekend performance.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "200", "text": "TOKEN_BLOCK isang kawalang-hanggang ka, walang gusto sa iyo dito.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "201", "text": "May nahanap ba kayo na susi sa basketball court?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "202", "text": "Naiakong nga akong library sa akong balay, may extra ka?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "203", "text": "TOKEN_BLOCK ikaw ay walang kwenta at nakakahiya ka.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "204", "text": "TOKEN_BLOCK nobody cares about your useless opinion.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "205", "text": "Bring mo ang ID ug parent contact form kung going to the office.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "206", "text": "Nakalimutan ko ang libro sa bahay, may extra ba kayo?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "207", "text": "Sharing my notes for last week's lesson, hope they help.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "208", "text": "Nag-aapply pa ba kayo sa club? Isara na sa isang araw.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "209", "text": "Good luck on the exams, you can do it.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "210", "text": "What a complete idiot, honestly.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "211", "text": "Lost a set of keys near the court, blue lanyard.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "212", "text": "Bukas ang library at pitong, pumunta agad kung kailangan mo ng tahimik.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "213", "text": "Good luck sa exam, kayang kaya ninyo iyan.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "214", "text": "Nakalimutan ko ang libro sa bahay, may extra ba kayo?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "215", "text": "TOKEN_BLOCK stop posting this garbage everywhere.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "216", "text": "TOKEN_BLOCK nobody cares about your useless opinion.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "217", "text": "Good luck sa exam, kayang kaya ninyo iyan.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "218", "text": "You are such a moron, nobody wants you here.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "219", "text": "The exam schedule changed, check the board outside the library.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "220", "text": "Congrats to the choir for the weekend performance.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "221", "text": "Ang kapal ng talino mo, parang bingi.", "label": "violating", "subcategory": "ml-only", "language": "tl"}
+{"id": "222", "text": "TOKEN_BLOCK isang kawalang-hanggang ka, walang gusto sa iyo dito.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "223", "text": "Unsay kaayo, wala ka nga utsa.", "label": "violating", "subcategory": "ml-only", "language": "ceb"}
+{"id": "224", "text": "Adto ka bay ad nga extra nga imong libro?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "225", "text": "Good morning everyone, see you at the school fair later.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "226", "text": "TOKEN_ESCALATE_THREAT I am going to hurt you after school.", "label": "violating", "subcategory": "threat", "language": "en"}
+{"id": "227", "text": "Anyone up for basketball practice this afternoon?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "228", "text": "Ikaw ay isang bakla, walang gusto sa iyo dito.", "label": "violating", "subcategory": "ml-only", "language": "tl"}
+{"id": "229", "text": "You are pathetic and everybody knows it.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "230", "text": "Nasa di ka man makita nga mga key sa court?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "231", "text": "Only an idiot would post this.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "232", "text": "You are such a moron, nobody wants you here.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "233", "text": "Adto ka bay ad nga extra nga imong libro?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "234", "text": "Kinsa ang gusto mag-join sa picnic?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "235", "text": "TOKEN_BLOCK imong gikan diri lamang gyud, kay ambal.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "236", "text": "Please bring an ID and a parent contact form to the office.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "237", "text": "Good luck sa exam, kaya ninyo tanan.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "238", "text": "Sino interested sa basketball practice mamaya?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "239", "text": "Ikaw ay isang bakla, walang gusto sa iyo dito.", "label": "violating", "subcategory": "ml-only", "language": "tl"}
+{"id": "240", "text": "That new coffee place near the gate is surprisingly good.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "241", "text": "Our class cleaned the classroom and it looks great.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "242", "text": "TOKEN_ESCALATE_THREAT hahanapin ko ka at gagawin kong mag-regret ka.", "label": "violating", "subcategory": "threat", "language": "tl"}
+{"id": "243", "text": "The first batch of tickets sold out already.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "244", "text": "TOKEN_BLOCK tahimik ka na, sayaw ra imong nawno.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "245", "text": "The library opens at seven, so go early if you need a quiet desk.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "246", "text": "Lost a set of keys near the court, blue lanyard.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "247", "text": "Kinsa ang gusto mag-join sa picnic?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "248", "text": "TOKEN_BLOCK ikaw gayud nga kaayo og pila, matag na ka.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "249", "text": "Our class cleaned the classroom and it looks great.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "250", "text": "TOKEN_ESCALATE_THREAT pagkatapos ng klase, hintayin mo ako sa labas.", "label": "violating", "subcategory": "threat", "language": "tl"}
+{"id": "251", "text": "Magandang umaga sa inyong lahat! Kita-kita tayo sa paaralan.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "252", "text": "Salamat sa inyong tabang sa project.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "253", "text": "Sayon pagkaon sa kantin karong adlawa, maayo gyud.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "254", "text": "Ang kapal ng talino mo, parang bingi.", "label": "violating", "subcategory": "ml-only", "language": "tl"}
+{"id": "255", "text": "TOKEN_BLOCK tahimik ka na, sayaw ra imong nawno.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "256", "text": "Ang initaw sa kantin ngayon, masarap tlaga.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "257", "text": "Congrats to the choir for the weekend performance.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "258", "text": "Anyone up for basketball practice this afternoon?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "259", "text": "Maayo nga umaga sa inyong tanan! Kitang kita sa school fair.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "260", "text": "Nasa di ka man makita nga mga key sa court?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "261", "text": "Magandang umaga sa inyong lahat! Kita-kita tayo sa paaralan.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "262", "text": "Does anyone have a spare copy of the textbook?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "263", "text": "Ang ganda ng performance ng choir kahapon.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "264", "text": "TOKEN_BLOCK go away you pathetic loser.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "265", "text": "TOKEN_BLOCK stop posting this garbage everywhere.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "266", "text": "What time does the canteen open on Saturdays?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "267", "text": "TOKEN_ESCALATE_THREAT I will find you and make you regret it.", "label": "violating", "subcategory": "threat", "language": "en"}
+{"id": "268", "text": "Nag-aapply pa ba kayo sa club? Isara na sa isang araw.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "269", "text": "What time does the canteen open on Saturdays?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "270", "text": "Study group for Calculus is forming, add your name on the sheet.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "271", "text": "Ang kapal ng talino mo, parang bingi.", "label": "violating", "subcategory": "ml-only", "language": "tl"}
+{"id": "272", "text": "Bring mo ang ID ug parent contact form kung going to the office.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "273", "text": "The internet was slow again during the last period.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "274", "text": "Only an idiot would post this.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+{"id": "275", "text": "The internet was slow again during the last period.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "276", "text": "TOKEN_BLOCK imong gikan diri lamang gyud, kay ambal.", "label": "violating", "subcategory": "harassment", "language": "ceb"}
+{"id": "277", "text": "Adto ka bay ad nga extra nga imong libro?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "278", "text": "Good luck sa exam, kaya ninyo tanan.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "279", "text": "Does anyone have a spare copy of the textbook?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "280", "text": "Kinsa ang gusto mag-join sa picnic?", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "281", "text": "May extra ba kayong kopya ng aklat?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "282", "text": "Good luck sa exam, kayang kaya ninyo iyan.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "283", "text": "Reminder: club signups close on Friday at noon.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "284", "text": "Sharing my notes for last week's lesson, hope they help.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "285", "text": "I left a blue umbrella in room 204 if someone finds it.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "286", "text": "Anyone else bring food for the picnic?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "287", "text": "Good luck on the exams, you can do it.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "288", "text": "Has anyone seen a black folder near the computer lab?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "289", "text": "Bukas ang library at pitong, pumunta agad kung kailangan mo ng tahimik.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "290", "text": "Ang initaw sa kantin ngayon, masarap tlaga.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "291", "text": "Salamat sa inyong tabang sa project.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "292", "text": "The internet was slow again during the last period.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "293", "text": "Lost a set of keys near the court, blue lanyard.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "294", "text": "TOKEN_ESCALATE_THREAT I am going to hurt you after school.", "label": "violating", "subcategory": "threat", "language": "en"}
+{"id": "295", "text": "TOKEN_BLOCK ikaw ay walang kwenta at nakakahiya ka.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "296", "text": "Anyone else bring food for the picnic?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "297", "text": "I left a blue umbrella in room 204 if someone finds it.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "298", "text": "Reminder: club signups close on Friday at noon.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "299", "text": "The library opens at seven, so go early if you need a quiet desk.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "300", "text": "May nahanap ba kayo na susi sa basketball court?", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "301", "text": "Good morning everyone, see you at the school fair later.", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "302", "text": "Unsay kaayo, wala ka nga utsa.", "label": "violating", "subcategory": "ml-only", "language": "ceb"}
+{"id": "303", "text": "TOKEN_BLOCK shut up you stupid idiot.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "304", "text": "TOKEN_BLOCK tumigil ka na, sayang ang oras mo.", "label": "violating", "subcategory": "harassment", "language": "tl"}
+{"id": "305", "text": "Kumusta kayo? Ako ay maayos lang.", "label": "non-violating", "subcategory": "clean", "language": "tl"}
+{"id": "306", "text": "Nindot man performance sa choir kagahapon.", "label": "non-violating", "subcategory": "clean", "language": "ceb"}
+{"id": "307", "text": "TOKEN_BLOCK shut up you stupid idiot.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "308", "text": "TOKEN_BLOCK you are worthless and nobody wants you here.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "309", "text": "Does anyone have a spare copy of the textbook?", "label": "non-violating", "subcategory": "clean", "language": "en"}
+{"id": "310", "text": "Ikaw ay nakakahiya, walang ka magandang sinasabi.", "label": "violating", "subcategory": "ml-only", "language": "tl"}
+{"id": "311", "text": "TOKEN_BLOCK stop posting this garbage everywhere.", "label": "violating", "subcategory": "harassment", "language": "en"}
+{"id": "312", "text": "What a complete idiot, honestly.", "label": "violating", "subcategory": "ml-only", "language": "en"}
+>>>>>>> d5851d3 (Initial commit)

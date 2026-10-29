@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title th:text="${pageTitle}">My posts</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<div th:replace="~{fragments/chrome :: staffribbon}"></div>
+<div th:replace="~{fragments/chrome :: studentribbon}"></div>
+<main>
+    <h1 th:text="${view == 'quotes'} ? 'Quoted you' : 'My posts'">My posts</h1>
+    <nav class="view-tabs" aria-label="Your activity">
+        <a th:href="@{/my-posts}" th:classappend="${view != 'quotes'} ? 'active'"
+           th:attr="aria-current=${view != 'quotes' ? 'page' : null}">My posts</a>
+        <a th:href="@{/my-posts(tab='quotes')}" th:classappend="${view == 'quotes'} ? 'active'"
+           th:attr="aria-current=${view == 'quotes' ? 'page' : null}">Quoted you</a>
+    </nav>
+    <p class="notice" th:if="${notice}" th:text="${notice}" role="status" aria-live="polite"></p>
+
+    <th:block th:if="${view == 'quotes'}">
+        <p class="hint">Replies that quoted a post from this browser, newest first. Post numbers are per
+            board, so a reply only counts when it is on the same board as your post.</p>
+        <div th:if="${#lists.isEmpty(quotes)}" class="empty-state">
+            <h2>No one has quoted you yet</h2>
+            <p>A reply appears here when it uses <code>&gt;&gt;</code> with one of your post numbers.</p>
+            <p><a th:href="@{/my-posts}">Back to my posts</a></p>
+        </div>
+        <article th:each="q : ${quotes}" class="post quote-hit"
+                 th:with="threadUrl=@{/boards/{slug}/threads/{id}(slug=${q.board.slug}, id=${q.thread.id})}">
+            <header>
+                <span class="badge">quoted you</span>
+                <span th:text="${'No.' + q.reply.boardPostNumber}">No.</span>
+                <span class="time" th:attr="data-time=${q.reply.createdAt.toEpochMilli()}"
+                      th:text="${#temporals.format(q.reply.createdAt, 'MMM d, HH:mm')}"
+                      th:title="${#temporals.format(q.reply.createdAt, 'MMM d, yyyy HH:mm')}">time</span>
+                <a class="hint" th:href="${threadUrl + '#p' + q.reply.boardPostNumber}">open in the thread</a>
+            </header>
+            <p class="hint quote-context">
+                <span th:text="${q.board.name + ' · ' + (q.thread.subject ?: '(no subject)')}">Board · Thread</span>
+                <span> · quoted </span>
+                <th:block th:each="n, st : ${q.yourNumbers}">
+                    <a th:href="@{/boards/{slug}/p/{n}(slug=${q.board.slug}, n=${n})}"
+                       th:text="${'your No.' + n}">your No.1</a><th:block th:unless="${st.last}">, </th:block>
+                </th:block>
+            </p>
+            <div th:utext="${formatter.format(q.reply)}">body</div>
+        </article>
+    </th:block>
+
+    <th:block th:unless="${view == 'quotes'}">
+        <p class="hint">Posts made from this browser. Everything you write is published straight away. If a moderator later takes a post down, it stays here so you can read it and ask them to look again.</p>
+        <p class="hint" th:if="${#lists.isEmpty(posts)}">You have not posted from this browser yet.</p>
+        <article th:each="p : ${posts}" class="post">
+            <header>
+                <span th:text="'No.' + ${p.boardPostNumber}">No.</span>
+                <span class="time" th:attr="data-time=${p.createdAt.toEpochMilli()}" th:text="${#temporals.format(p.createdAt, 'MMM d, HH:mm')}" th:title="${#temporals.format(p.createdAt, 'MMM d, yyyy HH:mm')}">time</span>
+                <span class="badge" th:if="${p.status.name() == 'PUBLISHED'}">published</span>
+                <span class="badge warn" th:if="${p.status.name() == 'HELD_FOR_REVIEW'}">hidden - safety</span>
+                <span class="badge warn" th:if="${p.status.name() == 'BLOCKED' and !p.deletedByAuthor}">removed</span>
+                <span class="badge warn" th:if="${p.deletedByAuthor}">deleted by you</span>
+            </header>
+            <p class="hint" th:if="${holdReasons.get(p.id) != null}">
+                <span th:text="${holdReasons.get(p.id)}">Waiting for a moderator.</span>
+            </p>
+            <p class="hint" th:if="${p.status.name() == 'BLOCKED' and !p.deletedByAuthor}">
+                A moderator removed this post. You can still read it here, and ask them to look again.
+            </p>
+            <p class="hint" th:if="${p.deletedByAuthor}">
+                You deleted this post. It is no longer shown to other students.
+            </p>
+            <form th:if="${writesAllowed and myPostIds != null and myPostIds.contains(p.id) and (p.status.name() == 'BLOCKED' or p.status.name() == 'HELD_FOR_REVIEW') and !p.deletedByAuthor}"
+                  class="inline-reply" th:action="@{/posts/{id}/appeal(id=${p.id})}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="redirect" value="/my-posts"/>
+                <label>Ask a moderator to look again
+                    <textarea name="reason" rows="2" maxlength="1000"
+                              placeholder="Why should a moderator look at this again? (optional)"></textarea>
+                </label>
+                <div class="actions">
+                    <button type="submit">Send appeal</button>
+                </div>
+            </form>
+            <div th:utext="${formatter.format(p)}">body</div>
+
+            <form th:if="${writesAllowed and deletablePostIds != null and deletablePostIds.contains(p.id)}"
+                  class="inline-reply" th:action="@{/posts/{id}/delete(id=${p.id})}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="redirect" value="/my-posts"/>
+                <div class="actions">
+                    <button type="submit" class="linkish">delete this post</button>
+                    <span class="hint">You can delete your own post for 15 minutes after posting it.</span>
+                </div>
+            </form>
+
+            <form th:if="${writesAllowed and myPostIds != null and myPostIds.contains(p.id) and !p.deletedByAuthor}"
+                  class="inline-reply" th:action="@{/posts/{id}/edit(id=${p.id})}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="redirect" value="/my-posts"/>
+                <textarea name="text" autocomplete="off" rows="2" th:text="${p.originalText}"></textarea>
+                <div class="actions">
+                    <button type="submit">Edit</button>
+                    <span class="hint">Edits are re-screened and only work within 10 minutes of posting.</span>
+                </div>
+            </form>
+        </article>
+    </th:block>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

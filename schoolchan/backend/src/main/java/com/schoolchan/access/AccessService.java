@@ -33,6 +33,12 @@ public class AccessService {
         if (adminOverride) {
             return SiteAccessState.OPEN;
         }
+<<<<<<< HEAD
+=======
+        if (properties.getAccess().isAlwaysOpen()) {
+            return SiteAccessState.OPEN;
+        }
+>>>>>>> d5851d3 (Initial commit)
         if (isWithinOpenWindow(nowLocal())) {
             return SiteAccessState.OPEN;
         }

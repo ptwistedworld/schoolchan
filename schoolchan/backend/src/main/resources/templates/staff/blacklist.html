@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Blacklist — SchoolChan staff</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Blacklist &amp; keywords</h1>
+    <p class="hint">
+        <a th:href="@{/staff/blacklist/export.csv}">Export CSV</a>
+        · <a th:href="@{/staff/settings}">Back to settings</a>
+    </p>
+
+    <h2>Test a string</h2>
+    <p class="hint">Shows how the normaliser sees the text and which entries would fire.</p>
+    <form th:action="@{/staff/blacklist/test}" method="post" class="composer">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label>Text
+            <textarea name="text" autocomplete="off" rows="3" th:text="${testText}" placeholder="Type something to test against the blacklist"></textarea>
+        </label>
+        <button type="submit">Test</button>
+    </form>
+
+    <div th:if="${!#lists.isEmpty(testResults)}" class="test-results">
+        <p class="hint" th:if="${testText != null and !testText.isBlank()}">
+            Normalised text: <code th:text="${testResults.get(0).normalizedText}">norm</code>
+        </p>
+        <table class="thread-table">
+            <thead><tr><th>Pattern</th><th>Type</th><th>Category</th><th>Severity</th><th>Result</th></tr></thead>
+            <tbody>
+            <tr th:each="r : ${testResults}" th:classappend="${r.matched} ? 'match-hit' : ''">
+                <td th:text="${r.pattern}">pattern</td>
+                <td th:text="${r.matchType}">type</td>
+                <td th:text="${r.category}">category</td>
+                <td th:text="${r.severity}">0.0</td>
+                <td th:text="${r.matched} ? 'MATCH' : 'no match'">result</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Add an entry</h2>
+    <form th:action="@{/staff/blacklist/add}" method="post" class="composer">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label>Pattern <input type="text" name="pattern" required/></label>
+        <label>Match type
+            <select name="matchType">
+                <option value="WORD">WORD (word boundary)</option>
+                <option value="CONTAINS">CONTAINS</option>
+                <option value="REGEX">REGEX</option>
+            </select>
+        </label>
+        <label>Category
+            <select name="category">
+                <option value="PROFANITY">PROFANITY</option>
+                <option value="INSULT">INSULT</option>
+                <option value="HARASSMENT">HARASSMENT</option>
+                <option value="THREAT">THREAT</option>
+                <option value="SPAM">SPAM</option>
+                <option value="EXPLICIT">EXPLICIT</option>
+                <option value="OTHER">OTHER</option>
+            </select>
+        </label>
+        <label>Severity (0.00 - 1.00) <input type="number" name="severity" value="0.60" step="0.05" min="0" max="1"/></label>
+        <label>Language <input type="text" name="language" placeholder="tl, ceb, en"/></label>
+        <button type="submit">Add</button>
+    </form>
+
+    <h2>Import</h2>
+    <form th:action="@{/staff/blacklist/import}" method="post" class="composer">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label>CSV lines — <code>pattern|match_type|category|severity</code>
+            <textarea name="csv" rows="4" placeholder="TOKEN_BLOCK|CONTAINS|HARASSMENT|0.95"></textarea>
+        </label>
+        <button type="submit">Import</button>
+    </form>
+
+    <h2>Entries (<span th:text="${#lists.size(entries)}">0</span>)</h2>
+    <table class="thread-table">
+        <thead><tr><th>Pattern</th><th>Type</th><th>Category</th><th>Severity</th><th>Lang</th><th>Enabled</th><th>Actions</th></tr></thead>
+        <tbody>
+        <tr th:each="e : ${entries}">
+            <td th:text="${e.pattern}">pattern</td>
+            <td th:text="${e.matchType}">type</td>
+            <td th:text="${e.category}">category</td>
+            <td th:text="${e.severity}">0.0</td>
+            <td th:text="${e.language} ?: '—'">lang</td>
+            <td th:text="${e.enabled} ? 'yes' : 'no'">yes</td>
+            <td class="actions">
+                <form th:action="@{/staff/blacklist/toggle}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input type="hidden" name="id" th:value="${e.id}"/>
+                    <button type="submit" class="linkish" th:text="${e.enabled} ? 'Disable' : 'Enable'">toggle</button>
+                </form>
+                <form th:action="@{/staff/blacklist/delete}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input type="hidden" name="id" th:value="${e.id}"/>
+                    <button type="submit" class="linkish">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

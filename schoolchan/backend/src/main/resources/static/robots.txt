@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /staff
+Disallow: /actuator
+Disallow: /bookmarks
+Disallow: /my-posts

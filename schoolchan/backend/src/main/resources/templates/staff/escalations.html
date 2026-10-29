@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"/><title>Escalations</title>    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+<<<<<<< HEAD
+=======
+    <script th:src="@{/js/board.js}" defer></script>
+>>>>>>> d5851d3 (Initial commit)
 </head>
 <body>
 <header th:replace="~{fragments/chrome :: staffbar}"></header>
 <main>
+<<<<<<< HEAD
+=======
+    <div class="rehearsal-banner" th:if="${rehearsal}">Rehearsal mode — no real post data is shown or exported</div>
+>>>>>>> d5851d3 (Initial commit)
     <h1>Escalations</h1>
     <p><a th:href="@{/staff/dashboard}">Back</a></p>
     <ul>

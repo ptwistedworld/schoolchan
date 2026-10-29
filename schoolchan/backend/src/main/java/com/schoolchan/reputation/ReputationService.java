@@ -41,6 +41,26 @@ public class ReputationService {
                 .orElse(false);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * A plain sentence about a session's trust, for staff. A moderator should
+     * not have to guess what "low trust score" means.
+     */
+    @Transactional(readOnly = true)
+    public String trustSummary(String sessionHash) {
+        return repository.findBySessionHash(sessionHash)
+                .map(e -> {
+                    long strikes = e.getStrikeLevel();
+                    return "trust score " + Math.round(e.getReliability() * 100) / 100.0
+                            + " of 1.0, " + strikes + " removal" + (strikes == 1 ? "" : "s")
+                            + " on record"
+                            + (strikeActive(e) ? " (a strike is active right now)" : "");
+                })
+                .orElse("no history for this browser");
+    }
+
+>>>>>>> d5851d3 (Initial commit)
     @Transactional
     public void recordStrike(String sessionHash, Instant expiresAt) {
         ReputationEntry entry = getOrCreate(sessionHash);

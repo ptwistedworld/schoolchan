@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Escalation package</title>
+    <style>
+        body { font-family: serif; max-width: 720px; margin: 2rem auto; line-height: 1.6; }
+        h1 { border-bottom: 2px solid #000; }
+        pre { white-space: pre-wrap; font-family: inherit; }
+        @media print { .no-print { display: none; } }
+    </style>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+    <h1>SchoolChan escalation package</h1>
+    <p><strong>ID:</strong> <span th:text="${escalation.id}"></span></p>
+    <p><strong>Status:</strong> <span th:text="${escalation.status}"></span></p>
+    <p><strong>Category:</strong> <span th:text="${escalation.category}"></span></p>
+    <p><strong>Opened:</strong> <span th:text="${escalation.createdAt}"></span></p>
+    <div th:if="${post != null}">
+        <p><strong>Posted:</strong> <span th:text="${post.createdAt}"></span></p>
+        <h2>Original text</h2>
+        <pre th:text="${post.originalText}"></pre>
+        <div th:if="${post.translatedText != null and !post.translatedText.isBlank()}">
+            <h2>English translation</h2>
+            <pre th:text="${post.translatedText}"></pre>
+        </div>
+    </div>
+    <p th:if="${escalation.notes != null}"><strong>Notes:</strong> <span th:text="${escalation.notes}"></span></p>
+    <p><em>Poster IP and session are not included. Reveal them on the escalation page when needed.</em></p>
+    <button class="no-print" onclick="window.print()">Print / Save as PDF</button>
+</body>
+</html>

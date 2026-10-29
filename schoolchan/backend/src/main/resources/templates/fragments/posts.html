@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="list(posts)">
+    <th:block th:each="p : ${posts}">
+        <div th:replace="~{fragments/post :: post(${p}, false)}"></div>
+    </th:block>
+</div>
+</body>
+</html>

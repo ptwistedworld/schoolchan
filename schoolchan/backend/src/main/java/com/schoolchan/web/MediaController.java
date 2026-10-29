@@ -28,6 +28,10 @@ public class MediaController {
                         type = MediaType.parseMediaType(raw);
                     }
                     return ResponseEntity.ok()
+<<<<<<< HEAD
+=======
+                            .cacheControl(org.springframework.http.CacheControl.maxAge(30, java.util.concurrent.TimeUnit.DAYS).cachePublic())
+>>>>>>> d5851d3 (Initial commit)
                             .header(HttpHeaders.CONTENT_DISPOSITION, "inline")
                             .contentType(type)
                             .body(resource);

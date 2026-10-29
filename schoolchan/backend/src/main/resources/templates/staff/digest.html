@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Weekly digest — SchoolChan staff</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Weekly digest</h1>
+    <p class="hint">What happened on the board in the last seven days.</p>
+
+    <div class="board-grid">
+        <div class="card"><h2>Published</h2><p th:text="${published}">0</p></div>
+        <div class="card"><h2>Flagged for review</h2><p th:text="${flagged}">0</p></div>
+        <div class="card"><h2>Hidden for safety</h2><p th:text="${held}">0</p></div>
+        <div class="card"><h2>Removed by staff</h2><p th:text="${blocked}">0</p></div>
+        <div class="card"><h2>All posts</h2><p th:text="${totalPosts}">0</p></div>
+        <div class="card"><h2>All threads</h2><p th:text="${totalThreads}">0</p></div>
+        <div class="card"><h2>Reports ever</h2><p th:text="${totalReports}">0</p></div>
+    </div>
+
+    <h2>By language</h2>
+    <table class="thread-table" th:if="${!languages.isEmpty()}">
+        <thead><tr><th>Language</th><th>Posts</th><th>Published</th><th>Flagged</th><th>Publish rate</th></tr></thead>
+        <tbody>
+        <tr th:each="l : ${languages}">
+            <td th:text="${l.language}">lang</td>
+            <td th:text="${l.total}">0</td>
+            <td th:text="${l.published}">0</td>
+            <td th:text="${l.flagged}">0</td>
+            <td th:text="${l.publishRate} + '%'">0%</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Busiest boards</h2>
+    <table class="thread-table">
+        <thead><tr><th>Board</th><th>Active threads</th></tr></thead>
+        <tbody>
+        <tr th:each="b : ${topBoards}">
+            <td th:text="${b.name}">board</td>
+            <td th:text="${b.threads}">0</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

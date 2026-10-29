@@ -19,9 +19,17 @@ public class AnonymousSessionFilter extends OncePerRequestFilter {
     public static final String SESSION_HASH_ATTR = "scSessionHash";
 
     private final SessionHashService sessionHashService;
+<<<<<<< HEAD
 
     public AnonymousSessionFilter(SessionHashService sessionHashService) {
         this.sessionHashService = sessionHashService;
+=======
+    private final ActiveSessions activeSessions;
+
+    public AnonymousSessionFilter(SessionHashService sessionHashService, ActiveSessions activeSessions) {
+        this.sessionHashService = sessionHashService;
+        this.activeSessions = activeSessions;
+>>>>>>> d5851d3 (Initial commit)
     }
 
     @Override
@@ -38,6 +46,10 @@ public class AnonymousSessionFilter extends OncePerRequestFilter {
             response.addCookie(cookie);
         }
         request.setAttribute(SESSION_HASH_ATTR, sessionHashService.hashToken(token));
+<<<<<<< HEAD
+=======
+        activeSessions.touch((String) request.getAttribute(SESSION_HASH_ATTR));
+>>>>>>> d5851d3 (Initial commit)
         filterChain.doFilter(request, response);
     }
 

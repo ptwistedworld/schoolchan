@@ -91,6 +91,7 @@ sequenceDiagram
     end
     P->>D: Combine scores and reputation
     alt ESCALATE
+<<<<<<< HEAD
       D->>DB: HELD escalation queue
     else BLOCK
       D->>DB: BLOCKED delete media
@@ -103,6 +104,23 @@ sequenceDiagram
   end
 ```
 
+=======
+      D->>DB: Flagged, hidden, and added to the escalation queue
+    else Flagged (filter, report, or moderator)
+      D->>DB: PUBLISHED and flagged for the review queue
+    else Clean
+      D->>DB: PUBLISHED bump or archive if cap
+    end
+    W-->>U: Post page, with a note if it was flagged
+  end
+```
+
+> **Policy note (ADR-014).** The board never removes a post on its own. `BLOCK` and
+> `QUEUE_FOR_REVIEW` both mean "published and flagged" in normal use; only a person
+> removes a post, from the staff review queue. The one exception is the escalation
+> category, which is hidden and routed to the restricted escalation queue.
+
+>>>>>>> d5851d3 (Initial commit)
 ## 3. Thread lifecycle state machine
 
 ```mermaid

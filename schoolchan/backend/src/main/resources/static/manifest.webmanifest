@@ -1,0 +1,18 @@
+{
+  "name": "SchoolChan",
+  "short_name": "SchoolChan",
+  "description": "Anonymous school message board",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7f8fa",
+  "theme_color": "#1c6b4c",
+  "icons": [
+    {
+      "src": "/img/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

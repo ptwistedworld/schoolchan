@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<<<<<<< HEAD
     <title th:text="${pageTitle}">Catalog</title>
     <link rel="stylesheet" th:href="@{/css/board.css}"/>
 </head>
@@ -17,6 +18,75 @@
             <p th:text="${t.replyCount} + ' replies'">0 replies</p>
         </a>
     </div>
+=======
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title th:text="${pageTitle}">Catalog</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body th:attr="data-signed-in=${studentId != null or staffView}">
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<div th:replace="~{fragments/chrome :: staffribbon}"></div>
+<div th:replace="~{fragments/chrome :: studentribbon}"></div>
+<main>
+    <p class="hint"><a th:href="@{/boards/{slug}(slug=${board.slug})}">Back to list</a></p>
+    <h1 th:text="${board.name} + ' catalog'">Catalog</h1>
+
+    <div class="catalog-tools" th:with="suffix=${imagesOnly ? '&amp;images=1' : ''}">
+        <span class="hint">Sort:</span>
+        <a th:href="@{/boards/{slug}/catalog(slug=${board.slug}, sort='bump')} + ${suffix}"
+           th:classappend="${catalogSort == 'bump'} ? 'active'"
+           th:attr="aria-current=${catalogSort == 'bump' ? 'page' : null}">Bump</a>
+        <a th:href="@{/boards/{slug}/catalog(slug=${board.slug}, sort='newest')} + ${suffix}"
+           th:classappend="${catalogSort == 'newest'} ? 'active'"
+           th:attr="aria-current=${catalogSort == 'newest' ? 'page' : null}">Newest</a>
+        <a th:href="@{/boards/{slug}/catalog(slug=${board.slug}, sort='replies')} + ${suffix}"
+           th:classappend="${catalogSort == 'replies'} ? 'active'"
+           th:attr="aria-current=${catalogSort == 'replies' ? 'page' : null}">Most replies</a>
+        <a th:href="@{/boards/{slug}/catalog(slug=${board.slug}, sort='images')} + ${suffix}"
+           th:classappend="${catalogSort == 'images'} ? 'active'"
+           th:attr="aria-current=${catalogSort == 'images' ? 'page' : null}">Most images</a>
+        <span class="hint">&middot;</span>
+        <a th:if="${!imagesOnly}"
+           th:href="@{/boards/{slug}/catalog(slug=${board.slug}, sort=${catalogSort}, images='true')}">Has pictures</a>
+        <a th:if="${imagesOnly}"
+           th:href="@{/boards/{slug}/catalog(slug=${board.slug}, sort=${catalogSort})}">All threads</a>
+        <span class="hint"
+              th:text="${'· ' + #lists.size(threads) + (#lists.size(threads) == 1 ? ' thread' : ' threads')}">0 threads</span>
+    </div>
+
+    <th:block th:if="${studentId != null or staffView}">
+        <div th:replace="~{fragments/reader-tools :: panel}"></div>
+        <div th:replace="~{fragments/reader-tools :: hiddenBar}"></div>
+    </th:block>
+
+    <div class="catalog">
+        <a class="card catalog-card" th:each="t : ${threads}"
+           th:href="@{/boards/{slug}/threads/{id}(slug=${board.slug}, id=${t.id})}"
+           th:attr="data-thread=${t.id}, data-filter-text=${#strings.abbreviate((t.subject ?: '') + ' ' + ((firstPost != null and firstPost.get(t.id) != null and !firstPost.get(t.id).spoiler) ? firstPost.get(t.id).originalText : ''), 400)}">
+            <div class="thumb" th:if="${previewImage != null and previewImage.get(t.id) != null}">
+                <img th:if="${previewImage.get(t.id).quarantineStatus == 'RELEASED' and previewImage.get(t.id).contentType.startsWith('image/')}"
+                     th:src="@{/media/{name}(name=${previewImage.get(t.id).thumbnailName != null ? previewImage.get(t.id).thumbnailName : previewImage.get(t.id).storedName})}"
+                     th:attr="width=${previewImage.get(t.id).width}, height=${previewImage.get(t.id).height}"
+                     alt="attachment" loading="lazy" decoding="async"/>
+            </div>
+            <h2 th:text="${t.subject} ?: '(no subject)'">Subject</h2>
+            <p class="catalog-excerpt" th:if="${firstPost != null and firstPost.get(t.id) != null}"
+               th:text="${firstPost.get(t.id).spoiler ? 'Spoiler thread — open to read.' : #strings.abbreviate(firstPost.get(t.id).originalText, 180)}">excerpt</p>
+            <p th:text="${t.replyCount + ' replies · ' + t.imageCount + ' images'}">0 replies</p>
+            <p class="hint"><span class="time" th:attr="data-time=${t.bumpedAt.toEpochMilli()}" th:text="${#temporals.format(t.bumpedAt, 'MMM d, HH:mm')}" th:title="${#temporals.format(t.bumpedAt, 'MMM d, yyyy HH:mm')}">time</span></p>
+            <span th:if="${t.status.name() == 'SINKING'}" class="hint">sinking</span>
+            <span th:if="${t.pinned}" class="badge">pinned</span>
+        </a>
+    </div>
+
+    <div th:if="${#lists.isEmpty(threads)}" class="empty-state">
+        <h2 th:text="${imagesOnly} ? 'No threads with pictures' : 'No threads yet'">No threads</h2>
+        <p th:if="${imagesOnly}">No thread on this board has a picture yet.</p>
+        <p><a th:href="@{/boards/{slug}/catalog(slug=${board.slug})}">Show every thread</a></p>
+    </div>
+>>>>>>> d5851d3 (Initial commit)
 </main>
 <footer th:replace="~{fragments/chrome :: foot}"></footer>
 </body>

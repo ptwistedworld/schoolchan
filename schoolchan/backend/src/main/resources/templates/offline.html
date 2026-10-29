@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Offline — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<main>
+    <h1>You are offline</h1>
+    <p class="hint">The page you asked for is not cached on this device.
+        Anything you have already read should still be available.</p>
+    <p><a th:href="@{/}">Try the boards again</a></p>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

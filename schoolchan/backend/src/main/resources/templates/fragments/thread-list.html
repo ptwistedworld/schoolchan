@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="list(threads, firstPost, previewImage, board, postFormatter, bookmarked)">
+    <div th:each="t : ${threads}" class="post thread-card" th:id="'card-' + ${t.id}"
+         th:attr="data-thread=${t.id}, data-filter-text=${#strings.abbreviate((t.subject ?: '') + ' ' + ((firstPost != null and firstPost.get(t.id) != null and !firstPost.get(t.id).spoiler) ? firstPost.get(t.id).originalText : ''), 400)}">
+        <header>
+            <span th:text="'No.' + ${t.id.toString().substring(0,6)}">No.</span>
+            <a th:href="@{/boards/{slug}/threads/{id}(slug=${board.slug}, id=${t.id})}" th:text="${t.subject} ?: '(no subject)'">Thread</a>
+            <a class="preview-link hint" th:href="@{/boards/{slug}/threads/{id}(slug=${board.slug}, id=${t.id})}" th:attr="data-preview=${t.id}" title="Hover to preview">preview</a>
+            <span class="hint" th:if="${t.status.name() == 'SINKING'}"> · sinking</span>
+            <span class="hint" th:if="${t.pinned}"> · pinned</span>
+            <button type="button" class="bookmark-btn" th:attr="data-thread=${t.id}, data-subject=${t.subject} ?: '(no subject)', aria-pressed=${bookmarked != null and bookmarked.get(t.id)}" th:text="${bookmarked != null and bookmarked.get(t.id)} ? '★' : '☆'" aria-label="Bookmark thread">☆</button>
+            <button type="button" class="thread-hide" th:if="${studentId != null or staffView}" th:attr="data-hide-thread=${t.id}" title="Hide this thread (only for you)" aria-label="Hide this thread for you" hidden>&times;</button>
+        </header>
+        <div th:if="${firstPost != null and firstPost.get(t.id) != null}">
+            <!-- The thread picture. It may be on the opening post or on a
+                 reply; the small copy is used so a board page never has to
+                 download a full-size photo. -->
+            <img th:if="${previewImage != null and previewImage.get(t.id) != null}"
+                 th:src="@{/media/{name}(name=${previewImage.get(t.id).thumbnailName != null ? previewImage.get(t.id).thumbnailName : previewImage.get(t.id).storedName})}"
+                 th:attr="width=${previewImage.get(t.id).width}, height=${previewImage.get(t.id).height}"
+                 alt="attachment" class="thread-preview-image" loading="lazy" decoding="async"/>
+            <details th:if="${firstPost.get(t.id).spoiler}" class="spoiler-box">
+                <summary th:text="${firstPost.get(t.id).spoilerLabel} ?: 'Spoiler — click to reveal'">Spoiler</summary>
+                <p th:utext="${postFormatter.format(firstPost.get(t.id))}">body</p>
+            </details>
+            <p th:unless="${firstPost.get(t.id).spoiler}" th:utext="${postFormatter.format(firstPost.get(t.id))}">body</p>
+        </div>
+        <p class="hint"><span th:text="${t.replyCount} + ' replies · '">meta</span><span class="time" th:attr="data-time=${t.bumpedAt.toEpochMilli()}" th:text="${#temporals.format(t.bumpedAt, 'MMM d, HH:mm')}" th:title="${#temporals.format(t.bumpedAt, 'MMM d, yyyy HH:mm')}">time</span></p>
+    </div>
+</div>
+</body>
+</html>

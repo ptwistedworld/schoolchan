@@ -1,0 +1,24 @@
+# Policy presets: per-category thresholds (_default applies to unlisted categories) and the
+# severity -> action mapping. Integrators select a preset or override thresholds per request.
+policies:
+  strict:
+    _default: 0.35
+    identity_hate: 0.25
+    threat: 0.25
+    self_harm: 0.20
+  balanced:
+    _default: 0.50
+    identity_hate: 0.45
+    threat: 0.40
+    self_harm: 0.30
+  lenient:
+    _default: 0.70
+    identity_hate: 0.60
+    threat: 0.55
+    self_harm: 0.45
+
+severity_actions:
+  none: allow
+  low: flag
+  medium: flag
+  high: review     # escalates to "block" when overall_score >= 0.85 on a high-harm category

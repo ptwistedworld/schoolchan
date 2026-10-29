@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<<<<<<< HEAD
+=======
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+>>>>>>> d5851d3 (Initial commit)
     <title th:text="${pageTitle}">Thread</title>
     <link rel="stylesheet" th:href="@{/css/board.css}"/>
     <script th:src="@{/js/board.js}" defer></script>
 </head>
+<<<<<<< HEAD
 <body th:attr="data-board=${board.slug}">
 <header th:replace="~{fragments/chrome :: bar}"></header>
 <main>
@@ -66,3 +72,102 @@
 <footer th:replace="~{fragments/chrome :: foot}"></footer>
 </body>
 </html>
+=======
+<body th:attr="data-board=${board.slug}, data-thread-id=${threadId}, data-last-post-number=${lastPostNumber}, data-live-poll-seconds=${livePollSeconds}, data-live-poll-enabled=${livePollEnabled}">
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<div th:replace="~{fragments/chrome :: staffribbon}"></div>
+<div th:replace="~{fragments/chrome :: studentribbon}"></div>
+<main>
+    <p class="notice" th:if="${notice}" th:text="${notice}" role="status" aria-live="polite"></p>
+    <p class="banner" th:if="${bumpLimitReached}">This thread has reached its bump limit and no longer bumps.</p>
+
+    <nav class="thread-nav">
+        <a th:href="@{/boards/{slug}(slug=${board.slug})}" th:text="'← ' + ${board.name}">Board</a>
+        <span class="hint" th:text="${#lists.size(posts)} + ' posts'">0 posts</span>
+        <span class="badge warn" th:if="${unreadCount != null and unreadCount > 0}" th:text="${unreadCount} + ' new'">0 new</span>
+        <button type="button" class="bookmark-btn" th:attr="data-thread=${threadId}, data-subject=${threadSubject} ?: ${board.name}, aria-pressed=${threadBookmarked}" th:text="${threadBookmarked} ? '★' : '☆'" aria-label="Bookmark thread">☆</button>
+        <form th:if="${writesAllowed}" th:action="@{/threads/{id}/watch(id=${threadId})}" method="post" class="inline">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input type="hidden" name="redirect" th:value="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId})}"/>
+            <button type="submit" class="linkish" th:text="${watching} ? 'Unwatch' : 'Watch'">Watch</button>
+        </form>
+        <form th:if="${writesAllowed and isOp}" th:action="@{/threads/{id}/bump(id=${threadId})}" method="post" class="inline">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input type="hidden" name="redirect" th:value="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId})}"/>
+            <button type="submit" class="linkish">Bump (OP)</button>
+        </form>
+        <a class="hint" th:href="@{/boards/{slug}/threads/{tid}/gallery(slug=${board.slug}, tid=${threadId})}">Gallery</a>
+        <button type="button" id="revealAllSpoilers" class="linkish">Reveal all spoilers</button>
+        <button type="button" id="blurToggle" class="linkish" aria-pressed="false">Images: shown</button>
+        <button type="button" id="sizeToggle" class="linkish" aria-pressed="false">Expand images</button>
+        <a href="#reply-box" class="hint">Skip to reply</a>
+    </nav>
+
+    <h1 class="thread-title" th:text="${threadSubject} ?: '(no subject)'">Subject</h1>
+
+    <div class="sticky-op" th:if="${!posts.isEmpty()}" th:with="op=${posts.get(0)}">
+        <header>
+            <span class="op-tag">OP</span>
+            <a th:href="'#p' + ${op.boardPostNumber}" th:text="${threadSubject} ?: '(no subject)'">Thread</a>
+            <a class="hint" href="#reply-box">reply ↓</a>
+        </header>
+    </div>
+
+    <p class="omitted-replies" th:if="${omittedCount != null and omittedCount > 0}">
+        <span th:text="${omittedCount} + ' replies omitted to keep this page light.'">0 replies omitted.</span>
+        <a th:href="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId}, all=true)}">Show all</a>
+    </p>
+    <p class="omitted-replies" th:if="${showingAll}">
+        <span>Showing every reply.</span>
+        <a th:href="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId})}">Show fewer</a>
+    </p>
+
+    <div id="postList">
+    <th:block th:each="p, it : ${allPosts}">
+        <div th:replace="~{fragments/post :: post(${p}, ${it.index == 0})}"></div>
+    </th:block>
+    </div>
+
+    <div id="newPostsBar" class="new-posts-bar" hidden aria-live="polite">
+        <button type="button" id="showNewPosts" class="button">0 new posts — show</button>
+    </div>
+
+    <div id="reply-box" th:if="${writesAllowed}">
+        <form class="composer quick-reply" th:action="@{/boards/{slug}/threads/{tid}/reply(slug=${board.slug}, tid=${threadId})}" method="post" enctype="multipart/form-data">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input type="text" name="website" aria-hidden="true" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;"/>
+            <label>Reply
+                <textarea name="text" autocomplete="off" required rows="4" data-draft="reply" placeholder="Reply to this thread. Use &gt; for greentext and &gt;&gt;123 to quote."></textarea>
+            </label>
+            <div class="quote-toolbar">
+                <button type="button" class="linkish" data-insert="&gt;&gt;{n} " th:attr="data-number=${lastPostNumber}">quote last</button>
+                <button type="button" class="linkish" data-insert="&gt; ">greentext</button>
+            </div>
+            <label>Image or video <input name="file" type="file" accept="image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm"/></label>
+            <p class="hint" th:text="${imageCount} + ' / ' + ${imageLimit} + ' images used in this thread'">0 / 150 images</p>
+            <div class="actions">
+                <label class="check"><input type="checkbox" name="sage" value="true"/> Sage</label>
+                <label class="check"><input type="checkbox" name="spoiler" value="true"/> Spoiler</label>
+                <button type="submit" aria-label="Post reply">Post reply</button>
+            </div>
+        </form>
+    </div>
+    <div th:if="${staffView and staffNotes != null and !staffNotes.isEmpty()}" class="staff-notes">
+        <h2>Staff notes</h2>
+        <ul>
+            <li th:each="n : ${staffNotes}">
+                <span class="hint" th:text="${n.author} + ' · ' + ${#temporals.format(n.createdAt, 'MMM d, HH:mm')}">author</span>
+                <span th:text="${n.body}">note</span>
+            </li>
+        </ul>
+    </div>
+
+    <p th:unless="${writesAllowed}" class="hint">Replies are closed while the board is read-only or this thread is archived.</p>
+    <div class="mobile-reply-bar" th:if="${writesAllowed}">
+        <a href="#reply-box">↓ Reply to this thread</a>
+    </div>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>
+>>>>>>> d5851d3 (Initial commit)

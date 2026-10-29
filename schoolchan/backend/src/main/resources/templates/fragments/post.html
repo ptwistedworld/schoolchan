@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- One post in a thread. Kept in its own fragment so the live-poll endpoint
+     can render newly arrived posts with the exact same markup as the page. -->
+<article th:fragment="post(p, op)" th:id="'p' + ${p.boardPostNumber}" class="post"
+         th:classappend="${op} ? 'op-post' : (${p.status.name() != 'PUBLISHED'} ? 'tombstone-post' : '')">
+    <header>
+        <span class="op-tag" th:if="${op}">OP</span>
+        <span th:unless="${op}">Anonymous</span>
+        <a th:href="'#p' + ${p.boardPostNumber}" th:text="'No.' + ${p.boardPostNumber}">No.1</a>
+        <span class="time" th:attr="data-time=${p.createdAt.toEpochMilli()}"
+              th:text="${#temporals.format(p.createdAt, 'MMM d, HH:mm')}"
+              th:title="${#temporals.format(p.createdAt, 'MMM d, yyyy HH:mm')}">time</span>
+        <span class="hint" th:if="${p.sage}">sage</span>
+        <span class="you-tag" th:if="${myPostIds != null and myPostIds.contains(p.id)}" title="You wrote this post">You</span>
+        <span class="backlinks" th:if="${backlinks != null and backlinks.has(p.boardPostNumber)}" title="Replies that quoted this post">→
+            <th:block th:each="src, st : ${backlinks.backlinks(p.boardPostNumber)}"><a th:href="'#p' + ${src}" th:text="${src}">1</a><th:block th:unless="${st.last}">, </th:block></th:block>
+        </span>
+        <a class="permalink hint" th:href="@{/boards/{slug}/p/{n}(slug=${board.slug}, n=${p.boardPostNumber})}" title="Link to this post" aria-label="Link to this post">#</a>
+        <span class="badge warn" th:if="${p.flagged and staffView}">flagged</span>
+    </header>
+    <details th:if="${p.spoiler and p.status.name() == 'PUBLISHED'}" class="spoiler-box">
+        <summary th:text="${p.spoilerLabel} ?: 'Spoiler — click to reveal'">Spoiler</summary>
+        <div th:utext="${formatter.format(p)}">body</div>
+        <div th:replace="~{fragments/attachments :: attachments(${p})}"></div>
+    </details>
+    <div th:if="${!p.spoiler and p.status.name() == 'PUBLISHED'}" th:utext="${formatter.format(p)}">body</div>
+    <!-- th:replace runs before th:if, so the condition has to live on a wrapping block. -->
+    <th:block th:if="${!p.spoiler and p.status.name() == 'PUBLISHED'}">
+        <div th:replace="~{fragments/attachments :: attachments(${p})}"></div>
+    </th:block>
+    <p class="tombstone-note" th:if="${p.status.name() == 'HELD_FOR_REVIEW'}"
+       th:text="'This post is hidden while a staff member looks at it, because it may be a safety concern.'">hidden</p>
+    <p class="tombstone-note" th:if="${p.status.name() == 'BLOCKED' and !p.deletedByAuthor}"
+       th:text="'This post was removed by moderation.'">hidden</p>
+    <p class="tombstone-note" th:if="${p.deletedByAuthor}"
+       th:text="'This post was deleted by the person who wrote it.'">hidden</p>
+    <form th:if="${(p.status.name() == 'HELD_FOR_REVIEW' or p.status.name() == 'BLOCKED') and writesAllowed and myPostIds != null and myPostIds.contains(p.id) and !p.deletedByAuthor}" th:action="@{/posts/{id}/appeal(id=${p.id})}" method="post" class="appeal-form">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input type="hidden" name="redirect" th:value="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId})}"/>
+        <label>Ask a moderator to look again
+            <textarea name="reason" rows="3" maxlength="1000"
+                      placeholder="Why should a moderator look at this again? (optional)"></textarea>
+        </label>
+        <div class="actions">
+            <button type="submit">Send appeal</button>
+        </div>
+    </form>
+    <div class="actions">
+        <form th:if="${writesAllowed}" th:action="@{/posts/{id}/vote(id=${p.id})}" method="post" class="vote-form">
+            <input type="hidden" name="redirect" th:value="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId})}"/>
+            <button name="value" value="1" type="submit" class="vote-up" aria-label="Upvote">
+                <span class="vote-arrow">▲</span>
+            </button>
+            <span class="vote-score" th:text="${p.score}">0</span>
+            <button name="value" value="-1" type="submit" class="vote-down" aria-label="Downvote">
+                <span class="vote-arrow">▼</span>
+            </button>
+        </form>
+        <form th:if="${writesAllowed}" th:action="@{/posts/{id}/report(id=${p.id})}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input type="hidden" name="redirect" th:value="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId})}"/>
+            <select name="reason" aria-label="Report reason">
+                <option value="HARASSMENT">Harassment</option>
+                <option value="BULLYING">Bullying</option>
+                <option value="CHEATING">Cheating</option>
+                <option value="STAFF_HARASSMENT">Harassment of staff</option>
+                <option value="SPAM">Spam</option>
+                <option value="SCAM">Scam or phishing</option>
+                <option value="EXPLICIT">Explicit</option>
+                <option value="UNSAFE">Unsafe content</option>
+                <option value="PERSONAL_INFO">Personal information</option>
+                <option value="OTHER">Other</option>
+            </select>
+            <button type="submit">Report</button>
+        </form>
+        <button type="button" th:if="${p.translated}" th:attr="data-translate=${p.id}" class="translate-btn">EN</button>
+        <button type="button" th:if="${writesAllowed}" class="inline-reply-btn" th:attr="data-target='inline-' + ${p.boardPostNumber}" aria-label="Reply to this post">Reply</button>
+        <form th:if="${writesAllowed and deletablePostIds != null and deletablePostIds.contains(p.id)}" th:action="@{/posts/{id}/delete(id=${p.id})}" method="post" class="inline">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input type="hidden" name="redirect" th:value="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId})}"/>
+            <button type="submit" class="linkish">delete</button>
+        </form>
+        <span th:if="${staffView}" class="staff-inline">
+            <form th:action="@{/staff/posts/{id}/block(id=${p.id})}" method="post" class="inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="redirect" th:value="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId})}"/>
+                <button type="submit" class="linkish">block</button>
+            </form>
+            <form th:action="@{/staff/posts/{id}/publish(id=${p.id})}" method="post" class="inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="linkish">publish</button>
+            </form>
+            <form th:action="@{/staff/notes}" method="post" class="inline note-form">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="postId" th:value="${p.id}"/>
+                <input type="hidden" name="threadId" th:value="${threadId}"/>
+                <input type="hidden" name="redirect" th:value="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId})}"/>
+                <input type="text" name="body" placeholder="staff note" maxlength="2000"/>
+                <button type="submit" class="linkish">note</button>
+            </form>
+        </span>
+    </div>
+    <form th:if="${writesAllowed}" th:id="'inline-' + ${p.boardPostNumber}" class="inline-reply" hidden
+          th:action="@{/boards/{slug}/threads/{tid}/reply(slug=${board.slug}, tid=${threadId})}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input type="text" name="website" aria-hidden="true" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;"/>
+        <textarea name="text" autocomplete="off" required rows="3" th:attr="placeholder='&gt;&gt;' + ${p.boardPostNumber} + ' '"></textarea>
+        <div class="actions">
+            <button type="submit">Post</button>
+            <button type="button" class="linkish inline-reply-cancel">Cancel</button>
+        </div>
+    </form>
+    <div th:id="'tr-' + ${p.id}" hidden></div>
+</article>
+</body>
+</html>

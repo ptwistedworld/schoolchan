@@ -1,0 +1,14 @@
+# SchoolChan starter blacklist — Cebuano
+#
+# Format: PATTERN | MATCH_TYPE | CATEGORY | SEVERITY
+# STARTER entries only. Cebuano coverage is the weakest part of the pipeline
+# (see docs/DECISIONS.md ADR-002); the translation ensemble is the main
+# defence for Cebuano text. Review before use.
+TOKEN_BLOCK | CONTAINS | HARASSMENT | 0.95
+TOKEN_ESCALATE_THREAT | CONTAINS | THREAT | 0.88
+putangina | WORD | PROFANITY | 0.80
+gago | WORD | INSULT | 0.62
+bobo | WORD | INSULT | 0.60
+tangina | WORD | PROFANITY | 0.80
+kaayong dili | WORD | INSULT | 0.58
+bwa | WORD | INSULT | 0.55

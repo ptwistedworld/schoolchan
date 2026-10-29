@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Student accounts — SchoolChan staff</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Student accounts</h1>
+    <p class="notice" th:if="${tempPassword != null}">
+        Temporary password for <strong th:text="${tempPassword}">id / password</strong>.
+        Share it with the student - it is shown only once.
+    </p>
+    <p class="notice" th:if="${resetCode != null}">
+        One-time reset code for <strong th:text="${resetCode}">id / code</strong>.
+        The student enters it at <code>/student/reset</code>. It expires in 24 hours.
+    </p>
+    <p class="notice" th:if="${error != null}" th:text="${error}"></p>
+    <p class="hint">
+        Student accounts are an access gate only. Nothing here is ever attached to a post:
+        posts stay "Anonymous" and use the anonymous session hash.
+    </p>
+
+    <h2>Pending enrollment requests</h2>
+    <p class="hint" th:if="${#lists.isEmpty(requests)}">None waiting.</p>
+    <article th:each="r : ${requests}" class="post">
+        <header>
+            <span th:text="${r.studentId}">id</span>
+            <span th:text="${r.displayName} ?: '—'">name</span>
+            <span th:text="${r.gradeSection} ?: '—'">section</span>
+            <span class="hint" th:text="'requested by ' + ${r.requestedBy}">by</span>
+        </header>
+        <div class="actions">
+            <form th:action="@{/staff/students/requests/{id}/approve(id=${r.id})}" method="post" class="inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit">Approve and provision</button>
+            </form>
+            <form th:action="@{/staff/students/requests/{id}/reject(id=${r.id})}" method="post" class="inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="linkish">Reject</button>
+            </form>
+        </div>
+    </article>
+
+    <h2>Provision an account</h2>
+    <form th:action="@{/staff/students/provision}" method="post" class="composer">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label>Student ID number <input type="text" name="studentId" required placeholder="2024-12345"/></label>
+        <label>Name <input type="text" name="displayName" maxlength="100"/></label>
+        <label>Grade and section <input type="text" name="gradeSection" maxlength="64" placeholder="11 - Rizal"/></label>
+        <label>Temporary password <input type="text" name="password" placeholder="leave blank to generate"/></label>
+        <button type="submit">Provision</button>
+    </form>
+
+    <h2>Accounts (<span th:text="${#lists.size(accounts)}">0</span>)</h2>
+    <table class="thread-table">
+        <thead><tr><th>Student ID</th><th>Name</th><th>Section</th><th>Enabled</th><th>Provisioned by</th><th>Actions</th></tr></thead>
+        <tbody>
+        <tr th:each="a : ${accounts}">
+            <td th:text="${a.studentId}">id</td>
+            <td th:text="${a.displayName} ?: '—'">name</td>
+            <td th:text="${a.gradeSection} ?: '—'">section</td>
+            <td th:text="${a.enabled} ? 'yes' : 'no'">yes</td>
+            <td th:text="${a.provisionedBy} ?: '—'">by</td>
+            <td class="actions">
+                <form th:action="@{/staff/students/toggle}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input type="hidden" name="id" th:value="${a.id}"/>
+                    <button type="submit" class="linkish" th:text="${a.enabled} ? 'Disable' : 'Enable'">toggle</button>
+                </form>
+                <form th:action="@{/staff/students/reset-password}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input type="hidden" name="id" th:value="${a.id}"/>
+                    <button type="submit" class="linkish">Reset password</button>
+                </form>
+                <form th:action="@{/staff/students/reset-code}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input type="hidden" name="studentId" th:value="${a.studentId}"/>
+                    <button type="submit" class="linkish">Give a reset code</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

@@ -29,6 +29,12 @@ schoolchan:
   closed-mode: READ_ONLY
   metadata-key: ${SCHOOLCHAN_METADATA_KEY:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=}
   metadata-retention-days: 90
+<<<<<<< HEAD
+=======
+  # How long the moderation log is kept. Every post leaves a row behind, so
+  # this is the fastest growing table on a busy board.
+  moderation-result-retention-days: 180
+>>>>>>> d5851d3 (Initial commit)
   admin-username: ${SCHOOLCHAN_ADMIN_USERNAME:admin}
   admin-password: ${SCHOOLCHAN_ADMIN_PASSWORD:change-me-now}
   ml:
@@ -41,14 +47,42 @@ schoolchan:
     queue-threshold: 0.55
     escalation-threshold: 0.85
     reputation-boost-cap: 0.15
+<<<<<<< HEAD
     fail-on-ml-unavailable: QUEUE
+=======
+    # The board never removes a post on its own. A post that breaks the rules is
+    # published and flagged, and a person decides in the review queue.
+    auto-block-enabled: false
+    # The one exception: a post that reads as a genuine safety risk is hidden
+    # from the public board and routed to the restricted escalation queue.
+    hide-escalations: true
+>>>>>>> d5851d3 (Initial commit)
   board-defaults:
     active-thread-cap: 50
     bump-limit: 300
     image-limit: 150
+<<<<<<< HEAD
+=======
+  threads:
+    # A long thread renders the opening post plus this many recent replies; the
+    # rest are one click away ("N replies omitted - show all").
+    reply-preview-limit: 60
+>>>>>>> d5851d3 (Initial commit)
   media:
     root: ./data/media
     max-image-bytes: 5242880
     max-video-bytes: 20971520
   rate-limit:
     posts-per-minute: 10
+<<<<<<< HEAD
+=======
+  students:
+    # Gate: only provisioned students and staff can act on the board. Posts stay
+    # "Anonymous" either way - the account is never attached to a post.
+    login-required: true
+    show-login-link: true
+    # Also stop signed-out visitors from reading (off = they may browse).
+    block-reading: false
+    max-failed-attempts: 5
+    lockout-minutes: 10
+>>>>>>> d5851d3 (Initial commit)

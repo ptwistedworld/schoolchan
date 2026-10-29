@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Appeals — SchoolChan staff</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Appeals</h1>
+    <p class="hint">A student asked for a removed post to be looked at again. The request
+        carries no identity, only the post it belongs to.</p>
+    <p class="hint" th:if="${#lists.isEmpty(appeals)}">Nothing waiting.</p>
+    <article th:each="a : ${appeals}" class="post">
+        <header>
+            <span th:text="'Post ' + ${a.postId}">post</span>
+            <span th:text="${#temporals.format(a.createdAt, 'MMM d, HH:mm')}">when</span>
+        </header>
+        <p th:text="${a.reason} ?: '(no reason given)'">reason</p>
+        <div class="actions">
+            <form th:action="@{/staff/appeals/{id}(id=${a.id})}" method="post" class="inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="postId" th:value="${a.postId}"/>
+                <input type="hidden" name="approved" value="true"/>
+                <button type="submit">Approve and publish</button>
+            </form>
+            <form th:action="@{/staff/appeals/{id}(id=${a.id})}" method="post" class="inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <input type="hidden" name="approved" value="false"/>
+                <button type="submit" class="linkish">Decline</button>
+            </form>
+        </div>
+    </article>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

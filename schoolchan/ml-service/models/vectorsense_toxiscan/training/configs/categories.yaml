@@ -1,0 +1,20 @@
+# ToxiScan label set. `severity_weight` nudges how strongly a category escalates severity.
+categories:
+  insult:        { severity_weight: 0.6 }
+  threat:        { severity_weight: 1.0 }
+  identity_hate: { severity_weight: 1.0 }
+  sexual:        { severity_weight: 0.9 }
+  self_harm:     { severity_weight: 1.0 }
+  harassment:    { severity_weight: 0.7 }
+  profanity:     { severity_weight: 0.4 }
+  spam:          { severity_weight: 0.3 }
+
+# Protected-group types surfaced in the `targets[]` field.
+target_types:
+  - origin/nationality
+  - origin/ethnicity
+  - religion
+  - gender
+  - sexual_orientation
+  - disability
+  - age

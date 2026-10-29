@@ -3,11 +3,24 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<<<<<<< HEAD
     <title>SchoolChan</title>
     <link rel="stylesheet" th:href="@{/css/board.css}"/>
 </head>
 <body>
 <header th:replace="~{fragments/chrome :: bar}"></header>
+=======
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<div th:replace="~{fragments/chrome :: staffribbon}"></div>
+<div th:replace="~{fragments/chrome :: studentribbon}"></div>
+>>>>>>> d5851d3 (Initial commit)
 <main>
     <p class="banner" th:if="${accessState.name() != 'OPEN'}">
         The board is <span th:text="${accessState.name() == 'READ_ONLY'} ? 'read-only' : 'closed'">closed</span>
@@ -15,10 +28,18 @@
     </p>
     <h1>Boards</h1>
     <p class="hint">Anonymous posts for St. Joseph's Academy of Las Piñas, Senior High School. No accounts.</p>
+<<<<<<< HEAD
+=======
+    <p class="hint" th:if="${activeNow != null and activeNow > 0}" th:text="${activeNow} + ' here right now'">0 here right now</p>
+>>>>>>> d5851d3 (Initial commit)
     <div class="board-grid">
         <a class="card" th:each="b : ${boards}" th:href="@{/boards/{slug}(slug=${b.slug})}">
             <h2 th:text="${b.name}">General</h2>
             <p th:text="${b.description}">description</p>
+<<<<<<< HEAD
+=======
+            <p class="hint" th:text="${threadCounts.get(b.id)} + ' active threads'">0 threads</p>
+>>>>>>> d5851d3 (Initial commit)
         </a>
     </div>
     <blockquote class="quote-banner" th:if="${quote}">

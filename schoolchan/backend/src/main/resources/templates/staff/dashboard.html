@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<<<<<<< HEAD
     <title>Dashboard — SchoolChan</title>
     <link rel="stylesheet" th:href="@{/css/board.css}"/>
+=======
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Dashboard — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+>>>>>>> d5851d3 (Initial commit)
 </head>
 <body>
 <header th:replace="~{fragments/chrome :: staffbar}"></header>
 <main>
     <h1>Staff dashboard</h1>
+<<<<<<< HEAD
     <div class="board-grid">
         <a class="card" th:href="@{/staff/review}"><h2>Review</h2><p th:text="${heldCount} + ' held posts'">0</p></a>
         <a class="card" th:href="@{/staff/escalations}"><h2>Escalations</h2><p th:text="${escalationCount} + ' new'">0</p></a>
@@ -18,3 +27,133 @@
 </main>
 </body>
 </html>
+=======
+
+    <div class="notice warn-text" th:if="${sidecarReachable != null and !sidecarReachable}">
+        The moderation service is <strong>not reachable</strong>. Until it comes back, every
+        new post waits for a person to look at it, because the board cannot check anything
+        automatically. That is a service problem, not a judgement about what people wrote.
+    </div>
+    <p class="hint" th:if="${degradedCount != null and degradedCount > 0 and sidecarReachable}">
+        <span th:text="${degradedCount}">0</span> posts were published while the moderation
+        service was down, so they were not checked by the language model.
+    </p>
+    <div class="board-grid">
+        <a class="card" th:href="@{/staff/review}"><h2>Review</h2><p th:text="${flaggedCount} + ' flagged, ' + ${heldCount} + ' hidden'">0</p></a>
+        <a class="card" th:href="@{/staff/reports}"><h2>Reports</h2><p th:text="${reportCount} + ' open'">0</p></a>
+        <a class="card" th:href="@{/staff/escalations}"><h2>Escalations</h2><p th:text="${escalationCount} + ' new'">0</p></a>
+        <a class="card" th:href="@{/staff/threads}"><h2>Threads</h2><p>Pin, lock, archive</p></a>
+        <a class="card" th:href="@{/staff/audit}"><h2>Audit</h2><p>Every staff action</p></a>
+        <a class="card" th:href="@{/staff/settings}"><h2>Settings</h2><p>Hours, limits, rules</p></a>
+    </div>
+
+    <h2>Open it on a phone</h2>
+    <p class="hint" th:if="${lanUrl != null}">
+        On the same Wi-Fi, open <strong th:text="${lanUrl}">http://</strong> on your phone.
+        The board is designed for small screens: the composer stays in the page and
+        a short "reply" bar jumps to it, so it never covers what you are reading.
+    </p>
+    <p class="hint" th:if="${lanUrl == null}">
+        No network address was found. Check that the app is bound to all interfaces
+        and that the phone is on the same network.
+    </p>
+
+    <h2>Content</h2>
+    <p class="hint">
+        <span th:text="${publishedCount} + ' published'">0 published</span> ·
+        <span th:text="${flaggedCount} + ' flagged for review'">0 flagged</span> ·
+        <span th:text="${heldCount} + ' hidden for safety'">0 held</span> ·
+        <span th:text="${blockedCount} + ' removed by staff'">0 blocked</span>
+    </p>
+    <p class="hint">
+        Nothing is removed by the filter. A post that breaks a rule is published and
+        flagged, and a person decides whether it stays.
+    </p>
+
+    <h2>Moderation decisions</h2>
+    <table class="thread-table" th:if="${!decisions.isEmpty()}">
+        <thead><tr><th>Decision</th><th>Count</th></tr></thead>
+        <tbody>
+        <tr th:each="d : ${decisions}">
+            <td th:text="${d.decision}">decision</td>
+            <td th:text="${d.count}">0</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="hint" th:if="${decisions.isEmpty()}">No moderation results recorded yet.</p>
+
+    <h2>Pipeline latency (per stage)</h2>
+    <table class="thread-table" th:if="${!latency.isEmpty()}">
+        <thead><tr><th>Stage</th><th>Samples</th><th>Mean</th><th>p95</th><th>Max</th></tr></thead>
+        <tbody>
+        <tr th:each="l : ${latency}">
+            <td th:text="${l.stage}">stage</td>
+            <td th:text="${l.count}">0</td>
+            <td th:text="${l.mean} + ' ms'">0 ms</td>
+            <td th:text="${l.p95} + ' ms'">0 ms</td>
+            <td th:text="${l.max} + ' ms'">0 ms</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="hint" th:if="${latency.isEmpty()}">No latency samples yet.</p>
+
+    <h2>Posts by detected language</h2>
+    <table class="thread-table" th:if="${!languages.isEmpty()}">
+        <thead><tr><th>Language</th><th>Posts</th><th>Published</th><th>Flagged</th><th>Publish rate</th></tr></thead>
+        <tbody>
+        <tr th:each="l : ${languages}">
+            <td th:text="${l.language}">lang</td>
+            <td th:text="${l.total}">0</td>
+            <td th:text="${l.published}">0</td>
+            <td th:text="${l.flagged}">0</td>
+            <td th:text="${l.publishRate} + '%'">0%</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="hint" th:if="${languages.isEmpty()}">No language data yet.</p>
+
+    <h2>Moderation confidence by language</h2>
+    <p class="hint">How often each language passed, and how often the model was
+        unavailable. Low publish rates usually mean the model is unsure, not that
+        the students are misbehaving.</p>
+    <table class="thread-table" th:if="${!confidence.isEmpty()}">
+        <thead><tr><th>Language</th><th>Screened</th><th>Published</th><th>Flagged</th><th>Publish rate</th><th>Degraded runs</th></tr></thead>
+        <tbody>
+        <tr th:each="c : ${confidence}">
+            <td th:text="${c.language}">lang</td>
+            <td th:text="${c.screened}">0</td>
+            <td th:text="${c.published}">0</td>
+            <td th:text="${c.held}">0</td>
+            <td th:text="${c.publishRate} + '%'">0%</td>
+            <td th:text="${c.degraded}">0</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="hint" th:if="${confidence.isEmpty()}">No moderation results yet.</p>
+
+    <h2>Anonymous reporter tiers</h2>
+    <p class="hint">A tier is a trust score for an anonymous session. It never
+        identifies anyone, and the weight it adds is capped.</p>
+    <table class="thread-table" th:if="${!tiers.isEmpty()}">
+        <thead><tr><th>Tier</th><th>Score</th></tr></thead>
+        <tbody>
+        <tr th:each="t : ${tiers}">
+            <td th:text="${t.tier}">tier</td>
+            <td th:text="${t.score}">0.0</td>
+        </tr>
+        </tbody>
+    </table>
+    <p class="hint" th:if="${tiers.isEmpty()}">No reporter tiers yet.</p>
+
+    <h2>Reporter reputation (anonymised)</h2>
+    <p class="hint" th:if="${reputation != null}">
+        <span th:text="${reputation.sessions} + ' tracked sessions'">0</span> ·
+        mean reliability <span th:text="${reputation.mean}">0</span> ·
+        range <span th:text="${reputation.min}">0</span>–<span th:text="${reputation.max}">0</span> ·
+        <span th:text="${reputation.strikes} + ' with a strike'">0 strikes</span>
+    </p>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>
+>>>>>>> d5851d3 (Initial commit)

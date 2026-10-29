@@ -1,15 +1,28 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
+=======
+﻿<!DOCTYPE html>
+>>>>>>> d5851d3 (Initial commit)
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<<<<<<< HEAD
     <title>Review — SchoolChan</title>
     <link rel="stylesheet" th:href="@{/css/board.css}"/>
+=======
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Review â€” SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+>>>>>>> d5851d3 (Initial commit)
 </head>
 <body>
 <header th:replace="~{fragments/chrome :: staffbar}"></header>
 <main>
     <h1>Review queue</h1>
+<<<<<<< HEAD
     <p class="hint" th:if="${#lists.isEmpty(posts)}">Nothing is waiting.</p>
     <article th:each="p : ${posts}" class="post">
         <header><span th:text="'No.' + ${p.boardPostNumber}">No.</span></header>
@@ -28,5 +41,169 @@
         </div>
     </article>
 </main>
+=======
+    <p class="hint">
+        <span th:if="${reportCount > 0}" th:text="${reportCount} + ' open report(s)'">0 reports</span>
+        Â· <a th:href="@{/staff/reports}">All reports</a>
+    </p>
+    <form class="actions" method="get" action="/staff/review">
+        <label class="check">
+            <input type="radio" name="view" value="queue" th:checked="${view != 'all'}"/> Queue only
+        </label>
+        <label class="check">
+            <input type="radio" name="view" value="all" th:checked="${view == 'all'}"/> Every screened post
+        </label>
+        <label class="check">
+            <input type="radio" name="filter" value="all" th:checked="${filter == 'all'}"/> All
+        </label>
+        <label class="check">
+            <input type="radio" name="filter" value="held" th:checked="${filter == 'held'}"/> Hidden only
+        </label>
+        <label class="check">
+            <input type="radio" name="filter" value="flagged" th:checked="${filter == 'flagged'}"/> Flagged only
+        </label>
+        <label class="check">
+            <input type="radio" name="filter" value="reported" th:checked="${filter == 'reported'}"/> Reported only
+        </label>
+        <label class="check">Reason
+            <select name="reason">
+                <option value="">any</option>
+                <option value="HARASSMENT" th:selected="${reason == 'HARASSMENT'}">Harassment</option>
+                <option value="SPAM" th:selected="${reason == 'SPAM'}">Spam</option>
+                <option value="EXPLICIT" th:selected="${reason == 'EXPLICIT'}">Explicit</option>
+                <option value="OTHER" th:selected="${reason == 'OTHER'}">Other</option>
+            </select>
+        </label>
+        <button type="submit">Filter</button>
+    </form>
+    <p class="hint">
+        "Queue only" is the work waiting for a person. "Every screened post" is the full
+        log, including posts the filter let through but had something to say about.
+    </p>
+    <p class="hint" th:if="${#lists.isEmpty(posts)}">Nothing is waiting.</p>
+    <form th:if="${!#lists.isEmpty(posts)}" th:action="@{/staff/review/bulk-publish}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <div class="actions">
+            <button type="submit" formaction="/staff/review/bulk-publish">Publish selected</button>
+            <button type="submit" formaction="/staff/review/bulk-block">Block selected</button>
+        </div>
+        <article th:each="p : ${posts}" class="post review-item">
+            <header>
+                <label class="check"><input type="checkbox" name="postIds" th:value="${p.id}"/> select</label>
+                <span th:text="'No.' + ${p.boardPostNumber}">No.</span>
+                <span class="badge" th:if="${p.status.name() == 'HELD_FOR_REVIEW'}">hidden - safety</span>
+                <span class="badge" th:if="${p.flagged}">flagged</span>
+                <span class="badge" th:if="${p.flagSource != null}"
+                      th:text="${flagSources != null ? flagSources.getOrDefault(p.flagSource, p.flagSource) : p.flagSource}">source</span>
+                <span class="badge" th:if="${p.status.name() == 'PUBLISHED'}">published</span>
+                <span class="badge warn" th:if="${p.status.name() == 'BLOCKED'}">removed</span>
+                <span class="badge warn" th:if="${p.deletedByAuthor}">deleted by author</span>
+                <span class="badge warn" th:if="${reportsByPost.get(p.id) != null}"
+                      th:text="${#lists.size(reportsByPost.get(p.id))} + ' report(s)'">0 reports</span>
+                <span class="age" th:if="${ages != null and ages.get(p.id) != null}"
+                      th:classappend="${ages.get(p.id).get('class')}"
+                      th:text="'â± ' + ${ages.get(p.id).get('label')}">age</span>
+            </header>
+
+            <!-- Where this post came from, so a moderator has the context. -->
+            <p class="hint review-context" th:if="${contextByPost != null and contextByPost.get(p.id) != null}"
+               th:with="ctx=${contextByPost.get(p.id)}">
+                <span th:text="${ctx.get('board')} + ' / ' + ${ctx.get('subject')}">board / subject</span>
+                &middot;
+                <a th:href="@{/boards/{slug}/threads/{tid}(slug=${ctx.get('boardSlug')}, tid=${ctx.get('threadId')})} + '#p' + ${ctx.get('postNumber')}"
+                   target="_blank" rel="noopener">open in the thread</a>
+                &middot;
+                <span th:text="${#temporals.format(p.createdAt, 'MMM d, HH:mm')}">when</span>
+            </p>
+
+            <!-- The post as it was written. This is the whole point of the
+                 queue: staff must be able to read exactly what they are
+                 judging. -->
+            <div class="review-body">
+                <h3>Post text</h3>
+                <pre class="review-text" th:if="${p.originalText != null and !p.originalText.isBlank()}"
+                     th:text="${p.originalText}">the post</pre>
+                <p class="hint warn-text" th:if="${p.originalText == null or p.originalText.isBlank()}">
+                    This post has no text. It was posted with an empty message.
+                    There is nothing written to judge - only the attachments below.
+                </p>
+                <div th:if="${p.translatedText != null and !p.translatedText.isBlank()}">
+                    <h3>English translation</h3>
+                    <pre class="review-text translated" th:text="${p.translatedText}">translation</pre>
+                    <p class="hint" th:if="${p.detectedLanguage != null}"
+                       th:text="'Detected language: ' + ${p.detectedLanguage}">lang</p>
+                </div>
+                <div th:if="${contextByPost != null and contextByPost.get(p.id) != null
+                              and !#lists.isEmpty(contextByPost.get(p.id).get('media'))}">
+                    <h3>Attachments</h3>
+                    <div class="review-media">
+                        <details th:each="m : ${contextByPost.get(p.id).get('media')}" class="review-attachment">
+                            <summary th:text="${m.originalFilename != null ? m.originalFilename : m.storedName}">file</summary>
+                            <img th:if="${m.contentType != null and m.contentType.startsWith('image/')}"
+                                  th:src="@{/staff/media/{name}(name=${m.storedName})}" alt="attachment" class="post-image"
+                                  th:attr="width=${m.width}, height=${m.height}"/>
+                            <video th:if="${m.contentType != null and m.contentType.startsWith('video/')}"
+                                   th:src="@{/staff/media/{name}(name=${m.storedName})}" controls></video>
+                            <p class="hint" th:text="'Status: ' + ${m.quarantineStatus}">status</p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <p class="hint" th:if="${results.get(p.id) != null}"
+               th:text="${decisionLabels != null ? decisionLabels.getOrDefault(results.get(p.id).decision, results.get(p.id).decision) : results.get(p.id).decision}
+                        + ' Â· ' + ${results.get(p.id).reasons}">decision</p>
+            <p class="hint warn-text" th:if="${p.flagReason != null}"
+               th:text="'Flagged: ' + ${p.flagReason}">flag</p>
+            <p class="hint warn-text" th:if="${results.get(p.id) != null and results.get(p.id).mlUnavailable}">
+                The moderation service could not be reached for this one, so the language
+                model did not check it. That is a service problem, not a judgement about
+                the post.
+            </p>
+            <details class="explain" th:if="${stageDetails.get(p.id) != null and !stageDetails.get(p.id).isEmpty()}">
+                <summary>Why this was flagged (per-stage scores &amp; latency)</summary>
+                <table class="thread-table">
+                    <thead><tr><th>Stage</th><th>Score</th><th>Latency</th><th>Evidence</th></tr></thead>
+                    <tbody>
+                    <tr th:each="s : ${stageDetails.get(p.id)}">
+                        <td th:text="${s.stage}">stage</td>
+                        <td th:text="${#numbers.formatDecimal(s.score, 1, 2)}">0.00</td>
+                        <td th:text="${s.latencyMs} + ' ms'">0 ms</td>
+                        <td th:text="${s.reasons}">evidence</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p class="hint" th:if="${results.get(p.id) != null}"
+                   th:text="'Total: ' + ${results.get(p.id).totalLatencyMs} + ' ms' + (${results.get(p.id).mlUnavailable} ? ' Â· ML stage unavailable (degraded mode)' : '')">total</p>
+            </details>
+            <ul class="hint" th:if="${reportsByPost.get(p.id) != null}">
+                <li th:each="r : ${reportsByPost.get(p.id)}"
+                    th:text="${r.reason} + ' â€” ' + ${#temporals.format(r.createdAt, 'MMM d, HH:mm')}">reason</li>
+            </ul>
+            <div class="actions">
+                <form th:action="@{/staff/posts/{id}/publish(id=${p.id})}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button type="submit" th:text="${p.status.name() == 'PUBLISHED'} ? 'Leave it up' : 'Publish'">Publish</button>
+                </form>
+                <form th:action="@{/staff/posts/{id}/flag(id=${p.id})}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input type="text" name="reason" placeholder="Why is this a problem?" maxlength="400" style="width:14rem"/>
+                    <button type="submit" class="linkish">Flag</button>
+                </form>
+                <form th:action="@{/staff/posts/{id}/block(id=${p.id})}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button type="submit">Remove it</button>
+                </form>
+                <form th:each="r : ${reportsByPost.get(p.id)}"
+                      th:action="@{/staff/reports/{id}/reject(id=${r.id})}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button type="submit" class="linkish">Reject report</button>
+                </form>
+            </div>
+        </article>
+    </form>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+>>>>>>> d5851d3 (Initial commit)
 </body>
 </html>

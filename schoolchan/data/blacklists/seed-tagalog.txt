@@ -1,0 +1,19 @@
+# SchoolChan starter blacklist — Filipino / Tagalog
+#
+# Format: PATTERN | MATCH_TYPE | CATEGORY | SEVERITY
+# These are STARTER entries for a school board. They are deliberately mild and
+# limited to commonly used Filipino profanity and harassment phrases. Review
+# this file before use and extend it with the school's own guidance.
+#
+# The normaliser also folds: leetspeak, spaced letters ("p u t a n g i n a"),
+# repeated letters, accents, and Cyrillic/Greek look-alike characters.
+# So "p.u.t.ang ina" and "putaaaangina" are caught too.
+TOKEN_BLOCK | CONTAINS | HARASSMENT | 0.95
+TOKEN_ESCALATE_THREAT | CONTAINS | THREAT | 0.88
+putangina | WORD | PROFANITY | 0.80
+gago | WORD | INSULT | 0.62
+bobo | WORD | INSULT | 0.60
+tangina | WORD | PROFANITY | 0.80
+ulol | WORD | INSULT | 0.58
+bwety | WORD | INSULT | 0.58
+pfft | WORD | PROFANITY | 0.60

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"/><title>Error</title><link rel="stylesheet" th:href="@{/css/board.css}"/></head>
 <body>
@@ -7,5 +8,31 @@
     <p th:text="${message}">An error occurred.</p>
     <a th:href="@{/}">Home</a>
 </main>
+=======
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Something went wrong — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<main>
+    <h1>Something went wrong</h1>
+    <p class="notice error" role="alert"
+       th:text="${message} ?: 'An error occurred.'">An error occurred.</p>
+    <p class="hint">Nothing you posted was lost. If you were signing in, your session is fine;
+        just open a page again.</p>
+    <p class="actions">
+        <a th:href="@{/}" class="button">Go to the boards</a>
+        <a th:href="@{/rules}">Read the rules</a>
+        <a th:href="@{/student/login}">Student sign in</a>
+    </p>
+</main>
+<footer class="site-footer">
+    <small>Anonymous campus board. Every post is published. Staff never appear by name.</small>
+</footer>
+>>>>>>> d5851d3 (Initial commit)
 </body>
 </html>

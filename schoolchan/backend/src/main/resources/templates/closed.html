@@ -3,11 +3,23 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<<<<<<< HEAD
     <title>Closed — SchoolChan</title>
     <link rel="stylesheet" th:href="@{/css/board.css}"/>
 </head>
 <body>
 <header th:replace="~{fragments/chrome :: bar}"></header>
+=======
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Closed — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<div th:replace="~{fragments/chrome :: staffribbon}"></div>
+>>>>>>> d5851d3 (Initial commit)
 <main class="closed-page">
     <h1>Outside campus hours</h1>
     <p th:if="${accessState.name() == 'READ_ONLY'}">You can read threads. New posts, votes, and reports wait until the next access window.</p>

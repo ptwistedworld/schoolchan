@@ -72,6 +72,38 @@ class BoardServiceTest {
 
     @Test
     @Transactional
+<<<<<<< HEAD
+=======
+    void bumpLimit_movesThreadToSinking() {
+        Board board = boardRepository.findBySlug("general").orElseThrow();
+        board.setBumpLimit(1);
+        boardRepository.save(board);
+
+        Post op = boardService.createThread("general", "sink test", "hello", false, false, "s1", "127.0.0.1");
+        boardService.reply("general", op.getThreadId(), "reply1", false, false, "s2", "127.0.0.1");
+        ThreadEntity thread = threadRepository.findById(op.getThreadId()).orElseThrow();
+        assertEquals(ThreadStatus.SINKING, thread.getStatus());
+    }
+
+    @Test
+    @Transactional
+    void archivedThread_rejectsReply() {
+        Board board = boardRepository.findBySlug("general").orElseThrow();
+        board.setActiveThreadCap(1);
+        boardRepository.save(board);
+
+        Post first = boardService.createThread("general", "t1", "one", false, false, "a1", "127.0.0.1");
+        boardService.createThread("general", "t2", "two", false, false, "a2", "127.0.0.1");
+        ThreadEntity archived = threadRepository.findById(first.getThreadId()).orElseThrow();
+        assertEquals(ThreadStatus.ARCHIVED, archived.getStatus());
+
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalStateException.class, () ->
+                boardService.reply("general", first.getThreadId(), "late", false, false, "a3", "127.0.0.1"));
+    }
+
+    @Test
+    @Transactional
+>>>>>>> d5851d3 (Initial commit)
     void vote_deduplicatesBySessionHash() {
         Post post = boardService.createThread("general", "vote", "body", false, false, "voter", "127.0.0.1");
 

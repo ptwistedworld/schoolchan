@@ -1,0 +1,8 @@
+# SchoolChan starter blacklist — English
+# Format: PATTERN | MATCH_TYPE | CATEGORY | SEVERITY
+# WORD matching is word-boundary safe (avoids the Scunthorpe problem).
+# Severity: 0.0 - 1.0. >= 0.90 auto-blocks, >= 0.55 goes to human review.
+#
+# These are STARTER entries. Review and extend before a real deployment.
+TOKEN_BLOCK | CONTAINS | HARASSMENT | 0.95
+TOKEN_ESCALATE_THREAT | CONTAINS | THREAT | 0.88

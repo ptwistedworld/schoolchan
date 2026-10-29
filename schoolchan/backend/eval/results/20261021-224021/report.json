@@ -1,0 +1,124 @@
+{
+  "rows" : 312,
+  "baseline" : {
+    "tp" : 80,
+    "tn" : 188,
+    "fp" : 4,
+    "fn" : 40,
+    "precision" : 0.9523809523809523,
+    "recall" : 0.6666666666666666,
+    "f1" : 0.7843137254901961,
+    "accuracy" : 0.8589743589743589
+  },
+  "hybrid" : {
+    "tp" : 116,
+    "tn" : 160,
+    "fp" : 32,
+    "fn" : 4,
+    "precision" : 0.7837837837837838,
+    "recall" : 0.9666666666666667,
+    "f1" : 0.8656716417910447,
+    "accuracy" : 0.8846153846153846
+  },
+  "mcnemar_b" : 64,
+  "mcnemar_c" : 0,
+  "mcnemar_chi_square" : 62.015625,
+  "mcnemar_p_value" : 1.0842021724855044E-19,
+  "fixture_latency_ms" : 754,
+  "latency" : {
+    "total" : {
+      "n" : 312,
+      "mean_ms" : 2.42,
+      "median_ms" : 2,
+      "p95_ms" : 5,
+      "max_ms" : 29
+    },
+    "stages" : [ {
+      "stage" : "keyword",
+      "n" : 312,
+      "mean_ms" : 2.39,
+      "median_ms" : 2,
+      "p95_ms" : 4,
+      "max_ms" : 29
+    }, {
+      "stage" : "ml-text",
+      "n" : 312,
+      "mean_ms" : 31.12,
+      "median_ms" : 25,
+      "p95_ms" : 38,
+      "max_ms" : 2558
+    } ]
+  },
+  "by_language" : {
+    "rows" : [ {
+      "language" : "en",
+      "n" : 128,
+      "baseline" : {
+        "tp" : 32,
+        "tn" : 80,
+        "fp" : 0,
+        "fn" : 16,
+        "precision" : 1.0,
+        "recall" : 0.6666666666666666,
+        "f1" : 0.8,
+        "accuracy" : 0.875
+      },
+      "hybrid" : {
+        "tp" : 48,
+        "tn" : 68,
+        "fp" : 12,
+        "fn" : 0,
+        "precision" : 0.8,
+        "recall" : 1.0,
+        "f1" : 0.888888888888889,
+        "accuracy" : 0.90625
+      }
+    }, {
+      "language" : "ceb",
+      "n" : 92,
+      "baseline" : {
+        "tp" : 24,
+        "tn" : 56,
+        "fp" : 0,
+        "fn" : 12,
+        "precision" : 1.0,
+        "recall" : 0.6666666666666666,
+        "f1" : 0.8,
+        "accuracy" : 0.8695652173913043
+      },
+      "hybrid" : {
+        "tp" : 36,
+        "tn" : 52,
+        "fp" : 4,
+        "fn" : 0,
+        "precision" : 0.9,
+        "recall" : 1.0,
+        "f1" : 0.9473684210526316,
+        "accuracy" : 0.9565217391304348
+      }
+    }, {
+      "language" : "tl",
+      "n" : 92,
+      "baseline" : {
+        "tp" : 24,
+        "tn" : 52,
+        "fp" : 4,
+        "fn" : 12,
+        "precision" : 0.8571428571428571,
+        "recall" : 0.6666666666666666,
+        "f1" : 0.75,
+        "accuracy" : 0.8260869565217391
+      },
+      "hybrid" : {
+        "tp" : 32,
+        "tn" : 40,
+        "fp" : 16,
+        "fn" : 4,
+        "precision" : 0.6666666666666666,
+        "recall" : 0.8888888888888888,
+        "f1" : 0.761904761904762,
+        "accuracy" : 0.782608695652174
+      }
+    } ]
+  }
+}

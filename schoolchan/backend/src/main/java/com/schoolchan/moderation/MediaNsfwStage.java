@@ -5,14 +5,23 @@ import com.schoolchan.config.SchoolChanProperties;
 import com.schoolchan.media.MediaEntity;
 import com.schoolchan.media.MediaRepository;
 import com.schoolchan.media.VideoFrameSampler;
+<<<<<<< HEAD
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
+=======
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+>>>>>>> d5851d3 (Initial commit)
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+<<<<<<< HEAD
+=======
+import java.time.Duration;
+>>>>>>> d5851d3 (Initial commit)
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +38,20 @@ public class MediaNsfwStage implements ModerationStage {
         this.properties = properties;
         this.mediaRepository = mediaRepository;
         this.frameSampler = frameSampler;
+<<<<<<< HEAD
         this.restClient = RestClient.builder().baseUrl(properties.getMl().getBaseUrl()).build();
+=======
+        // Force HTTP/1.1: the default JDK client tries an h2c upgrade, which the
+        // sidecar mishandles and the multipart body is then read as empty (422).
+        var httpClient = java.net.http.HttpClient.newBuilder()
+                .version(java.net.http.HttpClient.Version.HTTP_1_1)
+                .connectTimeout(Duration.ofMillis(properties.getMl().getTimeoutMs()))
+                .build();
+        this.restClient = RestClient.builder()
+                .baseUrl(properties.getMl().getBaseUrl())
+                .requestFactory(new org.springframework.http.client.JdkClientHttpRequestFactory(httpClient))
+                .build();
+>>>>>>> d5851d3 (Initial commit)
     }
 
     @Override
@@ -78,6 +100,7 @@ public class MediaNsfwStage implements ModerationStage {
     }
 
     @SuppressWarnings("unchecked")
+<<<<<<< HEAD
     private double classifyImage(Path path, String pathHint) {
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
         builder.part("file", new FileSystemResource(path)).contentType(MediaType.APPLICATION_OCTET_STREAM);
@@ -86,6 +109,29 @@ public class MediaNsfwStage implements ModerationStage {
                 .uri(uriBuilder -> uriBuilder.path("/v1/image/classify").queryParam("path_hint", pathHint).build())
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .body(builder.build())
+=======
+    private double classifyImage(Path path, String pathHint) throws java.io.IOException {
+        // The multipart part MUST carry a filename, otherwise the sidecar sees a
+        // plain string field instead of an upload and answers HTTP 422. The body
+        // is assembled by hand so the Content-Disposition is always correct.
+        String boundary = "sc-" + java.util.UUID.randomUUID().toString().replace("-", "");
+        String fileName = path.getFileName() == null ? "upload.bin" : path.getFileName().toString();
+        java.io.ByteArrayOutputStream body = new java.io.ByteArrayOutputStream();
+        body.write(("--" + boundary + "\r\n").getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        body.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + fileName + "\"\r\n")
+                .getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        body.write("Content-Type: application/octet-stream\r\n\r\n".getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        body.write(Files.readAllBytes(path));
+        body.write(("\r\n--" + boundary + "--\r\n").getBytes(java.nio.charset.StandardCharsets.UTF_8));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("multipart/form-data; boundary=" + boundary));
+        Map<String, Object> resp = restClient
+                .post()
+                .uri(uriBuilder -> uriBuilder.path("/v1/image/classify").queryParam("path_hint", pathHint).build())
+                .headers(h -> h.addAll(headers))
+                .body(body.toByteArray())
+>>>>>>> d5851d3 (Initial commit)
                 .retrieve()
                 .body(Map.class);
         if (resp == null || resp.get("nsfw_score") == null) {

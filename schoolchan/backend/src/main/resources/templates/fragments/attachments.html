@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- One post's attachments. Kept in its own file so the thread page can place
+     them inside the spoiler block for a spoiler post and in the open for a
+     normal one. -->
+<div th:fragment="attachments(p)" th:each="m : ${mediaByPost.get(p.id)}" class="post-attachments">
+    <p th:if="${m.quarantineStatus != 'RELEASED'}" class="media-pending">Media pending review</p>
+    <img th:if="${m.quarantineStatus == 'RELEASED' and m.contentType.startsWith('image/')}"
+         th:src="@{/media/{name}(name=${m.storedName})}" alt="attachment" class="post-image"
+         th:attr="width=${m.width},height=${m.height}" loading="lazy" decoding="async"/>
+    <video th:if="${m.quarantineStatus == 'RELEASED' and m.contentType.startsWith('video/')}"
+           th:src="@{/media/{name}(name=${m.storedName})}" controls></video>
+</div>
+</body>
+</html>

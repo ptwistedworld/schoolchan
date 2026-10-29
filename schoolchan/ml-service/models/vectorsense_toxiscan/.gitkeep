@@ -1,0 +1,3 @@
+# Keeps the models/ directory in version control so the Docker build and service work even before a
+# model is trained. Actual model artifacts (toxiscan.onnx, tokenizer.json, labels.json) are gitignored.
+# Until a real model is present here, the service serves the heuristic fallback classifier.

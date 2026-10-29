@@ -1,0 +1,25 @@
+# Real model dependencies.
+#
+# The default local path (scripts/run-ml.ps1) uses the mock and needs NONE of
+# these. Install them only when you want the real models:
+#
+#     pip install -r requirements-real.txt
+#     pip install torch --index-url https://download.pytorch.org/whl/cpu
+#
+# Then run scripts/run-ml-real.ps1. The first run downloads the weights into
+# the cache folder (ML_MODEL_CACHE, default ./models) and the app works offline
+# afterwards.
+#
+# Sizes on disk (approx):
+#   onnxruntime      ~15 MB
+#   transformers     ~10 MB
+#   torch (CPU)      ~250 MB
+#   ToxiScan (ONNX)  ~136 MB
+#   NLLB-600M        ~2.5 GB  (the big one)
+#
+# RAM: the two ONNX models need about 1 GB. The translation model adds about
+# 1.2 GB in bfloat16, so budget 3 GB free. It is lazy-loaded on the first
+# translation request.
+onnxruntime>=1.19.0
+transformers>=4.44.0
+sentencepiece>=0.2.0

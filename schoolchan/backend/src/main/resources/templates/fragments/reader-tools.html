@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Reader filters (G4). Everything here is progressive enhancement: the
+     panel stays hidden until board.js has read the saved rules, so a
+     browser without JavaScript never sees a control that cannot work. -->
+<details class="reader-tools" id="readerTools" hidden th:fragment="panel">
+    <summary>Filters <span class="badge" id="filterCount" hidden>0</span></summary>
+    <p class="hint">Only in this browser. Hide, collapse or highlight threads whose subject or opening
+        post contains a word or phrase. Nobody else sees your filters.</p>
+    <form id="filterForm" class="filter-form" autocomplete="off">
+        <input type="text" name="text" maxlength="60" placeholder="word or phrase"
+               aria-label="Filter text" required/>
+        <select name="action" aria-label="What to do with a matching thread">
+            <option value="hide">Hide</option>
+            <option value="collapse">Collapse</option>
+            <option value="highlight">Highlight</option>
+        </select>
+        <button type="submit">Add filter</button>
+    </form>
+    <ul id="filterList" class="filter-list"></ul>
+    <p class="hint" id="filterEmpty">No filters yet.</p>
+    <p class="hint">
+        <button type="button" id="clearFilters" class="linkish" hidden>Remove all filters</button>
+    </p>
+</details>
+
+<!-- "N threads hidden - show": the only way back after an accidental hide. -->
+<p class="hidden-bar" id="hiddenBar" hidden th:fragment="hiddenBar">
+    <span id="hiddenCount">0 threads hidden</span>
+    <button type="button" id="hiddenToggle" class="linkish" aria-pressed="false">Show</button>
+    <button type="button" id="hiddenClear" class="linkish" hidden>Unhide all</button>
+</p>
+</body>
+</html>

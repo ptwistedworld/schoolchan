@@ -6,13 +6,37 @@ spring:
     driver-class-name: org.h2.Driver
   jpa:
     hibernate:
+<<<<<<< HEAD
       ddl-auto: update
+=======
+      # Flyway owns the schema, so Hibernate only checks that the entities
+      # still match it. A mismatch stops the app at startup instead of quietly
+      # changing the database.
+      ddl-auto: validate
+>>>>>>> d5851d3 (Initial commit)
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
   flyway:
+<<<<<<< HEAD
     enabled: false
+=======
+    # The local database was created by Hibernate before Flyway was switched
+    # on, so it is baselined at the last migration it already contains.
+    # From here on the migrations own the schema, exactly like the dev
+    # (Postgres) profile.
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 13
+    locations: classpath:db/migration
+>>>>>>> d5851d3 (Initial commit)
 schoolchan:
   ml:
     enabled: true
     base-url: http://localhost:8090
+<<<<<<< HEAD
+=======
+  access:
+    # Local dev/testing: keep posting enabled outside campus hours.
+    always-open: true
+>>>>>>> d5851d3 (Initial commit)

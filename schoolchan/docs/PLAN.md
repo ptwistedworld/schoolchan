@@ -7,7 +7,12 @@
 - First admin seeded from `.env`
 - No 4chan-style poster IDs
 - NLLB CC-BY-NC acceptable for academic/local use
+<<<<<<< HEAD
 - ML sidecar down → text posts **QUEUE** (fail-safe)
+=======
+- ML sidecar down → text posts **PUBLISH** and are not flagged (nothing is hidden by a machine)
+- Moderation policy: publish, then flag; a person removes, never a model (ADR-014)
+>>>>>>> d5851d3 (Initial commit)
 - Target laptop RAM: **16 GB** (models loadable; NLLB may be lazy-loaded)
 
 ## Part roadmap
@@ -42,7 +47,11 @@
 | 7 | Done — translation client; dual-text in pipeline |
 | 8 | Done — reports + reputation (confirm raises reliability) |
 | 9 | Done — spoiler checkbox + `[spoiler]` parser + details reveal |
+<<<<<<< HEAD
 | 10 | Done — dashboard, review publish/block, escalations, audit, retention |
+=======
+| 10 | Done — dashboard, review leave-up/remove, escalations, audit, retention |
+>>>>>>> d5851d3 (Initial commit)
 | 11 | Done — EvalService confusion/McNemar/fixture; staff API |
 | 12 | Done — security headers, DEMO/SECURITY docs, scripts, gitignore |
 
@@ -52,4 +61,9 @@
 - JPEG EXIF/IPTC segments are stripped on upload. Other formats are stored as validated bytes.
 - Staff settings can edit closed-hours mode, board limits, existing access windows (including disable), rules text, and learned keyword candidates.
 - Escalation detail can print to PDF, download a text package, and decrypt poster metadata after a required reason. The reveal is audited. The text package does not include the IP.
+<<<<<<< HEAD
 - Confirmed blocks store a training example, may propose one learned keyword, and add a seven-day session strike. Similarity hold uses those examples. Votes do not change reputation.
+=======
+- Confirmed removals store a training example, may propose one learned keyword, and add a seven-day session strike. Similarity boost uses those examples. Votes do not change reputation.
+- The board never removes a post on its own. A flagged post stays published and waits in the staff review queue; only the escalation category is hidden (a staff setting can change that).
+>>>>>>> d5851d3 (Initial commit)

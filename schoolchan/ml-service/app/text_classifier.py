@@ -104,18 +104,25 @@ def _try_load_real_pipeline(settings: Settings) -> bool:
 
     _real_load_attempted = True
     try:
+<<<<<<< HEAD
         from transformers import pipeline  # type: ignore[import-untyped]
 
+=======
+>>>>>>> d5851d3 (Initial commit)
         model_name = settings.text_model_id
         if model_name.endswith("-mock-v1"):
             raise ValueError(
                 "Set TEXT_MODEL_ID to a Hugging Face model when MOCK_MODE=false"
             )
+<<<<<<< HEAD
         _real_pipeline = pipeline(
             "text-classification",
             model=model_name,
             top_k=None,
         )
+=======
+        _real_pipeline = _load_onnx_classifier(model_name)
+>>>>>>> d5851d3 (Initial commit)
         return True
     except Exception as exc:  # noqa: BLE001 — fall back to mock
         _real_load_error = str(exc)
@@ -123,6 +130,69 @@ def _try_load_real_pipeline(settings: Settings) -> bool:
         return False
 
 
+<<<<<<< HEAD
+=======
+def _load_onnx_classifier(model_name: str):
+    """Load an ONNX sequence-classification model without PyTorch.
+
+    Returns a callable that maps text to {label: probability}.
+    """
+    from app.onnx_runtime import download_repo, load_labels, make_session, sigmoid, softmax
+    from transformers import AutoTokenizer
+
+    folder = download_repo(model_name)
+    model_path = None
+    for candidate in ("model.onnx", "onnx/model.onnx", "model_int8.onnx"):
+        if (folder / candidate).exists():
+            model_path = folder / candidate
+            break
+    if model_path is None:
+        raise FileNotFoundError(f"no ONNX graph found in {model_name}")
+
+    tokenizer = AutoTokenizer.from_pretrained(str(folder))
+    session = make_session(model_path)
+    input_names = {i.name for i in session.get_inputs()}
+
+    labels = None
+    for name in ("labels.json", "id2label.json"):
+        if (folder / name).exists():
+            labels = load_labels(folder / name)
+            break
+
+    def classify(text: str) -> dict[str, float]:
+        encoded = tokenizer(
+            text[:512],
+            return_tensors="np",
+            truncation=True,
+            max_length=256,
+        )
+        feed = {}
+        for name in input_names:
+            if name in encoded:
+                feed[name] = encoded[name]
+        if "input_ids" not in feed:
+            feed["input_ids"] = encoded["input_ids"]
+        if "attention_mask" in input_names and "attention_mask" in encoded:
+            feed["attention_mask"] = encoded["attention_mask"]
+        if "token_type_ids" in input_names and "token_type_ids" in encoded:
+            feed["token_type_ids"] = encoded["token_type_ids"]
+        outputs = session.run(None, feed)
+        logits = outputs[0][0]
+        values = [float(v) for v in logits]
+        # Multi-label models use sigmoid, single-label models use softmax.
+        probs = softmax(values) if len(values) > 1 else [sigmoid(values[0])]
+        result = {}
+        for i, p in enumerate(probs):
+            if labels and i in labels:
+                result[labels[i]] = p
+            else:
+                result[f"label_{i}"] = p
+        return result
+
+    return classify
+
+
+>>>>>>> d5851d3 (Initial commit)
 def classify_text_real(text: str, settings: Settings) -> TextClassifyResult | None:
     if not _try_load_real_pipeline(settings):
         return None
@@ -131,6 +201,7 @@ def classify_text_real(text: str, settings: Settings) -> TextClassifyResult | No
     scores = _baseline_scores()
     try:
         raw = _real_pipeline(text[:512])
+<<<<<<< HEAD
         if isinstance(raw, list) and raw and isinstance(raw[0], list):
             raw = raw[0]
         for item in raw or []:
@@ -144,6 +215,18 @@ def classify_text_real(text: str, settings: Settings) -> TextClassifyResult | No
                         break
             if mapped:
                 scores[mapped] = max(scores[mapped], score)
+=======
+        for label, score in (raw or {}).items():
+            key = str(label).lower().replace(" ", "_")
+            mapped = LABEL_TO_CATEGORY.get(key)
+            if mapped is None:
+                for cat in CATEGORIES:
+                    if cat in key or key in cat:
+                        mapped = cat
+                        break
+            if mapped:
+                scores[mapped] = max(scores[mapped], float(score))
+>>>>>>> d5851d3 (Initial commit)
     except Exception as exc:  # noqa: BLE001
         logger.warning("Real text classify failed: %s", exc)
         return None
@@ -181,7 +264,95 @@ def looks_like_tagalog_stub(text: str) -> bool:
         r"\bmaganda\b",
         r"\bsalamat\b",
         r"\bkumusta\b",
+<<<<<<< HEAD
         r"ng\b",
     )
     hits = sum(1 for p in markers if re.search(p, lower))
     return hits >= 2 or ("po" in lower and "nga" in lower)
+=======
+        r"\bako\b",
+        r"\bikaw\b",
+        r"\bkayo\b",
+        r"\binyong\b",
+        r"\bathin\b",
+        r"\bnatin\b",
+        r"\bmga\b",
+        r"\bang\b",
+        r"\bhindi\b",
+        r"\bito ay\b",
+        r"\bsa\b",
+        r"\bpara sa\b",
+        r"\bmatanda\b",
+        r"\bkapag\b",
+        r"\bnang\b",
+        r"\bganda\b",
+        r"\bnito\b",
+        r"\btong\b",
+        r"\bnatin\b",
+        r"\bnila\b",
+        r"\bnamin\b",
+        r"\binyo\b",
+        r"\bdito\b",
+        r"\bbakit\b",
+        r"\bpaano\b",
+        r"\bkailan\b",
+        r"\bsaan\b",
+        r"\bano\b",
+        r"\bsino\b",
+        r"\bkayo po\b",
+        r"\bsalamat\b",
+        r"\bopisina\b",
+        r"\btrabaho\b",
+        r"\bniyo\b",
+        r"\bninyo\b",
+        r"\bkung\b",
+        r"\bba\b",
+        r"\bnakita\b",
+        r"\bnalaman\b",
+        r"\bsinabi\b",
+        r"\bsinasabi\b",
+        r"\bnaiintindihan\b",
+        r"\bkapag\b",
+        r"\bhabang\b",
+        r"\bupat\b",
+        r"\bkasi\b",
+        r"\btapos\b",
+        r"\bpero\b",
+        r"\bopo\b",
+        r"\bkya\b",
+        r"\bdiba\b",
+    )
+    hits = sum(1 for p in markers if re.search(p, lower))
+    return hits >= 2
+
+
+CEBUANO_MARKERS = (
+    r"\bkaayo\b",
+    r"\bkaayo kay\b",
+    r"\bmaayo\b",
+    r"\bsugdan\b",
+    r"\bka\b",
+    r"\bmao\b",
+    r"\bni\b",
+    r"\bong\b",
+    r"\buna\b",
+    r"\bndi\b",
+    r"\bwala\b",
+    r"\bayo\b",
+    r"\bngan\b",
+    r"\bkaibigan\b",
+    r"\bkinhigpit\b",
+    r"\bkausahan\b",
+    r"\bman\b",
+    r"\bili\b",
+    r"\bhatag\b",
+    r"\bduha\b",
+)
+
+
+def looks_like_cebuano_stub(text: str) -> bool:
+    """Heuristic for Cebuano text in MOCK_MODE."""
+    lower = text.lower()
+    hits = sum(1 for p in CEBUANO_MARKERS if re.search(p, lower))
+    return hits >= 2
+>>>>>>> d5851d3 (Initial commit)

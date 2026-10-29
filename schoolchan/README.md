@@ -238,4 +238,8 @@ Commit the source and docs. The `.gitignore` already excludes generated and mach
 | Database | `backend/data/schoolchan.mv.db` | created on first run |
 | Media files | `backend/data/media/` | created as uploads are screened and released |
 
+<<<<<<< HEAD
 If Java 21 is already installed and on `PATH`, the `tools/jdk-21` folder is optional.
+=======
+If Java 21 is already installed and on `PATH`, the `tools/jdk-21` folder is optional.
+>>>>>>> d5851d3 (Initial commit)

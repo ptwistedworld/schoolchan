@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"/><title>Settings</title>    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+<<<<<<< HEAD
+=======
+    <script th:src="@{/js/board.js}" defer></script>
+>>>>>>> d5851d3 (Initial commit)
 </head>
 <body>
 <header th:replace="~{fragments/chrome :: staffbar}"></header>
@@ -40,7 +44,18 @@
         <label>Start <input name="startTime" type="time" th:value="${w.startTime}" required/></label>
         <label>End <input name="endTime" type="time" th:value="${w.endTime}" required/></label>
         <label><input type="checkbox" name="enabled" value="true" th:checked="${w.enabled}"/> enabled</label>
+<<<<<<< HEAD
         <button type="submit">Save window</button>
+=======
+        <div class="actions">
+            <button type="submit">Save window</button>
+        </div>
+    </form>
+    <form th:each="w : ${windows}" th:action="@{/staff/settings/window/delete}" method="post" class="inline">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input type="hidden" name="id" th:value="${w.id}"/>
+        <button type="submit" class="linkish" th:text="'Delete window: ' + ${w.label}">Delete</button>
+>>>>>>> d5851d3 (Initial commit)
     </form>
     <form th:action="@{/staff/settings/window}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
@@ -58,15 +73,126 @@
     <form th:each="c : ${candidates}" th:action="@{/staff/settings/candidates/{id}/approve(id=${c.id})}" method="post" class="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <span th:text="${c.pattern}">pattern</span>
+<<<<<<< HEAD
         <button type="submit">Approve</button>
     </form>
 
+=======
+        <span class="hint" th:text="'confidence ' + ${c.confidence}">conf</span>
+        <button type="submit">Approve</button>
+    </form>
+
+    <h2>Similarity boost</h2>
+    <p>How strongly a post similar to a confirmed violation is pushed toward human review.</p>
+    <form th:action="@{/staff/settings/similarity}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label>Boost (0.00 – 0.50) <input type="number" name="boost" min="0" max="0.5" step="0.01" th:value="${similarityBoost}"/></label>
+        <button type="submit">Save boost</button>
+    </form>
+    <h3>Training examples (confirmed violations)</h3>
+    <p th:if="${#lists.isEmpty(trainingExamples)}">None recorded yet.</p>
+    <table class="thread-table" th:if="${!#lists.isEmpty(trainingExamples)}">
+        <thead><tr><th>When</th><th>Text</th></tr></thead>
+        <tbody>
+        <tr th:each="e : ${trainingExamples}">
+            <td th:text="${#temporals.format(e.createdAt, 'MMM d, HH:mm')}">time</td>
+            <td th:text="${e.textSnapshot}">text</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>Escalation rehearsal (dry run)</h2>
+    <p>Rehearse the safety pathway safely: the escalation pages show a banner and the
+        exported package contains no real post text.</p>
+    <form th:action="@{/staff/settings/rehearsal}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label class="check">
+            <input type="checkbox" name="enabled" value="true" th:checked="${rehearsal}"/> Rehearsal mode
+        </label>
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Moderation policy</h2>
+    <p>Everything a student writes is published. If the filter, a student or a
+        moderator flags it, it appears in the review queue for a person to look at.</p>
+    <form th:if="${policyIsAdminOnly}" th:action="@{/staff/settings/moderation-policy}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label class="check">
+            <input type="checkbox" name="autoBlock" value="true" th:checked="${autoBlock}"/>
+            Let the filter remove a post on its own (off by default)
+        </label>
+        <label class="check">
+            <input type="checkbox" name="hideEscalations" value="true" th:checked="${hideEscalations}"/>
+            Hide safety escalations from the public board (on by default)
+        </label>
+        <button type="submit">Save policy</button>
+    </form>
+    <p class="hint" th:unless="${policyIsAdminOnly}">
+        Only an admin can change the moderation policy. Ask an admin if it needs to change.
+    </p>
+
+    <h2>Student access</h2>
+    <p>When required, only provisioned students and staff can use the board.
+        Student accounts are a gate only - posts stay anonymous either way.</p>
+    <form th:action="@{/staff/settings/student-login}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label class="check">
+            <input type="checkbox" name="required" value="true" th:checked="${studentLoginRequired}"/> Require student sign in
+        </label>
+        <label class="check">
+            <input type="checkbox" name="blockReading" value="true" th:checked="${studentBlockReading}"/> Also block reading for signed-out visitors
+        </label>
+        <button type="submit">Save</button>
+    </form>
+    <p><a th:href="@{/staff/students}">Manage student accounts and enrollment requests</a></p>
+
+    <h2>Live thread polling</h2>
+    <p class="hint">While a thread is open, the page checks for new replies and shows
+        "N new posts — show" instead of jumping around. Paused automatically while
+        the tab is hidden or a reply box has text in it.</p>
+    <form th:action="@{/staff/settings/live-poll}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label class="check">
+            <input type="checkbox" name="enabled" value="true" th:checked="${livePollEnabled}"/> Enable live polling
+        </label>
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Blacklist &amp; keywords</h2>
+    <p><a th:href="@{/staff/blacklist}">Manage the keyword list, import/export CSV, and test a string</a></p>
+
+    <h2>Storage</h2>
+    <p class="hint">
+        Uploads are shrunk to a sensible size when they arrive, and a small copy is kept
+        for the board previews, so a page never has to download a full-size photo.
+        <span th:text="${mediaCount} + ' upload(s), ' + ${mediaBytes} / (1024 * 1024) + ' MB on disk'">0</span>
+    </p>
+    <form th:action="@{/staff/settings/shrink-media}" method="post" class="inline">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <input type="hidden" name="limit" value="500"/>
+        <button type="submit" class="linkish">Shrink stored images</button>
+        <span class="hint">Rewrites images that are too big and makes the missing preview copies.</span>
+    </form>
+    <form th:action="@{/staff/settings/tidy-media}" method="post" class="inline">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit" class="linkish">Remove unused files</button>
+        <span class="hint">Deletes pictures that no post points at any more.</span>
+    </form>
+
+>>>>>>> d5851d3 (Initial commit)
     <h2>Rules</h2>
     <form th:action="@{/staff/settings/rules}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <textarea name="body" rows="12" th:text="${rules != null ? rules.body : ''}"></textarea>
         <button type="submit">Save new version</button>
     </form>
+<<<<<<< HEAD
+=======
+    <form th:action="@{/staff/settings/rules/default}" method="post" class="inline">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit" class="linkish">Restore the shipped default text</button>
+    </form>
+>>>>>>> d5851d3 (Initial commit)
 </main>
 </body>
 </html>

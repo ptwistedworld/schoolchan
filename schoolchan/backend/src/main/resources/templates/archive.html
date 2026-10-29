@@ -3,11 +3,24 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<<<<<<< HEAD
     <title th:text="${pageTitle}">Archive</title>
     <link rel="stylesheet" th:href="@{/css/board.css}"/>
 </head>
 <body>
 <header th:replace="~{fragments/chrome :: bar}"></header>
+=======
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title th:text="${pageTitle}">Archive</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<div th:replace="~{fragments/chrome :: staffribbon}"></div>
+<div th:replace="~{fragments/chrome :: studentribbon}"></div>
+>>>>>>> d5851d3 (Initial commit)
 <main>
     <p class="hint"><a th:href="@{/boards/{slug}(slug=${board.slug})}">Back to board</a></p>
     <h1 th:text="'Archive — ' + ${board.name}">Archive</h1>
@@ -19,6 +32,14 @@
         </tr>
     </table>
     <p th:if="${#lists.isEmpty(threads)}" class="hint">Nothing archived yet.</p>
+<<<<<<< HEAD
+=======
+    <nav class="actions" th:if="${totalPages > 1}">
+        <a th:if="${page > 0}" th:href="@{/boards/{slug}/archive(slug=${board.slug}, page=${page-1})}">Prev</a>
+        <span class="hint" th:text="${page+1} + ' / ' + ${totalPages}">1 / 1</span>
+        <a th:if="${page + 1 < totalPages}" th:href="@{/boards/{slug}/archive(slug=${board.slug}, page=${page+1})}">Next</a>
+    </nav>
+>>>>>>> d5851d3 (Initial commit)
 </main>
 <footer th:replace="~{fragments/chrome :: foot}"></footer>
 </body>

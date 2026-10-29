@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
+<<<<<<< HEAD
 <header th:fragment="bar" class="site-header">
     <a th:href="@{/}" class="logo">SchoolChan</a>
     <nav>
@@ -15,6 +16,74 @@
         <a th:href="@{/}">Board</a>
         <a th:href="@{/staff/review}">Review</a>
         <a th:href="@{/staff/escalations}">Escalations</a>
+=======
+<head th:fragment="head">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<header th:fragment="bar" class="site-header">
+    <a th:href="@{/}" class="logo">
+        <img th:src="@{/img/logo.svg}" alt="" class="logo-mark" width="26" height="26"/>
+        <span>SchoolChan</span>
+    </a>
+    <nav>
+        <a th:href="@{/}">Boards</a>
+        <a th:href="@{/search}">Search</a>
+        <a th:if="${studentId != null}" th:href="@{/bookmarks}">Bookmarks<span th:if="${bookmarkCount > 0}" th:text="' (' + ${bookmarkCount} + ')'" data-bookmark-count th:attr="data-count=${bookmarkCount}"></span></a>
+        <a th:if="${studentId != null}" th:href="@{/my-posts}">My posts</a>
+        <a th:href="@{/student/login}" th:if="${showStudentLogin and studentId == null}">Student sign in</a>
+        <a th:href="@{/rules}">Rules</a>
+        <a th:href="@{/about}">About</a>
+        <a th:href="@{/staff/dashboard}">Staff</a>
+        <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle colour theme" title="Toggle light / dark theme">◐</button>
+    </nav>
+    <span id="csrfToken" hidden th:attr="data-token=${_csrf.token}"></span>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+</header>
+<div th:fragment="studentribbon" th:if="${studentId != null}" class="student-ribbon">
+    <strong>Signed in</strong>
+    <span th:text="'Student ' + ${studentId}">Student</span>
+    <a th:href="@{/student/enroll}">Onboard a new student</a>
+    <a th:href="@{/student/password}">Change password</a>
+    <form th:action="@{/student/logout}" method="post" class="inline">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit" class="linkish">Sign out</button>
+    </form>
+</div>
+
+<div th:fragment="staffribbon" th:if="${staffView}" class="staff-ribbon">
+    <strong>Staff view</strong>
+    <a th:href="@{/staff/dashboard}">Dashboard</a>
+    <a th:href="@{/staff/review}">Review</a>
+    <a th:href="@{/staff/reports}">Reports</a>
+    <a th:href="@{/staff/escalations}">Escalations</a>
+    <a th:href="@{/staff/threads}">Threads</a>
+    <a th:href="@{/staff/audit}">Audit</a>
+    <span class="hint">You are signed in as staff. Moderation tools are shown on the public board.</span>
+</div>
+
+<header th:fragment="staffbar" class="site-header staff-header">
+    <a th:href="@{/staff/dashboard}" class="logo">
+        <img th:src="@{/img/logo.svg}" alt="" class="logo-mark" width="26" height="26"/>
+        <span>SchoolChan staff</span>
+    </a>
+    <nav>
+        <a th:href="@{/}">Board</a>
+        <a th:href="@{/staff/review}">Review</a>
+        <a th:href="@{/staff/reports}">Reports</a>
+        <a th:href="@{/staff/threads}">Threads</a>
+        <a th:href="@{/staff/staff-users}">Staff</a>
+        <a th:href="@{/staff/escalations}">Escalations</a>
+        <a th:href="@{/staff/students}">Students</a>
+        <a th:href="@{/staff/roles}">Roles</a>
+        <a th:href="@{/staff/blacklist}">Blacklist</a>
+        <a th:href="@{/staff/board-rules}">Board rules</a>
+        <a th:href="@{/staff/appeals}">Appeals</a>
+        <a th:href="@{/staff/accountability}">Accountability</a>
+        <a th:href="@{/staff/digest}">Digest</a>
+        <a th:href="@{/staff/audit}">Audit</a>
+>>>>>>> d5851d3 (Initial commit)
         <a th:href="@{/staff/settings}">Settings</a>
         <form th:action="@{/staff/logout}" method="post" class="inline">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
@@ -23,7 +92,11 @@
     </nav>
 </header>
 <footer th:fragment="foot" class="site-footer">
+<<<<<<< HEAD
     <small>Anonymous campus board. Posts are screened. Staff never appear by name.</small>
+=======
+    <small>Anonymous campus board. Every post is published. Staff never appear by name.</small>
+>>>>>>> d5851d3 (Initial commit)
 </footer>
 </body>
 </html>

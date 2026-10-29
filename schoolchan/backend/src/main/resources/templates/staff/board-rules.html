@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Board rules — SchoolChan staff</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Board rules</h1>
+    <p class="hint">These are the extra filter rules that apply to one board only. The
+        global keyword list applies everywhere; a rule here narrows it further for a
+        single board. A matching post is treated with the category and severity you
+        give it: low severity publishes, high severity is held for review.</p>
+
+    <form method="get" action="/staff/board-rules" class="actions">
+        <label>Board
+            <select name="board" onchange="this.form.submit()">
+                <option th:each="b : ${boards}" th:value="${b.slug}" th:text="${b.name}"
+                        th:selected="${b.slug == selected}">board</option>
+            </select>
+        </label>
+        <noscript><button type="submit">Show</button></noscript>
+    </form>
+
+    <div th:if="${selected != null and !selected.isBlank()}">
+        <h2 th:text="'Rules for ' + (${selectedBoard != null} ? ${selectedBoard.name} : ${selected})">Rules</h2>
+        <p class="hint" th:if="${rules == null or #lists.isEmpty(rules)}">
+            No extra rules for this board yet. Add the first one below.
+        </p>
+        <table class="thread-table" th:if="${rules != null and !#lists.isEmpty(rules)}">
+            <thead><tr><th>Pattern</th><th>Type</th><th>Category</th><th>Severity</th><th>Enabled</th><th>Actions</th></tr></thead>
+            <tbody>
+            <tr th:each="r : ${rules}">
+                <td th:text="${r.pattern}">pattern</td>
+                <td th:text="${r.matchType}">type</td>
+                <td th:text="${r.category}">category</td>
+                <td th:text="${r.severity}">0.0</td>
+                <td th:text="${r.enabled} ? 'yes' : 'no'">yes</td>
+                <td class="actions">
+                    <form th:action="@{/staff/board-rules/{id}/toggle(id=${r.id})}" method="post" class="inline">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" class="linkish" th:text="${r.enabled} ? 'Disable' : 'Enable'">toggle</button>
+                    </form>
+                    <form th:action="@{/staff/board-rules/{id}/delete(id=${r.id})}" method="post" class="inline">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" class="linkish">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>Add a rule</h3>
+        <form th:action="@{/staff/board-rules/add}" method="post" class="composer">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input type="hidden" name="board" th:value="${selected}"/>
+            <label>Pattern <input type="text" name="pattern" required/></label>
+            <label>Match type
+                <select name="matchType">
+                    <option value="WORD">WORD</option>
+                    <option value="CONTAINS">CONTAINS</option>
+                    <option value="REGEX">REGEX</option>
+                </select>
+            </label>
+            <label>Category
+                <select name="category">
+                    <option value="OTHER">OTHER</option>
+                    <option value="PROFANITY">PROFANITY</option>
+                    <option value="INSULT">INSULT</option>
+                    <option value="HARASSMENT">HARASSMENT</option>
+                    <option value="SPAM">SPAM</option>
+                    <option value="CHEATING">CHEATING</option>
+                </select>
+            </label>
+            <label>Severity <input type="number" name="severity" value="0.60" step="0.05" min="0" max="1"/></label>
+            <button type="submit">Add rule</button>
+        </form>
+    </div>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

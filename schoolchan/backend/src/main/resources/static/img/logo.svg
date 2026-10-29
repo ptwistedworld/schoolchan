@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="SchoolChan">
+  <title>SchoolChan</title>
+  <!-- SchoolChan mark: a schoolhouse on a green tile.
+       The roof also reads as a chat bubble, which is the point of a board. -->
+  <rect width="64" height="64" rx="15" fill="#1c6b4c"/>
+  <g fill="#ffffff">
+    <!-- roof / speech bubble -->
+    <path d="M32 12 L54 29 H10 Z"/>
+    <!-- building -->
+    <rect x="16" y="29" width="32" height="23" rx="1.5"/>
+    <!-- door -->
+    <path d="M32 39a6 6 0 0 1 6 6v7H26v-7a6 6 0 0 1 6-6Z"/>
+    <!-- windows -->
+    <rect x="21" y="34" width="7" height="6" rx="1"/>
+    <rect x="36" y="34" width="7" height="6" rx="1"/>
+  </g>
+  <!-- ground -->
+  <rect x="12" y="52" width="40" height="4" rx="2" fill="#ffffff"/>
+</svg>

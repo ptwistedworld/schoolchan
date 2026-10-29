@@ -23,6 +23,13 @@ public class MediaEntity {
     @Column(name = "stored_name", nullable = false)
     private String storedName;
 
+<<<<<<< HEAD
+=======
+    /** A small copy used by the board previews, when one could be made. */
+    @Column(name = "thumbnail_name")
+    private String thumbnailName;
+
+>>>>>>> d5851d3 (Initial commit)
     @Column(name = "content_type", nullable = false)
     private String contentType;
 
@@ -49,6 +56,11 @@ public class MediaEntity {
     public void setOriginalFilename(String originalFilename) { this.originalFilename = originalFilename; }
     public String getStoredName() { return storedName; }
     public void setStoredName(String storedName) { this.storedName = storedName; }
+<<<<<<< HEAD
+=======
+    public String getThumbnailName() { return thumbnailName; }
+    public void setThumbnailName(String thumbnailName) { this.thumbnailName = thumbnailName; }
+>>>>>>> d5851d3 (Initial commit)
     public String getContentType() { return contentType; }
     public void setContentType(String contentType) { this.contentType = contentType; }
     public String getQuarantineStatus() { return quarantineStatus; }

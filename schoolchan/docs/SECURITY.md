@@ -24,10 +24,21 @@
 
 - Seed and test harmful triggers use `TOKEN_*` placeholders only.
 - ML sidecar defaults to `MOCK_MODE=true` (`scripts/run-ml.ps1`). `scripts/run-ml-real.ps1` loads ToxiScan and NLLB and falls back to the mock if a weight file fails to load.
+<<<<<<< HEAD
 - High-confidence auto-block; medium → human review; escalation → restricted queue (no auto-contact of authorities).
+=======
+- The board never removes a post on its own: high confidence → published and **flagged** for a person to review; escalation → hidden and routed to the restricted queue (no auto-contact of authorities). The legacy auto-block switch (`schoolchan.moderation.auto-block-enabled`) is off by default and admin-only to change.
+>>>>>>> d5851d3 (Initial commit)
 
 ## Operations
 
 - Rotate `SCHOOLCHAN_ADMIN_PASSWORD`, `SCHOOLCHAN_METADATA_KEY`, and database credentials before production.
 - Run behind HTTPS so session cookies can use the `Secure` flag.
 - Dependency scanning: add OWASP dependency-check or `gradle dependencyCheckAnalyze` before deploy.
+<<<<<<< HEAD
+=======
+- Rate limiting: per-session and per-IP post limits; honeypot field on forms.
+- Media: magic-byte validation, quarantine, EXIF stripping, randomized filenames.
+- Retention: scheduled purge with dry-run mode (`RetentionJob.purgeOldMetadata(true)`).
+- Anonymity audit: `AnonymityPageTest` crawls public routes.
+>>>>>>> d5851d3 (Initial commit)

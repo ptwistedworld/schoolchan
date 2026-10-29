@@ -25,6 +25,10 @@ public class LearningService {
     private final PosterMetadataRepository posterMetadata;
     private final MetadataCryptoService crypto;
     private final ReputationService reputationService;
+<<<<<<< HEAD
+=======
+    private final com.schoolchan.board.PosterTierService posterTierService;
+>>>>>>> d5851d3 (Initial commit)
 
     public LearningService(
             TrainingExampleRepository trainingExamples,
@@ -32,17 +36,33 @@ public class LearningService {
             BlacklistEntryRepository blacklist,
             PosterMetadataRepository posterMetadata,
             MetadataCryptoService crypto,
+<<<<<<< HEAD
             ReputationService reputationService) {
+=======
+            ReputationService reputationService,
+            com.schoolchan.board.PosterTierService posterTierService) {
+>>>>>>> d5851d3 (Initial commit)
         this.trainingExamples = trainingExamples;
         this.candidates = candidates;
         this.blacklist = blacklist;
         this.posterMetadata = posterMetadata;
         this.crypto = crypto;
         this.reputationService = reputationService;
+<<<<<<< HEAD
+=======
+        this.posterTierService = posterTierService;
+>>>>>>> d5851d3 (Initial commit)
     }
 
     @Transactional
     public void learnFromConfirmation(Post post) {
+<<<<<<< HEAD
+=======
+        learnFromConfirmation(post, null);
+    }
+
+    public void learnFromConfirmation(Post post, String sessionHash) {
+>>>>>>> d5851d3 (Initial commit)
         TrainingExample example = new TrainingExample();
         example.setId(UUID.randomUUID());
         example.setPostId(post.getId());
@@ -70,6 +90,11 @@ public class LearningService {
         posterMetadata.findByPostId(post.getId()).ifPresent(meta -> {
             String session = crypto.decrypt(meta.getSessionHashEncrypted());
             reputationService.recordStrike(session, Instant.now().plus(7, ChronoUnit.DAYS));
+<<<<<<< HEAD
+=======
+            // A removed post costs the poster a trust step, but never identifies them.
+            posterTierService.recordRemovedPost(session);
+>>>>>>> d5851d3 (Initial commit)
         });
     }
 

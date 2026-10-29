@@ -21,7 +21,11 @@ java -version
 If that fails, point at the portable JDK (adjust the path if your folder layout differs):
 
 ```powershell
+<<<<<<< HEAD
 $env:JAVA_HOME = "\Desktop\AI Agents\md\tools\jdk-21"
+=======
+$env:JAVA_HOME = "C:\Users\Mikelle.Bandin\OneDrive - BOFI Federal Bank\Desktop\AI Agents\md\tools\jdk-21"
+>>>>>>> d5851d3 (Initial commit)
 $env:PATH = "$env:JAVA_HOME\bin;$env:PATH"
 java -version
 ```
@@ -31,7 +35,11 @@ java -version
 Open a terminal in the `schoolchan` folder:
 
 ```powershell
+<<<<<<< HEAD
 cd "\Desktop\AI Agents\md\schoolchan"
+=======
+cd "C:\Users\Mikelle.Bandin\OneDrive - BOFI Federal Bank\Desktop\AI Agents\md\schoolchan"
+>>>>>>> d5851d3 (Initial commit)
 pip install -r ml-service\requirements.txt
 .\scripts\run-ml.ps1
 ```
@@ -47,7 +55,11 @@ Real text and translation weights are a separate start script. See [Optional: re
 Open a second terminal:
 
 ```powershell
+<<<<<<< HEAD
 cd "\Desktop\AI Agents\md\schoolchan"
+=======
+cd "C:\Users\Mikelle.Bandin\OneDrive - BOFI Federal Bank\Desktop\AI Agents\md\schoolchan"
+>>>>>>> d5851d3 (Initial commit)
 .\scripts\run-backend.ps1
 ```
 
@@ -63,12 +75,21 @@ First startup downloads Gradle dependencies and can take a few minutes.
 
 ## 4. What to click
 
+<<<<<<< HEAD
 1. Home lists boards (General, Academics, Events) and a quote.
 2. Open `/boards/general` and create a thread.
 3. Reply with sage unchecked to bump; check sage to reply without bumping.
 4. Post text containing `TOKEN_BLOCK` to see a hold or block.
 5. Staff → Review to publish or block. Blocking a post confirms its reports, stores a training example, and may propose a learned keyword under Staff → Settings. Approve that keyword before it is enforced.
 6. Staff → Settings to change board caps, closed-hours mode, and rules. Each existing access window is an edit form: change the hours or uncheck **enabled**, then **Save window**. Use **Add window** for a new one.
+=======
+1. Home lists boards (General, Academics, Events) and a quote. Signed out, there is no "My posts" or "Bookmarks" link — sign in at `/student/login` to get them.
+2. Open `/boards/general` and create a thread.
+3. Reply with sage unchecked to bump; check sage to reply without bumping.
+4. Post text containing `TOKEN_BLOCK`. Nothing is removed and nothing on the page says the post was flagged — it is just published, and only the staff queue knows about it.
+5. Staff → Review to leave it up or remove it. The queue shows the whole post: the text, the English translation, the thread it came from, and any attachment. "Leave it up" clears the flag; "Remove it" confirms its reports, stores a training example, and may propose a learned keyword under Staff → Settings. Approve that keyword before it is enforced. The writer then sees the post as removed under My posts, with an appeal box.
+6. Staff → Settings to change board caps, closed-hours mode, the moderation policy, and rules. Each existing access window is an edit form: change the hours or uncheck **enabled**, then **Save window**. Use **Add window** for a new one. The **Storage** section shows how much disk the pictures take and can shrink them or remove the ones no post uses.
+>>>>>>> d5851d3 (Initial commit)
 7. A post containing `TOKEN_ESCALATE_THREAT` lands in Escalations. Open it to see the original text, any English translation, and timestamps. **Print / save as PDF** uses the browser print dialog. **Download text package** saves a `.txt` file that does not include the poster IP. Enter a reason and reveal IP/session only when you need it. That access is written to the audit log.
 
 Weekday hours are seeded as 07:00–22:00 Asia/Manila. Outside that window the board is read-only unless you edit a window so it includes “now”, or add one, under Staff → Settings.
@@ -140,3 +161,21 @@ Keep the board on the light path in a second terminal:
 ```powershell
 .\scripts\run-backend.ps1
 ```
+<<<<<<< HEAD
+=======
+
+## GitHub upload notes
+
+Commit the source and documentation. Do not commit generated files. The `.gitignore` already excludes them.
+
+Required after clone:
+- Java 21 at `tools/jdk-21/` (or on `PATH`)
+- Python 3.11+ for the sidecar
+- `.env` copied from `.env.example`
+
+Generated and skipped:
+- `backend/build/`, `backend/.gradle/`
+- `backend/data/` (database and media)
+- `ml-service/.venv/`, `ml-service/.venv-real/`
+- `eval/results/`
+>>>>>>> d5851d3 (Initial commit)

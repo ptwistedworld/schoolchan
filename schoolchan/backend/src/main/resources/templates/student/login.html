@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title th:text="${pageTitle}">Student sign in</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<main>
+    <h1>Student sign in</h1>
+    <p class="hint">Use your student ID number and password. Staff members use the
+        <a th:href="@{/staff/login}">staff sign in</a>.</p>
+    <p class="notice error" th:if="${error}" th:text="${error}" role="alert"></p>
+    <form class="composer" th:action="@{/student/login}" method="post">
+        <!-- The CSRF field is added automatically for a th:action form. -->
+        <input type="hidden" name="next" th:value="${next}"/>
+        <label>Student ID number
+            <input type="text" name="studentId" required autocomplete="username" placeholder="2024-12345"
+                   th:value="${formStudentId}"/>
+        </label>
+        <label>Password
+            <input type="password" name="password" required autocomplete="current-password"/>
+        </label>
+        <button type="submit">Sign in</button>
+    </form>
+    <p class="hint">New here? Ask a member of staff to provision your account, or
+        <a th:href="@{/student/enroll}">ask staff to onboard your student ID</a>.
+        Forgotten your password? <a th:href="@{/student/reset}">Use a reset code</a>.</p>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

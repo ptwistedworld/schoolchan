@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>About — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<div th:replace="~{fragments/chrome :: studentribbon}"></div>
+<main>
+    <h1>About SchoolChan</h1>
+
+    <p class="hint">An anonymous, account-free message board for St. Joseph's Academy of
+        Las Piñas Senior High School.</p>
+
+    <h2>What it is</h2>
+    <p>
+        SchoolChan is a plain bulletin board: you pick a board, you start a thread, you
+        reply. There are no public profiles, no follower counts, and no likes that turn
+        into a score. Every post is signed <strong>Anonymous</strong>.
+    </p>
+    <p>
+        Threads are never deleted. When a thread gets pushed off the front of a board it
+        moves to the <a th:href="@{/boards/general/archive}">archive</a>, where it stays
+        readable forever. Quiet threads are not punished.
+    </p>
+
+    <h2>How posting works</h2>
+    <ul>
+        <li><strong>Greentext</strong> — start a line with <code>&gt;</code> and it turns green, like other boards.</li>
+        <li><strong>Quotes</strong> — type <code>&gt;&gt;123</code> to link to another post, and hover it to preview.</li>
+        <li><strong>Sage</strong> — tick the box to reply without bumping the thread back to the top.</li>
+        <li><strong>Spoilers</strong> — tag your post so other people can choose to read it.</li>
+        <li><strong>Images</strong> — attach a picture. It is checked before anyone else sees it.</li>
+        <li><strong>Votes and reports</strong> — vote on what is useful, and report what should not be here.</li>
+    </ul>
+
+    <h2>Moderation</h2>
+    <p>
+        Nothing is removed by a machine. Every post is published straight away. A keyword
+        list and a language model look for harassment, hate speech, threats, explicit images
+        and scam links, and a student or a moderator can report a post too. When that
+        happens the post is pointed out to the staff team, where a person reads it and
+        decides whether it stays.
+    </p>
+    <p>
+        Nothing is sent anywhere automatically. If a post reads like a real safety risk, it
+        goes to a restricted staff queue where a person decides what happens. See the
+        <a th:href="@{/rules}">rules</a> for the full description.
+    </p>
+
+    <h2>Your privacy</h2>
+    <p>
+        We store as little as possible. A random cookie identifies your browser so votes
+        and bookmarks work, and only a hash of it is kept. The network address a post came
+        from is encrypted and stored separately, is only ever opened by staff during a real
+        safety investigation, and is deleted automatically after 90 days. It is never shown
+        on the board and never attached to a post.
+    </p>
+    <p>
+        You can read the plain-language version of this on the
+        <a th:href="@{/rules}">rules</a> page.
+    </p>
+
+    <h2>Who is behind it</h2>
+    <p>
+        SchoolChan is a capstone project: a school board that keeps its anonymous, archival
+        feel while adding the moderation and safety tooling a real school would need.
+    </p>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

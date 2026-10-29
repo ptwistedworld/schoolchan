@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title th:text="${pageTitle}">Search</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body th:attr="data-board='search'">
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<div th:replace="~{fragments/chrome :: staffribbon}"></div>
+<div th:replace="~{fragments/chrome :: studentribbon}"></div>
+<main>
+    <h1>Search</h1>
+    <form action="/search" method="get" class="composer">
+        <label>Query <input type="text" name="q" th:value="${q}" placeholder="Search posts and threads"/></label>
+        <label>Board
+            <select name="board">
+                <option value="">All boards</option>
+                <option th:each="b : ${boards}" th:value="${b.slug}" th:text="${b.name}"
+                        th:selected="${b.slug == boardFilter}">Board</option>
+            </select>
+        </label>
+        <label>Posted within
+            <select name="since">
+                <option value="">any time</option>
+                <option value="1" th:selected="${since == '1'}">last day</option>
+                <option value="7" th:selected="${since == '7'}">last week</option>
+                <option value="30" th:selected="${since == '30'}">last month</option>
+            </select>
+        </label>
+        <label class="check">
+            <input type="checkbox" name="withImages" value="true" th:checked="${withImages != null and !withImages.isBlank()}"/> has images
+        </label>
+        <label>Min replies
+            <input type="number" name="minReplies" min="0" th:value="${minReplies}"/>
+        </label>
+        <button type="submit">Search</button>
+    </form>
+    <p class="hint" th:if="${q != null and #strings.length(q) < 2}">Type at least 2 characters.</p>
+    <p class="hint" th:if="${results != null and results.empty and q != null and #strings.length(q) >= 2}">No results.</p>
+    <table class="thread-table" th:if="${results != null and !results.empty}">
+        <thead><tr><th>Board</th><th>Subject</th><th>Replies</th><th>Bumped</th></tr></thead>
+        <tbody>
+        <tr th:each="r : ${results}">
+            <td th:text="${r.boardName}">board</td>
+            <td><a th:href="@{/boards/{slug}/threads/{id}(slug=${r.boardSlug}, id=${r.thread.id})}" th:text="${r.thread.subject} ?: '(no subject)'">Thread</a></td>
+            <td th:text="${r.thread.replyCount}">0</td>
+            <td><span class="time" th:attr="data-time=${r.thread.bumpedAt.toEpochMilli()}" th:text="${#temporals.format(r.thread.bumpedAt, 'MMM d, HH:mm')}" th:title="${#temporals.format(r.thread.bumpedAt, 'MMM d, yyyy HH:mm')}">time</span></td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

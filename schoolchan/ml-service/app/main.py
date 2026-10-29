@@ -28,6 +28,13 @@ class TextClassifyRequest(BaseModel):
     text: str = Field(..., min_length=1, max_length=10000)
 
 
+<<<<<<< HEAD
+=======
+class TextClassifyBatchRequest(BaseModel):
+    texts: list[str] = Field(..., min_length=1, max_length=100)
+
+
+>>>>>>> d5851d3 (Initial commit)
 class TextClassifyResponse(BaseModel):
     toxicity: float
     hate: float
@@ -105,6 +112,14 @@ def text_classify(body: TextClassifyRequest) -> TextClassifyResponse:
     return TextClassifyResponse(**result.as_dict())
 
 
+<<<<<<< HEAD
+=======
+@app.post("/v1/text/classify/batch", response_model=list[TextClassifyResponse])
+def text_classify_batch(body: TextClassifyBatchRequest) -> list[TextClassifyResponse]:
+    return [TextClassifyResponse(**classify_text(t).as_dict()) for t in body.texts]
+
+
+>>>>>>> d5851d3 (Initial commit)
 @app.post("/v1/image/classify", response_model=ImageClassifyResponse)
 async def image_classify(
     file: Annotated[UploadFile, File(...)],

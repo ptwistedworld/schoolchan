@@ -15,4 +15,10 @@ public interface PosterMetadataRepository extends JpaRepository<PosterMetadata, 
     @Modifying
     @Query("DELETE FROM PosterMetadata p WHERE p.createdAt < :cutoff")
     int deleteOlderThan(@Param("cutoff") Instant cutoff);
+<<<<<<< HEAD
+=======
+
+    @Query("SELECT COUNT(p) FROM PosterMetadata p WHERE p.createdAt < :cutoff")
+    long countOlderThan(@Param("cutoff") Instant cutoff);
+>>>>>>> d5851d3 (Initial commit)
 }

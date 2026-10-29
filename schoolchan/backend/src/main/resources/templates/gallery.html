@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Gallery — SchoolChan</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: bar}"></header>
+<div th:replace="~{fragments/chrome :: studentribbon}"></div>
+<main>
+    <p class="hint">
+        <a th:href="@{/boards/{slug}/threads/{tid}(slug=${board.slug}, tid=${threadId})}">← back to the thread</a>
+    </p>
+    <h1>Gallery</h1>
+    <p class="hint" th:if="${#lists.isEmpty(media)}">This thread has no images.</p>
+    <div class="gallery">
+        <a th:each="m : ${media}" th:href="@{/media/{name}(name=${m.storedName})}" target="_blank">
+            <img th:src="@{/media/{name}(name=${m.storedName})}" alt="attachment" loading="lazy"
+                 th:attr="width=${m.width}, height=${m.height}"/>
+        </a>
+    </div>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

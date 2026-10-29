@@ -56,6 +56,31 @@ public class Post {
     @Column(nullable = false)
     private boolean sage;
 
+<<<<<<< HEAD
+=======
+    /**
+     * True when the author removed their own post, so the tombstone can say
+     * "deleted by the person who wrote it" instead of "removed by moderation".
+     */
+    @Column(name = "deleted_by_author", nullable = false)
+    private Boolean deletedByAuthor = Boolean.FALSE;
+
+    /**
+     * True when the post has been flagged for a person to look at. The post is
+     * still published: the board never removes anything on its own.
+     */
+    @Column(name = "flagged")
+    private Boolean flagged;
+
+    /** Why it was flagged, and who flagged it. */
+    @Column(name = "flag_reason", length = 500)
+    private String flagReason;
+
+    /** "filter", "student", "moderator" or "escalation". */
+    @Column(name = "flag_source", length = 32)
+    private String flagSource;
+
+>>>>>>> d5851d3 (Initial commit)
     @Column(name = "created_at", nullable = false)
     private Instant createdAt = Instant.now();
 
@@ -87,6 +112,31 @@ public class Post {
     public void setScore(int score) { this.score = score; }
     public boolean isSage() { return sage; }
     public void setSage(boolean sage) { this.sage = sage; }
+<<<<<<< HEAD
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
+=======
+    public boolean isDeletedByAuthor() { return Boolean.TRUE.equals(deletedByAuthor); }
+    public void setDeletedByAuthor(boolean deletedByAuthor) { this.deletedByAuthor = deletedByAuthor; }
+    public boolean isFlagged() { return Boolean.TRUE.equals(flagged); }
+    public void setFlagged(boolean flagged) { this.flagged = flagged; }
+    public String getFlagReason() { return flagReason; }
+    public void setFlagReason(String flagReason) { this.flagReason = flagReason; }
+    public String getFlagSource() { return flagSource; }
+    public void setFlagSource(String flagSource) { this.flagSource = flagSource; }
+    public Instant getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
+
+    /** True when a machine translation exists that differs from the original text. */
+    @jakarta.persistence.Transient
+    public boolean isTranslated() {
+        if (translatedText == null || translatedText.isBlank()) {
+            return false;
+        }
+        if (detectedLanguage == null || detectedLanguage.isBlank() || "en".equalsIgnoreCase(detectedLanguage)) {
+            return false;
+        }
+        return !translatedText.equals(originalText);
+    }
+>>>>>>> d5851d3 (Initial commit)
 }

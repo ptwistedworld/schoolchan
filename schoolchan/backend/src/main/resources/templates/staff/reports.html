@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Reports — SchoolChan staff</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Community reports</h1>
+    <p class="hint" th:if="${#lists.isEmpty(reports)}">No open reports.</p>
+    <article th:each="r : ${reports}" class="post">
+        <header>
+            <span th:text="${r.reason}">REASON</span>
+            <span th:text="${#temporals.format(r.createdAt, 'MMM d, HH:mm')}">time</span>
+            <span class="hint" th:text="'status: ' + ${r.status}">status</span>
+        </header>
+        <pre th:if="${posts.get(r.postId) != null}" th:text="${posts.get(r.postId).originalText}"></pre>
+        <p class="hint" th:if="${r.note != null and !r.note.isBlank()}" th:text="'Note: ' + ${r.note}"></p>
+        <div class="actions">
+            <form th:action="@{/staff/reports/{id}/confirm(id=${r.id})}" method="post" class="inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit">Confirm violation</button>
+            </form>
+            <form th:action="@{/staff/reports/{id}/reject(id=${r.id})}" method="post" class="inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="linkish">Reject report</button>
+            </form>
+            <form th:if="${posts.get(r.postId) != null}" th:action="@{/staff/posts/{id}/block(id=${r.postId})}" method="post" class="inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="linkish">Block post</button>
+            </form>
+        </div>
+    </article>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

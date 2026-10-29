@@ -25,6 +25,10 @@ public class ModerationPipeline {
     private final EscalationRepository escalationRepository;
     private final ReputationService reputationService;
     private final SchoolChanProperties properties;
+<<<<<<< HEAD
+=======
+    private final ModerationPolicy policy;
+>>>>>>> d5851d3 (Initial commit)
     private final ObjectMapper objectMapper;
 
     public ModerationPipeline(
@@ -34,6 +38,10 @@ public class ModerationPipeline {
             EscalationRepository escalationRepository,
             ReputationService reputationService,
             SchoolChanProperties properties,
+<<<<<<< HEAD
+=======
+            ModerationPolicy policy,
+>>>>>>> d5851d3 (Initial commit)
             ObjectMapper objectMapper) {
         this.stages = stages;
         this.decisionEngine = decisionEngine;
@@ -41,6 +49,10 @@ public class ModerationPipeline {
         this.escalationRepository = escalationRepository;
         this.reputationService = reputationService;
         this.properties = properties;
+<<<<<<< HEAD
+=======
+        this.policy = policy;
+>>>>>>> d5851d3 (Initial commit)
         this.objectMapper = objectMapper;
     }
 
@@ -71,13 +83,59 @@ public class ModerationPipeline {
         }
 
         return switch (decision) {
+<<<<<<< HEAD
             case BLOCK -> PostStatus.BLOCKED;
             case QUEUE_FOR_REVIEW -> PostStatus.HELD_FOR_REVIEW;
             case ESCALATE -> PostStatus.HELD_FOR_REVIEW;
+=======
+            // A machine never removes anything. The post stays up and is
+            // flagged so a person can look at it.
+            case BLOCK -> {
+                post.setStatus(PostStatus.PUBLISHED);
+                post.setFlagged(true);
+                post.setFlagSource("filter");
+                post.setFlagReason(flagReason(results));
+                yield PostStatus.PUBLISHED;
+            }
+            case QUEUE_FOR_REVIEW -> {
+                post.setStatus(PostStatus.PUBLISHED);
+                post.setFlagged(true);
+                post.setFlagSource("filter");
+                post.setFlagReason(flagReason(results));
+                yield PostStatus.PUBLISHED;
+            }
+            case ESCALATE -> {
+                boolean hide = policy.hideEscalations();
+                post.setStatus(hide ? PostStatus.HELD_FOR_REVIEW : PostStatus.PUBLISHED);
+                post.setFlagged(true);
+                post.setFlagSource("escalation");
+                post.setFlagReason(flagReason(results));
+                yield post.getStatus();
+            }
+>>>>>>> d5851d3 (Initial commit)
             case PUBLISH -> PostStatus.PUBLISHED;
         };
     }
 
+<<<<<<< HEAD
+=======
+    /** A short, plain summary of why a post was flagged, for staff. */
+    private String flagReason(List<StageResult> results) {
+        List<String> reasons = new ArrayList<>();
+        for (StageResult r : results) {
+            for (String reason : r.getReasons()) {
+                if (!reasons.contains(reason)) {
+                    reasons.add(reason);
+                }
+            }
+        }
+        if (reasons.isEmpty()) {
+            return "scored above the review threshold";
+        }
+        return String.join("; ", reasons);
+    }
+
+>>>>>>> d5851d3 (Initial commit)
     private List<ModerationStage> selectStages() {
         if (properties.getModeration().isBaselineOnly()) {
             return stages.stream()

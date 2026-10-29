@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="manifest" href="/manifest.webmanifest"/>
+    <link rel="icon" type="image/svg+xml" th:href="@{/img/favicon.svg}"/>
+    <title>Threads — SchoolChan staff</title>
+    <link rel="stylesheet" th:href="@{/css/board.css}"/>
+    <script th:src="@{/js/board.js}" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/chrome :: staffbar}"></header>
+<main>
+    <h1>Threads</h1>
+    <p class="hint">Pin a thread to keep it at the top of the board. Lock it to stop new replies.</p>
+    <table class="thread-table">
+        <thead>
+        <tr><th>Subject</th><th>Board</th><th>Status</th><th>Replies</th><th>Pinned</th><th>Locked</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${rows}">
+            <td>
+                <a th:href="@{/boards/{slug}/threads/{id}(slug=${r.boardSlug}, id=${r.thread.id})}"
+                   th:text="${r.thread.subject} ?: '(no subject)'">subject</a>
+            </td>
+            <td th:text="${r.boardName}">board</td>
+            <td th:text="${r.thread.status}">status</td>
+            <td th:text="${r.thread.replyCount}">0</td>
+            <td th:text="${r.thread.pinned} ? 'yes' : 'no'">no</td>
+            <td th:text="${r.thread.locked} ? 'yes' : 'no'">no</td>
+            <td class="actions">
+                <form th:action="@{/staff/threads/{id}/pin(id=${r.thread.id})}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button type="submit" class="linkish" th:text="${r.thread.pinned} ? 'Unpin' : 'Pin'">Pin</button>
+                </form>
+                <form th:action="@{/staff/threads/{id}/lock(id=${r.thread.id})}" method="post" class="inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button type="submit" class="linkish" th:text="${r.thread.locked} ? 'Unlock' : 'Lock'">Lock</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer th:replace="~{fragments/chrome :: foot}"></footer>
+</body>
+</html>

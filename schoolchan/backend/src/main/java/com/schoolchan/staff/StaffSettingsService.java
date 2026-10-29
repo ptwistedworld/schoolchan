@@ -56,6 +56,39 @@ public class StaffSettingsService {
     }
 
     @Transactional
+<<<<<<< HEAD
+=======
+    public void setRehearsalMode(boolean on) {
+        SiteSetting setting = siteSettingRepository.findById("escalation_rehearsal").orElseGet(SiteSetting::new);
+        setting.setKey("escalation_rehearsal");
+        setting.setValue(on ? "true" : "false");
+        siteSettingRepository.save(setting);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean rehearsalMode() {
+        return siteSettingRepository.findById("escalation_rehearsal")
+                .map(s -> "true".equalsIgnoreCase(s.getValue()))
+                .orElse(false);
+    }
+
+    @Transactional
+    public void setLivePollEnabled(boolean on) {
+        SiteSetting setting = siteSettingRepository.findById("live_poll_enabled").orElseGet(SiteSetting::new);
+        setting.setKey("live_poll_enabled");
+        setting.setValue(on ? "true" : "false");
+        siteSettingRepository.save(setting);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean livePollEnabled() {
+        return siteSettingRepository.findById("live_poll_enabled")
+                .map(s -> "true".equalsIgnoreCase(s.getValue()))
+                .orElse(true);
+    }
+
+    @Transactional
+>>>>>>> d5851d3 (Initial commit)
     public void saveRules(String body) {
         int next = rulesVersionRepository.findTopByOrderByVersionDesc().map(r -> r.getVersion() + 1).orElse(1);
         RulesVersion version = new RulesVersion();
